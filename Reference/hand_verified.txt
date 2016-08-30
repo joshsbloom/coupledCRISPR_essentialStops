@@ -1,0 +1,10 @@
+ATGTGGTCGAACGTTCAG:1 - CAB4, ~450 from the end, gRNA matches. Dead. ATGTGGTCGAACGTTCAG
+CCCGACTTCTTCAATCA:2 - CWC25, ~300 from the end, gRNA matches. Dead. CCCGACTTCTTCAATCA
+-:3 - YHR069C-A (dubious), but frameshifts TRM5, towards the start. gRNA matches. 42/35 live (ie, no effect). ATGAAAATCGCACTTCAA-
+-:4 - Sequencing didn’t work at all for repair template. Two products for the gRNA.
+GTTCTCCATATCGTCTGTGTGTCA:5 - IFH1, in the middle. gRNA matches. 18/70 live. GTTCTCCATATCGTCTGTGTGTCA
+AGTTCGGACTCCGTATCTCA:6 - NET1/APQ13, ~100 bp from NET1 end. gRNA matches. 1/52 live. AGTTCGGACTCCGTATCTCA
+CCACTATTTCTATTTCCTCA:7 - RAT1, ~100 bp from the end. gRNA matches. 19/30 live. CCACTATTTCTATTTCCTCA
+TCATTCTTATTCAGCTCACCCTCTCA:8 - TIM10, ~150 bp from the end. gRNA matches. Dead. TCATTCTTATTCAGCTCACCCTCTCA
+TATGGTGCTCATGGTTACTC:9 - PRE1. Repair only has the last 21 bp. gRNA (TATGGTGCTCATGGTTACTC) matches, ~250 from the end (oligo 30026). Dead.
+TCAGTACTCGGTCATTTACAA:10 - CCL1, ~150 from the end. gRNA matches. 52/61 live. TCAGTACTCGTCATTTACAA
