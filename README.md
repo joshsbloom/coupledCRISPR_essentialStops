@@ -1,22 +1,20 @@
 ### analysis for the coupled-CRISPR essential stop engineering project
----
+___
 for complete analysis pipeline and pre-processing see [code/](code/)
 
 see [process_bams.R](code/03_process_bams.R) for the main analysis
----
 
-additional experiment data for 08/23/16 hiseq runs are availabe here:
-
+complete experiment data for 08/23/16 hiseq runs are availabe at:
 [082316/](https://drive.google.com/open?id=0ByJ-NQ1MGtWIMXNacU55dGVXWUk)
 
-for tables of counts per oligo
-see [processed/RData/count_tables.RData](https://drive.google.com/open?id=0ByJ-NQ1MGtWIa3RraUhfa1BwQU0)
+___
+for tables of counts per oligo see [processed/RData/count_tables.RData](https://drive.google.com/open?id=0ByJ-NQ1MGtWIa3RraUhfa1BwQU0)
 
-contains 3 data frames
-+all.counts2 (unfiltered total counts)
-+all.counts.perfect (total perfect counts)
-+all.barcode.diversity (total number of unique barcodes per oligo)
-
+contains 3 data frames:
++ all.counts2 (unfiltered total counts)
++ all.counts.perfect (total perfect counts)
++ all.barcode.diversity (total number of unique barcodes per oligo)
+___
 
 for data frame of oligo annotations
 see [processed/RData/oligoAnnotations.RData](https://drive.google.com/open?id=0ByJ-NQ1MGtWIR3pKWk5qeGZBUjg)
@@ -54,5 +52,3 @@ R> str(oligos)
  $ dubious            : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
  $ flagsyn            : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
 ```
-
-
