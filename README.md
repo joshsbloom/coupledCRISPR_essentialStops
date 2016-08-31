@@ -16,7 +16,6 @@ which contains 3 data frames (10791 oligos x 12 conditions/time points ):
 + all.counts.perfect (total perfect counts)
 + all.barcode.diversity (total number of unique barcodes per oligo)
 
-___
 
 for data frame of oligo annotations see [processed/RData/oligoAnnotations.RData](https://drive.google.com/open?id=0ByJ-NQ1MGtWIR3pKWk5qeGZBUjg)
 ```r
