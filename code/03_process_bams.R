@@ -189,19 +189,51 @@ for(i in 1:10971) {
     points(t.var, wt.norm[i,]*1e6, type='l', col='#00000011')  
 }
 
+
+
 # exploration (filter on total counts at t0)
 par(mfrow=c(2,1))
 plot(t.var, wt.norm[1,]*1e6, type='n', ylim=c(0,500),ylab='normalized counts * 1e6', xlab='time', main='not dubious')
-t0count_gt30_notDubious = which(wt.counts.perfect[,1]>30 & !oligos$dubious)
-for(i in t0count_gt30_notDubious) {  
+t0count_gt30_notDubious = (wt.counts.perfect[,1]>30 & !oligos$dubious)
+for(i in which(t0count_gt30_notDubious)) {  
     points(t.var, wt.norm[i,]*1e6, type='l', col='#00000011')  
 }
 
 plot(t.var, wt.norm[1,]*1e6, type='n', ylim=c(0,500),ylab='normalized counts * 1e6', xlab='time', main='dubious')
-t0count_gt30_Dubious = which(wt.counts.perfect[,1]>30 & oligos$dubious)
-for(i in t0count_gt30_Dubious) {  
+t0count_gt30_Dubious = (wt.counts.perfect[,1]>30 & oligos$dubious)
+for(i in which(t0count_gt30_Dubious)) {  
     points(t.var, wt.norm[i,]*1e6, type='l', col='#00000011')  
 }
+
+#binning by distance from stop
+stop_dist_bin=cut(oligos$dist_from_CDS_end/oligos$CDS_length, 10)
+
+#by oligo order
+stop_dist_bin=as.vector(do.call('c', sapply(split(oligos$dist_from_CDS_end, oligos$GENEID), order)))
+
+
+par(mfrow=c(2,10))
+x1=sapply(split(t0count_gt30_notDubious, stop_dist_bin), function(x) names(x)[x==TRUE] ) 
+x2=sapply(split(t0count_gt30_Dubious, stop_dist_bin), function(x) names(x)[x==TRUE] ) 
+for(i in 1:10) {
+    plot(t.var, log10(wt.norm[x1[[i]][1],]*1e6+.5), type='n', ylim=c(0,log10(10000)),ylab='normalized counts * 1e6', xlab='time', main=names(x1)[i])
+        for(j in x1[[i]])  {
+                points(t.var, log10(wt.norm[j,]*1e6+.5), type='l', col='#00000011')  
+        }
+    points(t.var, apply(log10(wt.norm[x1[[i]],]*1e6+.5),2, median), type='l',col='red', lwd=2)
+    points(t.var, apply(log10(wt.norm[x1[[i]],]*1e6+.5),2, mean), type='l',col='blue', lwd=2)
+
+}
+for(i in 1:10) {
+    plot(t.var, log10(wt.norm[x2[[i]][1],]*1e6+.5), type='n', ylim=c(0,log10(10000)),ylab='normalized counts * 1e6', xlab='time', main=names(x1)[i])
+        for(j in x2[[i]])  {
+                points(t.var, log10(wt.norm[j,]*1e6+.5), type='l', col='#00000011')  
+        }
+    points(t.var,apply(log10(wt.norm[x2[[i]],]*1e6+.5),2,median), type='l',col='red', lwd=2)
+    points(t.var, apply(log10(wt.norm[x2[[i]],]*1e6+.5),2, mean), type='l',col='blue', lwd=2)
+
+}
+
 
 
 
@@ -244,3 +276,29 @@ identify(sapply(ygs, mean)[ygs.length>3], sapply(ygs,var)[ygs.length>3],  names(
 c.expt[[12]][oligos$GENEID=='YMR028W']
 c.expt[[12]][oligos$GENEID=='YMR028W']
 #---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+# 1) Stops close to the end that we're confident are really deleterious. Say, at the last amino acid.
+# 
+# 2) Frameshifts vs. stops at end
+# 
+# 3) Separating out the contribution from not-cutting vs. not-deleterious.
+# 
+# 4) Separate out the genes we're confident were less tolerant of stops - are they shorter? Less "evolvable"? Higher expression?
+# 
+# 5) Redo synonymous/dubious control analysis limiting to oligos with good initial representation
+# 
+# 6) (Future) Alanine scans or other scans
+# 
+#Find, for each gene, the "first" oligo that is convincingly strongly depleted. Then see what fraction of oligos further "in"
+#(including that one itself?) than that one are not strongly depleted. This will give some estimate (upper bound) of the fraction of gRNAs that didn't target well.
+
+#Consider the dubious ORF mutations not by their position in the dubious ORF, but by their position in the real overlapping essential gene 
+#(limited to those that actually lie within the coding region of an essential gene, of course). Figure out what their effect is in the essential genes: 
+#synonymous mutations, nonsynonymous mutations, and stop codons (or just consider them all together; that's also fine). Based on what we've seen so far,
+#we expect that the nonsynonymous mutations will have less of a position effect than the stop codons, which would mean that we're really analyzing the
+#effects of introduced mutations, rather than the effects of NHEJ frameshifts.
