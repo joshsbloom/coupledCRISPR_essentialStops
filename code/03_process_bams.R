@@ -279,9 +279,6 @@ c.expt[[12]][oligos$GENEID=='YMR028W']
 
 
 
-
-
-
 # 1) Stops close to the end that we're confident are really deleterious. Say, at the last amino acid.
 # 
 # 2) Frameshifts vs. stops at end
@@ -302,3 +299,10 @@ c.expt[[12]][oligos$GENEID=='YMR028W']
 #synonymous mutations, nonsynonymous mutations, and stop codons (or just consider them all together; that's also fine). Based on what we've seen so far,
 #we expect that the nonsynonymous mutations will have less of a position effect than the stop codons, which would mean that we're really analyzing the
 #effects of introduced mutations, rather than the effects of NHEJ frameshifts.
+
+#What we talked about this morning: when predicting whether an oligo is lethal, do we predict better by taking the distance in bp from the end of the gene, or the 
+#distance in percent of gene length? If we add conservation information, does that improve the prediction? Expression? Domain info? Basically, can we come up with
+#rules to help (even a little bit) human geneticists tell whether a de novo stop they observe in a patient is actually killing the protein function?
+
+#Just now, for the eQTLs: for overlapping ORFs that both pass the eQTL expression filters, when you have a local eQTL for one ORF, does its overlapping ORF
+#usually change its expression in the same direction, the opposite direction, or is there no relation?
