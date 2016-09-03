@@ -160,8 +160,9 @@ all.barcode.diversity= sapply(c.expt, function(x) sapply(x, function(y) {
                                                             }} ))
 count.list=list(all.counts2=all.counts2, all.counts.perfect=all.counts.perfect, all.barcode.diversity=all.barcode.diversity)
 save(count.list, file = paste0(out.base.dir, 'processed/RData/count_tables.RData'))
-
+load( paste0(out.base.dir, 'processed/RData/count_tables.RData'))
 #Exploratory analysis 
+attach(count.list)
 
 # t-tests (differences in counts per time point given likely synonymous or dubious status)
 t.test.flagsyn.all=apply(log2(all.counts2+.5), 2, function(x) t.test(x~oligos$flagsyn))
@@ -171,38 +172,65 @@ t.test.dubious.all=apply(log2(all.counts2+.5), 2, function(x) t.test(x~oligos$du
 t.test.dubious.perfect=apply(log2(all.counts.perfect+.5), 2, function(x) t.test(x~oligos$dubious))
 
 # extract all perfect counts from WT experiment (excluding 
+nmd.counts.perfect=all.counts.perfect[,c(1,2,3,4,6)]
+nmd.norm=t(t(nmd.counts.perfect)/colSums(nmd.counts.perfect))
+
 wt.counts.perfect=all.counts.perfect[,c(7:10,12)]
 wt.norm=t(t(wt.counts.perfect)/colSums(wt.counts.perfect))
 
-par(mfrow=c(5,1))
-plot(oligos$dist_from_CDS_end, wt.norm[,'WT_0'], ylim=c(0, 0.006))
-plot(oligos$dist_from_CDS_end, wt.norm[,'WT_24'], ylim=c(0, 0.006))
-plot(oligos$dist_from_CDS_end, wt.norm[,'WT_48'], ylim=c(0, 0.006))
-plot(oligos$dist_from_CDS_end, wt.norm[,'WT_72'], ylim=c(0, 0.006))
-plot(oligos$dist_from_CDS_end, wt.norm[,'WT_96'], ylim=c(0, 0.006))
+#par(mfrow=c(5,1))
+#plot(oligos$dist_from_CDS_end, wt.norm[,'WT_0'], ylim=c(0, 0.006))
+#plot(oligos$dist_from_CDS_end, wt.norm[,'WT_24'], ylim=c(0, 0.006))
+#plot(oligos$dist_from_CDS_end, wt.norm[,'WT_48'], ylim=c(0, 0.006))
+#plot(oligos$dist_from_CDS_end, wt.norm[,'WT_72'], ylim=c(0, 0.006))
+#plot(oligos$dist_from_CDS_end, wt.norm[,'WT_96'], ylim=c(0, 0.006))
 
 #identify(oligos$dist_from_CDS_end, wt.norm[,'WT_96'], oligos$GENEID)
-
-t.var=c(0,24,48,72,96)
-plot(t.var, wt.norm[1,]*1e6, type='n', ylim=c(0,400),ylab='normalized counts * 1e6')
-for(i in 1:10971) {  
-    points(t.var, wt.norm[i,]*1e6, type='l', col='#00000011')  
-}
-
-
-
+#t.var=c(0,24,48,72,96)
+#plot(t.var, wt.norm[1,]*1e6, type='n', ylim=c(0,400),ylab='normalized counts * 1e6')
+#for(i in 1:10971) {  
+#    points(t.var, wt.norm[i,]*1e6, type='l', col='#00000011')  
+#}
 # exploration (filter on total counts at t0)
-par(mfrow=c(2,1))
-plot(t.var, wt.norm[1,]*1e6, type='n', ylim=c(0,500),ylab='normalized counts * 1e6', xlab='time', main='not dubious')
-t0count_gt30_notDubious = (wt.counts.perfect[,1]>30 & !oligos$dubious)
-for(i in which(t0count_gt30_notDubious)) {  
-    points(t.var, wt.norm[i,]*1e6, type='l', col='#00000011')  
-}
+#par(mfrow=c(2,1))
+#plot(t.var, wt.norm[1,]*1e6, type='n', ylim=c(0,500),ylab='normalized counts * 1e6', xlab='time', main='not dubious')
+#for(i in which(t0count_gt30_notDubious)) {  
+#    points(t.var, wt.norm[i,]*1e6, type='l', col='#00000011')  
+#}
 
-plot(t.var, wt.norm[1,]*1e6, type='n', ylim=c(0,500),ylab='normalized counts * 1e6', xlab='time', main='dubious')
-t0count_gt30_Dubious = (wt.counts.perfect[,1]>30 & oligos$dubious)
-for(i in which(t0count_gt30_Dubious)) {  
-    points(t.var, wt.norm[i,]*1e6, type='l', col='#00000011')  
+#plot(t.var, wt.norm[1,]*1e6, type='n', ylim=c(0,500),ylab='normalized counts * 1e6', xlab='time', main='dubious')
+#for(i in which(t0count_gt30_Dubious)) {  
+#    points(t.var, wt.norm[i,]*1e6, type='l', col='#00000011')  
+#}
+
+
+explore_plot = function(counts, counts.norm, oligo.flag, stop_dist_bin, min.count.t0=30) {
+
+    t0count_gt30_notDubious = counts[,1]>min.count.t0 & !oligo.flag
+    t0count_gt30_Dubious = counts[,1]>min.count.t0 & oligo.flag
+
+    par(mfrow=c(2,10))
+    x1=sapply(split(t0count_gt30_notDubious, stop_dist_bin), function(x) names(x)[x==TRUE] ) 
+    x2=sapply(split(t0count_gt30_Dubious, stop_dist_bin), function(x) names(x)[x==TRUE] ) 
+    for(i in 1:10) {
+        plot(t.var, log10(counts.norm[x1[[i]][1],]*1e6+.5), type='n', ylim=c(0,log10(10000)),ylab='normalized counts * 1e6', xlab='time', main=names(x1)[i])
+            for(j in x1[[i]])  {
+                    points(t.var, log10(counts.norm[j,]*1e6+.5), type='l', col='#00000011')  
+            }
+        points(t.var, apply(log10(counts.norm[x1[[i]],]*1e6+.5),2, median), type='l',col='red', lwd=2)
+        points(t.var, apply(log10(counts.norm[x1[[i]],]*1e6+.5),2, mean), type='l',col='blue', lwd=2)
+
+    }
+    for(i in 1:10) {
+        plot(t.var, log10(counts.norm[x2[[i]][1],]*1e6+.5), type='n', ylim=c(0,log10(10000)),ylab='normalized counts * 1e6', xlab='time', main=names(x1)[i])
+            for(j in x2[[i]])  {
+                    points(t.var, log10(counts.norm[j,]*1e6+.5), type='l', col='#00000011')  
+            }
+        points(t.var,apply(log10(counts.norm[x2[[i]],]*1e6+.5),2,median), type='l',col='red', lwd=2)
+        points(t.var, apply(log10(counts.norm[x2[[i]],]*1e6+.5),2, mean), type='l',col='blue', lwd=2)
+
+    }
+
 }
 
 #binning by distance from stop
@@ -211,28 +239,40 @@ stop_dist_bin=cut(oligos$dist_from_CDS_end/oligos$CDS_length, 10)
 #by oligo order
 stop_dist_bin=as.vector(do.call('c', sapply(split(oligos$dist_from_CDS_end, oligos$GENEID), order)))
 
+oligo.flag= oligos$dubious
 
-par(mfrow=c(2,10))
-x1=sapply(split(t0count_gt30_notDubious, stop_dist_bin), function(x) names(x)[x==TRUE] ) 
-x2=sapply(split(t0count_gt30_Dubious, stop_dist_bin), function(x) names(x)[x==TRUE] ) 
-for(i in 1:10) {
-    plot(t.var, log10(wt.norm[x1[[i]][1],]*1e6+.5), type='n', ylim=c(0,log10(10000)),ylab='normalized counts * 1e6', xlab='time', main=names(x1)[i])
-        for(j in x1[[i]])  {
-                points(t.var, log10(wt.norm[j,]*1e6+.5), type='l', col='#00000011')  
-        }
-    points(t.var, apply(log10(wt.norm[x1[[i]],]*1e6+.5),2, median), type='l',col='red', lwd=2)
-    points(t.var, apply(log10(wt.norm[x1[[i]],]*1e6+.5),2, mean), type='l',col='blue', lwd=2)
+x11()
+explore_plot(wt.counts.perfect,  wt.norm, oligos$dubious, stop_dist_bin)
+explore_plot(nmd.counts.perfect, nmd.norm, oligos$dubious, stop_dist_bin)
 
-}
-for(i in 1:10) {
-    plot(t.var, log10(wt.norm[x2[[i]][1],]*1e6+.5), type='n', ylim=c(0,log10(10000)),ylab='normalized counts * 1e6', xlab='time', main=names(x1)[i])
-        for(j in x2[[i]])  {
-                points(t.var, log10(wt.norm[j,]*1e6+.5), type='l', col='#00000011')  
-        }
-    points(t.var,apply(log10(wt.norm[x2[[i]],]*1e6+.5),2,median), type='l',col='red', lwd=2)
-    points(t.var, apply(log10(wt.norm[x2[[i]],]*1e6+.5),2, mean), type='l',col='blue', lwd=2)
 
-}
+dfilt=which(wt.counts.perfect[,1]>50 & nmd.counts.perfect[,1]>50)
+wt.tcor= cor(t.var, t(wt.norm[dfilt,]))
+nmd.tcor= cor(t.var, t(nmd.norm[dfilt,]))
+plot(wt.tcor, nmd.tcor)
+
+which(c(wt.counts.perfect[,1]>50 & nmd.counts.perfect[,1]>50)[ (nmd.tcor> (.5) & wt.tcor>.5) ])
+
+oligos[dfilt,][(nmd.tcor> (.5) & wt.tcor>.5) , ]
+
+
+# first step cloning miseq run
+load('/media/jbloom/d1/coupled_CRISPR/Experiments/FirstStepCloning_MiSeq/265.bamList.RData')
+
+# annotation run sequences that are not perfect match
+c1f1=sapply(bamList, function(x) sum(x$cigar!='156M')/nrow(x) )
+# annotation run with errors near targetting sequence
+c1f2=sapply(bamList, function(y) { sum(as.numeric(sapply(strsplit(y$cigar, 'M|S|D|I'), function(x) x[1]))<60)/nrow(y) })
+# total 
+c1f3=sapply(bamList, function(y) { sum(as.numeric(sapply(strsplit(y$cigar, 'M|S|D|I'), length)>3))/nrow(y) } )
+
+
+# increasing counts correlated with gRNA erros
+cor.test(wt.tcor[1,], c1f2[dfilt])
+cor.test(nmd.tcor[1,], c1f2[dfilt])
+
+cor.test(wt.tcor[1,], c1f3[dfilt])
+cor.test(nmd.tcor[1,], c1f3[dfilt])
 
 
 
