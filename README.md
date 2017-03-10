@@ -2,7 +2,7 @@
 
 for complete analysis pipeline and pre-processing see [code/](code/)
 
-see [process_bams.R](code/04_core_analysis.R) for the main analysis
+see [04_core_analysis.R](code/04_core_analysis.R) for the main analysis
 
 complete experiment data for 08/23/16 hiseq runs is availabe at:
 [082316/](https://drive.google.com/open?id=0ByJ-NQ1MGtWIMXNacU55dGVXWUk)
