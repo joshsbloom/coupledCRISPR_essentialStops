@@ -124,7 +124,7 @@ expt=readRDS(file=paste0(out.base.dir, 'processed/RData/expt.RDS'))
 
 # Now combine experiments back together ------------------------------------------------------------------------------------------------------------------------------
 
-c.expt=list()
+c.expt =list()
 for(i in 1:length(swws)) {
     print(i)
     c.expt[[names(swws)[i]]]=mapply('rbind', swws[[i]], wssw[[i]], SIMPLIFY=FALSE)
