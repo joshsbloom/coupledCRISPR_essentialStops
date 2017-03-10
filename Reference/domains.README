@@ -1,0 +1,62 @@
+This directory contains the following:
+
+1) a file called domains.tab that contains the results of a InterProScan using each
+Saccharomyces cerevisiae protein sequence to query for domains/motifs
+from several databases.
+2) a directory called 'archive' that contains previous versions of the
+domains.tab file.
+
+InterProScan results may be viewed by clicking on the Motifs/Domains
+link in the Additional Information section of a locus page or by
+selecting the Motifs/Domains option from
+the Protein Info pull down menu of a locus page. 
+
+More information on InterPro is available at:
+http://www.ebi.ac.uk/interpro
+===============
+domains.tab
+==============
+This data is updated periodically. Please see the Last Modified date on the Web display to find the date on which the file was created.
+
+Sample line from the domains.tab is shown below-
+
+=================
+
+YAL001C	E16ACB7893ED5365	1161	HMMPfam	PF04182.2	B-block binding subunit of TFIIIC	8	411	0	T	03-Aug-2005	IPR007309	B-block binding subunit of TFIIIC	Molecular Function: DNA binding (GO:0003677), Molecular Function: transcription factor activity (GO:0003700), Biological Process: regulation of transcription (GO:0045449)
+=================
+
+The columns of this tab_delimited file contain the following
+information:
+
+1) S. cerevisiae systematic name NF00181542:             is the id of the input sequence.
+2) is the crc64 (checksum) of the proteic sequence (supposed to be
+unique).	       
+3) is the length of the sequence (in AA)
+4) is the anaysis method launched.      
+5) is the database members entry for this match.
+6) is the database member description for the entry.
+7) is the start of the domain match.
+8) is the end of the domain match.
+9) is the evalue of the match (reported by member database anayling method).
+10)is the status of the match (T: true, ?: unknown).
+11)is the date of the run.
+12)is the corresponding InterPro entry (if iprlookup requested by the user)
+13)is the description of the InterPro entry.
+14)is the GO (gene ontology) description for the InterPro entry.
+
+	
+
+Please note that only those domains that are a True hit (reflected in
+column 10 of this file) and have an E-value less than or equal to 1
+are displayed on the Web pages of SGD, while all the data are provided
+in this file.
+
+=====================================================================
+
+archive/
+This directory contains the previous versions of the domains.tab file.
+
+======================================================================
+
+If you have any questions, please contact:
+sgd-helpdesk@lists.stanford.edu

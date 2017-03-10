@@ -5,9 +5,19 @@ library(stringdist)
 library(mgcv)
 library(bio3d)
 library(msm)
+library(Biostrings)
+library(seqinr)
+library(yeastExpData)
+library(gdata)
+library("BSgenome.Scerevisiae.UCSC.sacCer3")
+sacCer3=BSgenome.Scerevisiae.UCSC.sacCer3
+library("TxDb.Scerevisiae.UCSC.sacCer3.sgdGene")
+txdb=TxDb.Scerevisiae.UCSC.sacCer3.sgdGene
+library(VariantAnnotation)
 library(foreach)
 library(doMC)
 registerDoMC(cores=30)
+library(data.table)
 
 t.var=c(0,24,48,72,96)
 out.base.dir='/media/jbloom/d1/coupled_CRISPR/Experiments/082316/'
@@ -19,6 +29,7 @@ readID=unique(gsub('_R.*.fq.gz', '', readID))[1:12]
 # output here 
 dir.create(paste(out.base.dir, 'processed/RData/', sep=''))
 
+#split out functions necessary from pre-processing (03_ vs 04_) 
 source('/media/jbloom/d1/coupled_CRISPR/code/accessory_functions.R')
 
 ## Extract all relevant information from BAM files and restructure as R Data files ---------------------------------
@@ -146,6 +157,7 @@ barcode.grouping=mclapply(1:nrow(oligos),function(i){
       #  barcode.grouping[[i]]=
             return(data.frame(barcode=ubc$values[1], barcode.count=ubc$lengths[1], bgroup=1, stringsAsFactors=F))
     } else {
+        #investigate using stringdist here Frank Albert 12/15/16
         hc= hclust(as.dist(adist(ubc$values)))
        
         b.groups=cutree(hc, h=3)
@@ -239,6 +251,7 @@ for(i in 1:nrow(oligos)) {
         ams=sapply(asb.max.seq, function(x) x[1])
         names(ams)=as.vector(sapply(asb.max.seq, names))
         
+        # this grabs all info for most common barcode 
         best.seq=do.call('rbind', lapply(1:length(ams), function(k) {
             kout=asb.split[[k]][match(names(ams)[k], asb.split[[k]]$seqs),]
             kout$max.obs.seq.cnt=as.vector(ams[k])
@@ -265,3 +278,190 @@ for(i in 1:nrow(oligos)) {
 giant.table=do.call('rbind', seq.tables)
 giant.table$oligo=rep(names(seq.tables), sapply(seq.tables, nrow))
 #saveRDS(giant.table,  file = paste0(out.base.dir, 'processed/RData/giant.table.RData'))
+
+seq.tables=readRDS(file = paste0(out.base.dir, 'processed/RData/seq.tables.RData'))
+giant.table=readRDS(file = paste0(out.base.dir, 'processed/RData/giant.table.RData'))
+# this is convenient
+rownames(oligos)=names(seq.tables)
+
+giant.table$start.align=0                    # start.align=start(subject(pas)),
+giant.table$end.align=0                      # end.align=end(subject(pas)),
+giant.table$n.indel=0                        # n.indel=indel.cnt$counts,
+giant.table$n.insertion=0                    # n.insertion=insertion.cnt$counts,
+giant.table$n.mismatch=0                     # n.mismatch=nmismatch(pas),
+giant.table$indel.pos=''                     # indel.pos=indel.pos,
+giant.table$insertion.pos=''                 # insertion.pos=insertion.pos,
+giant.table$mm.pos=''                        # mm.pos=mm.pos, 
+giant.table$pid=0                            # pid=pid(pas),
+giant.table$pam.indel.cnt=0                  # pam.indel.cnt=pam.indel.cnt,
+giant.table$pam.mm.cnt=0                     # pam.mm.cnt= pam.mm.cnt, 
+giant.table$u1.indel.cnt=                    # u1.indel.cnt=u1.indel.cnt, 
+giant.table$u1.mm.cnt=0                      # u1.mm.cnt=u1.mm.cnt, 
+giant.table$u.indel.cnt=0                    # u.indel.cnt=u.indel.cnt, 
+giant.table$u.mm.cnt=0                       # u.mm.cnt=u.mm.cnt, 
+giant.table$d.indel.cnt=0                    # d.indel.cnt=d.indel.cnt, 
+giant.table$d.mm.cnt=0                       # d.mm.cnt=d.mm.cnt, 
+giant.table$d1.indel.cnt=0                   # d1.indel.cnt=d1.indel.cnt, 
+giant.table$d1.mm.cnt=0                      # d1.mm.cnt=d1.mm.cnt,
+giant.table$alignment=''                     # alignment=as.character(apas))
+
+
+#giant.table.perfect=giant.table$cigar=='101M'
+#giant.table.whack =giant.table$cigar!='101M'
+#gt=giant.table[!giant.table.whack,]
+#gtw=giant.table[giant.table.whack,]
+gtwo=split(giant.table, giant.table$oligo)
+
+#o1=names(gtwo)[2]
+window.size=20
+alength=101
+pam.window.ind=c(50:52)
+u.window.ind=c(c((min(pam.window.ind)-1)-window.size) : c(min(pam.window.ind)-1))
+d.window.ind=c( (max(pam.window.ind)+1) : ((max(pam.window.ind)+1)+window.size) )
+u1.window.ind=c(1 : ( min(u.window.ind)-1))
+d1.window.ind=c(c(max(d.window.ind)+1) : alength)
+
+registerDoMC(cores=70)
+#realigned.reads=list()
+#for(o1 in names(gtwo)) {
+
+#o1=names(which.max(sapply(gtwo, nrow)))
+realigned.reads=foreach(o1=names(gtwo)) %dopar% {
+#realigned.reads=list()
+#for(o1 in names(gtwo)) {
+    print(o1)
+    oset=gtwo[[o1]]
+   
+    subject.seq=oligos[o1,]$repair.coding.strand
+    subject.coding.strand=subject.seq==oligos[o1,]$stopPAM_oligos
+        
+    # patternQuality=SolexaQuality(oset$qual)
+    observed.seqs=oset$seqs
+    fobserved.seqs=as.factor(observed.seqs)
+    to.align.seqs=as.character(levels(fobserved.seqs))
+    
+    mat = nucleotideSubstitutionMatrix(match = 1, mismatch = -3, baseOnly = FALSE, type='DNA')
+          
+    if(subject.coding.strand) {
+                  pas=pairwiseAlignment(pattern=DNAStringSet(to.align.seqs), 
+                                        subject=subject.seq,type='local', substitutionMatrix=mat, gapOpening=5, gapExtension=2)
+    } else {
+        pas=pairwiseAlignment(pattern=reverseComplement(DNAStringSet(to.align.seqs)), 
+                              subject=subject.seq, type='local',substitutionMatrix=mat, gapOpening=5, gapExtension=2)
+    }
+    apas=aligned(pas)
+  
+    apas.mat=as.matrix(apas)
+    mismatches=mismatchTable(pas)
+    #msplit=split(mismatches$PatternStart, mismatches$PatternId)
+    msplit=split(mismatches$SubjectStart, mismatches$PatternId)
+    
+    mm.cnt=list()
+    mm.cnt$pos=vector("list", length(pas))
+    names(mm.cnt$pos)=as.character(seq(1:length(pas)))
+    mm.cnt$pos[names(msplit)]=msplit
+    mm.cnt$counts=as.vector(sapply(mm.cnt$pos, length))
+    
+    deletion.intervals=RangedData(deletion(pas))
+
+    subject.start=start(subject(pas))
+    deletion.intervals=RangedData(deletion(pas))
+    deletion.intervals$subject.start=subject.start[as.numeric(deletion.intervals$space)]
+    deletion.intervals$start=start(deletion.intervals)+deletion.intervals$subject.start-1
+    deletion.intervals$end= end(deletion.intervals)+deletion.intervals$subject.start-1
+    sdi=as.character(space(deletion.intervals)) 
+    sds=as.numeric(deletion.intervals$start)
+    eds=as.numeric(deletion.intervals$end)
+
+    insertion.intervals=RangedData(insertion(pas))
+    insertion.intervals$subject.start=subject.start[as.numeric(insertion.intervals$space)]
+    insertion.intervals$start=start(insertion.intervals)+insertion.intervals$subject.start-1
+    insertion.intervals$end= end(insertion.intervals)+insertion.intervals$subject.start-1
+    sii=as.character(space(insertion.intervals)) 
+    sis=as.numeric(insertion.intervals$start)
+    eis=as.numeric(insertion.intervals$end)
+
+
+    #insertion.intervals=RangedData(insertion(pas))
+    
+    indel.cnt=list()
+    indel.cnt$pos=vector("list", length(pas))
+    names(indel.cnt$pos)=as.character(seq(1:length(pas)))
+
+    insertion.cnt=list()
+    insertion.cnt$pos=vector("list", length(pas))
+    names(insertion.cnt$pos)=as.character(seq(1:length(pas)))
+
+    if(nrow(deletion.intervals)>0) {
+        for(i in 1:length(sdi)) {
+            indel.cnt$pos[[sdi[i]]]=c(indel.cnt$pos[[sdi[i]]], c(sds[i]:eds[i]))
+        }
+    }
+
+    if(nrow(insertion.intervals)>0) {
+        for(i in 1:length(sii)) {
+            indel.cnt$pos[[sii[i]]]=c(indel.cnt$pos[[sii[i]]], c(sis[i]:eis[i]))
+        }
+        for(i in 1:length(sii)) {
+            insertion.cnt$pos[[sii[i]]]=c(insertion.cnt$pos[[sii[i]]], c(sis[i]:eis[i]))
+        }
+    }
+    indel.cnt$pos=sapply(indel.cnt$pos, function(x) unique(x))
+    indel.cnt$counts=as.vector(sapply(indel.cnt$pos, length))
+
+    insertion.cnt$pos=sapply(insertion.cnt$pos, function(x) unique(x))
+    insertion.cnt$counts=as.vector(sapply(insertion.cnt$pos, length))
+
+    # this bit is modular and optional --------------------------------------------
+    pam.indel.cnt = sapply(indel.cnt$pos, function(x) sum(x%in%pam.window.ind))
+    pam.mm.cnt    = sapply(mm.cnt$pos,    function(x) sum(x%in%pam.window.ind))
+   
+    u1.indel.cnt = sapply(indel.cnt$pos, function(x) sum(x%in%u1.window.ind))
+    u1.mm.cnt = sapply(mm.cnt$pos,    function(x) sum(x%in%u1.window.ind))
+
+    u.indel.cnt = sapply(indel.cnt$pos, function(x) sum(x%in%u.window.ind))
+    u.mm.cnt = sapply(mm.cnt$pos,    function(x) sum(x%in%u.window.ind))
+
+    d1.indel.cnt = sapply(indel.cnt$pos, function(x) sum(x%in%d1.window.ind))
+    d1.mm.cnt = sapply(mm.cnt$pos,    function(x) sum(x%in%d1.window.ind))
+
+    d.indel.cnt = sapply(indel.cnt$pos, function(x) sum(x%in%d.window.ind))
+    d.mm.cnt = sapply(mm.cnt$pos,    function(x) sum(x%in%d.window.ind))
+    # ------------------------------------------------------------------------------
+
+    mm.pos =sapply(mm.cnt$pos, paste, collapse=':')
+    indel.pos=sapply(indel.cnt$pos, paste, collapse=':') 
+    insertion.pos=sapply(insertion.cnt$pos, paste, collapse=':') 
+
+
+        dftemp=data.frame(
+        start.align=start(subject(pas)),
+        end.align=end(subject(pas)),
+        n.indel=indel.cnt$counts,
+        n.insertion=insertion.cnt$counts,
+        n.mismatch=nmismatch(pas),
+        indel.pos=indel.pos,
+        insertion.pos=insertion.pos,
+        mm.pos=mm.pos, 
+        pid=pid(pas),
+        pam.indel.cnt=pam.indel.cnt,
+        pam.mm.cnt= pam.mm.cnt, 
+        u1.indel.cnt=u1.indel.cnt, 
+        u1.mm.cnt=u1.mm.cnt, 
+        u.indel.cnt=u.indel.cnt, 
+        u.mm.cnt=u.mm.cnt, 
+        d.indel.cnt=d.indel.cnt, 
+        d.mm.cnt=d.mm.cnt, 
+        d1.indel.cnt=d1.indel.cnt, 
+        d1.mm.cnt=d1.mm.cnt,
+        alignment=as.character(apas),
+        stringsAsFactors=F)
+
+    output= dftemp[match(observed.seqs, to.align.seqs),]
+    oset[,grep(colnames(dftemp)[1], colnames(oset)):ncol(oset)]=output
+    return(oset)
+}
+#giant.table=do.call('rbind', realigned.reads)
+giant.table=data.frame(rbindlist(realigned.reads))
+saveRDS(giant.table,  file = paste0(out.base.dir, 'processed/RData/giant.table.aligned2.RData'))
+

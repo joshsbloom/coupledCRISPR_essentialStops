@@ -17,13 +17,16 @@ registerDoMC(cores=n.cores)
 cl <- makeCluster(getOption("cl.cores", n.cores))
 
 #batch='eQTL3' ;
-lane.identifier='082316_Estops_Hiseq' #042916_Estops_Hiseq'
+#lane.identifier='082316_Estops_Hiseq' #042916_Estops_Hiseq'
+# code should work nicely such that running an additional identifier will simply append new sequencing results to existing results
+lane.identifier='090916_Estops_Hiseq'
 
 readformat= 'gz.fastq'
 base.dir='/media/jbloom/d1/coupled_CRISPR/Experiments/082316/'
 out.base.dir = base.dir
 
-sample.sheet.file = paste0(base.dir, 'Reference/2016.08.06_MS_TruSeq_hiseq.csv')
+sample.sheet.file = '/media/jbloom/d1/coupled_CRISPR/Reference/2016.08.06_MS_TruSeq_hiseq.csv'
+
 #q/qmedia/jbloom/d1/coupled_CRISPR/042916_Estops_Hiseq/2016.04.15_MS_tag_v_pcr.csv'
 
 base.dir.qseq=base.dir #(paste(base.dir, 'qseq/', batch, '/', sep=''))

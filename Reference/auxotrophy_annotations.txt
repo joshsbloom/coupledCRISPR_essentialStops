@@ -1,0 +1,711 @@
+!
+!Date: 10/12/2016
+!From: Saccharomyces Genome Database (SGD) 
+!URL: http://www.yeastgenome.org/ 
+!Contact Email: sgd-helpdesk@lists.stanford.edu 
+!Funding: NHGRI at US NIH, grant number 5-U41-HG001315 
+!
+
+Gene	Gene Systematic Name	Phenotype	Experiment Type	Experiment Type Category	Mutant Information	Strain Background	Chemical	Details	Reference
+ABZ1	YNR033W	auxotrophy 	classical genetics	classical genetics	null	Other	4-aminobenzoic acid		Edman JC, et al. (1993) PMID:8346682
+ABZ2	YMR289W	auxotrophy 	systematic mutation set	large-scale survey	null	S288C	folic acid		Botet J, et al. (2007) PMID:17873082
+ABZ2	YMR289W	auxotrophy 	systematic mutation set	large-scale survey	null	S288C	4-aminobenzoic acid		Botet J, et al. (2007) PMID:17873082
+ACF4	YJR083C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ACK1	YDL203C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ACO1	YLR304C	auxotrophy 	classical genetics	classical genetics	null	S288C	glutamic acid		Chen XJ, et al. (2005) PMID:15692048
+ADA2	YDR448W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ADE1	YAR015W	auxotrophy 	classical genetics	classical genetics	null	W303	adenine		Roberts RL, et al. (2003) PMID:12740435
+ADE1	YAR015W	auxotrophy 	classical genetics	classical genetics	null	S288C			Roberts RL, et al. (2003) PMID:12740435
+ADE12	YNL220W	auxotrophy 	classical genetics	classical genetics	null	Other	adenine		Dorfman BZ (1969) PMID:5807803
+ADE12	YNL220W	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: ade12-241 G252B; allele retains ssDNA binding activity, but enzymatic activity is abolished	Other	adenine		Gallert KC, et al. (1996) PMID:8706758
+ADE13	YLR359W	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: ade13-(bra1-1)	Other	adenine		Guetsova ML, et al. (1997) PMID:9335580
+ADE13	YLR359W	auxotrophy 	classical genetics	classical genetics	null	Other	adenine		Dorfman BZ (1969) PMID:5807803
+ADE2	YOR128C	auxotrophy 	classical genetics	classical genetics	null	W303	adenine		Roberts RL, et al. (2003) PMID:12740435
+ADE3	YGR204W	auxotrophy 	homozygous diploid	classical genetics	null Allele: ade3-41 mutation blocks all three enzymatic activities of Ade3p	Other	histidine	Details: mutation also blocks the ability to synthesize serine from glycine + formate 	McKenzie KQ and Jones EW (1977) PMID:328341
+ADE3	YGR204W	auxotrophy 	homozygous diploid	classical genetics	null Allele: ade3-41 mutation blocks all three enzymatic activities of Ade3p	Other	adenine	Details: mutation also blocks the ability to synthesize serine from glycine + formate 	McKenzie KQ and Jones EW (1977) PMID:328341
+ADE4	YMR300C	auxotrophy 	classical genetics	classical genetics	null	S288C	adenine		Roberts RL, et al. (2003) PMID:12740435
+ADE5,7	YGL234W	auxotrophy 	classical genetics	classical genetics	null	W303	adenine		Roberts RL, et al. (2003) PMID:12740435
+ADE5,7	YGL234W	auxotrophy 	classical genetics	classical genetics	null	S288C			Roberts RL, et al. (2003) PMID:12740435
+ADE6	YGR061C	auxotrophy 	classical genetics	classical genetics	null	W303	adenine		Roberts RL, et al. (2003) PMID:12740435
+ADE8	YDR408C	auxotrophy 	classical genetics	classical genetics	null	S288C	adenine		Roberts RL, et al. (2003) PMID:12740435
+ADK1	YDR226W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+AGE2	YIL044C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+AHK1	YDL073W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+AIM46	YHR199C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+AIP1	YMR092C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ALD2	YMR170C	auxotrophy 	classical genetics	classical genetics	null	S288C	beta-alanine		White WH, et al. (2003) PMID:12586697
+ALD2	YMR170C	auxotrophy 	classical genetics	classical genetics	null	S288C	pantothenic acid		White WH, et al. (2003) PMID:12586697
+ALF1	YNL148C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ALG6	YOR002W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ALG8	YOR067C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ALG9	YNL219C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ALT1	YLR089C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+APT1	YML022W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ARD1	YHR013C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ARF1	YDL192W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ARG1	YOL058W	auxotrophy 	classical genetics	classical genetics	null	Sigma1278b	arginine		Crabeel M, et al. (1988) PMID:2897249
+ARG2	YJL071W	auxotrophy 	classical genetics	classical genetics	null	S288C	arginine		Vandenbol M and Portetelle D (1999) PMID:10509023
+ARG3	YJL088W	auxotrophy 	classical genetics	classical genetics	null	Other	arginine		Cheng MY, et al. (1987) PMID:3295876
+ARG4	YHR018C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: arg4-2	Other		Details: cells require arginine for growth on minimal media 	Hsiao CL and Carbon J (1979) PMID:386351
+ARG5,6	YER069W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	arginine		Boonchird C, et al. (1991) PMID:1851947
+ARG7	YMR062C	auxotrophy 	classical genetics	classical genetics	null	Sigma1278b	arginine	Details: leaky phenotype, with some poor growth in the absence of arginine 	Crabeel M, et al. (1997) PMID:9428669
+ARG82	YDR173C	auxotrophy 	classical genetics	classical genetics	unspecified	Sigma1278b	arginine		Bechet J, et al. (1970) PMID:5434281
+ARG82	YDR173C	auxotrophy 	classical genetics	classical genetics	null	Sigma1278b	arginine		Dubois E and Messenguy F (1994) PMID:8043104
+ARG82	YDR173C	auxotrophy 	classical genetics	classical genetics	null	Other	ornithine		Odom AR, et al. (2000) PMID:10720331
+ARG82	YDR173C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ARO1	YDR127W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	aromatic amino acid		Lucchini G, et al. (1978) PMID:361708
+ARO2	YGL148W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	aromatic amino acid		Lucchini G, et al. (1978) PMID:361708
+ARO7	YPR060C	auxotrophy 	classical genetics	classical genetics	null	Other	phenylalanine		Tang Y, et al. (1991) PMID:1924339
+ARR3	YPR201W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ARV1	YLR242C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ASF1	YJL115W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+AST2	YER101C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ATG1	YGL180W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ATO3	YDR384C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+AVO2	YMR068W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BAS1	YKR099W	auxotrophy 	classical genetics	classical genetics	null	Other	adenine		Arndt KT, et al. (1987) PMID:3303332
+BAT1	YHR208W	auxotrophy 	classical genetics	classical genetics	null	S288C	valine	Condition: elevated temperature: 37 deg C 	Kispal G, et al. (1996) PMID:8798704
+BCK1	YJL095W	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+BCK2	YER167W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BIO1	YAR070W-A	auxotrophy 	classical genetics	classical genetics	null	Other	biotin		Hall C and Dietrich FS (2007) PMID:18073433
+BIO2	YGR286C	auxotrophy 	classical genetics	classical genetics	null	W303	biotin		Phalip V, et al. (1999) PMID:10525840
+BIO6	YAR069W-A	auxotrophy 	classical genetics	classical genetics	null		biotin		Wu H, et al. (2005) PMID:16269718
+BIO6	YAR069W-A	auxotrophy 	classical genetics	classical genetics	null	Other			Hall C and Dietrich FS (2007) PMID:18073433
+BMH1	YER177W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BNA1	YJR025C	auxotrophy 	classical genetics	classical genetics	null	W303	nicotinic acid		Panozzo C, et al. (2002) PMID:12062417
+BNA1	YJR025C	auxotrophy 	classical genetics	classical genetics	null	W303			Kucharczyk R, et al. (1998) PMID:9539135
+BNA2	YJR078W	auxotrophy 	classical genetics	classical genetics	null	W303	nicotinic acid		Panozzo C, et al. (2002) PMID:12062417
+BNA4	YBL098W	auxotrophy 	classical genetics	classical genetics	null	W303	nicotinic acid		Panozzo C, et al. (2002) PMID:12062417
+BNA5	YLR231C	auxotrophy 	classical genetics	classical genetics	null	W303	nicotinic acid		Panozzo C, et al. (2002) PMID:12062417
+BNA6	YFR047C	auxotrophy 	classical genetics	classical genetics	null	W303	nicotinic acid		Panozzo C, et al. (2002) PMID:12062417
+BPT1	YLL015W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BRE1	YDL074C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BRE2	YLR015W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BUD16	YEL029C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BUD20	YLR074C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BUD21	YOR078W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BUD22	YMR014W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BUD23	YCR047C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+BUR2	YLR226W	auxotrophy 	classical genetics	classical genetics	unspecified Allele: bur2-1	S288C	myo-inositol		Prelich G and Winston F (1993) PMID:8293972
+BUR2	YLR226W	auxotrophy 	classical genetics	classical genetics	unspecified Allele: bur2-2	S288C			Prelich G and Winston F (1993) PMID:8293972
+CAF4	YKR036C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CAN1	YEL063C	auxotrophy 	classical genetics	classical genetics	unspecified	Sigma1278b	L-arginine		Grenson M, et al. (1966) PMID:5964977
+CBF1	YJR060W	auxotrophy 	classical genetics	classical genetics	null	Other	methionine		Baker RE and Masison DC (1990) PMID:2188087
+CBF1	YJR060W	auxotrophy 	classical genetics	classical genetics	null	Other			Cai M and Davis RW (1990) PMID:2185892
+CBS1	YDL069C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CCR4	YAL021C	auxotrophy 	classical genetics	classical genetics	null	D273-10B	myo-inositol	Details: leaky 	Betz JL, et al. (2002) PMID:12395202
+CCS1	YMR038C	auxotrophy 	classical genetics	classical genetics	null	Other	methionine		Wood LK and Thiele DJ (2009) PMID:18977757
+CDC50	YCR094W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CDC73	YLR418C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CHO1	YER026C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	choline		Atkinson KD, et al. (1980) PMID:6988386
+CHO1	YER026C	auxotrophy 	classical genetics	classical genetics	null	Other	choline		Hikiji T, et al. (1988) PMID:2854123
+CHO2	YGR157W	auxotrophy 	classical genetics	classical genetics	unspecified	X2180-1A	choline		Han GS, et al. (2008) PMID:18458075
+CHS7	YHR142W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CIN2	YPL241C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CIS3	YJL158C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CKS1	YBR135W	auxotrophy 	classical genetics	classical genetics	null	Other	myo-inositol		Yu VP and Reed SI (2004) PMID:15467473
+CLB1	YGR108W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CLN3	YAL040C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CNB1	YKL190W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CNE1	YAL058W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+COG5	YNL051W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+COG6	YNL041C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+COG8	YML071C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+COM2	YER130C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CPA1	YOR303W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	arginine		Lacroute F, et al. (1965) PMID:5856369
+CPA2	YJR109C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: cpa2-deltaC41 truncation of C-terminal 41 amino acids	Other	arginine		Lim AL and Powers-Lee SG (1996) PMID:8626695
+CPS1	YJL172W	auxotrophy 	classical genetics	classical genetics	null	Other	leucine		Spormann DO, et al. (1991) PMID:2026161
+CSF1	YLR087C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CST6	YIL036W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CTR9	YOL145C	auxotrophy 	classical genetics	classical genetics	null	D273-10B	myo-inositol	Details: leaky 	Betz JL, et al. (2002) PMID:12395202
+CUP9	YPL177C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CWC21	YDR482C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+CYS3	YAL012W	auxotrophy 	classical genetics	classical genetics	null	W303	cysteine		Cherest H, et al. (1993) PMID:8366024
+CYS4	YGR155W	auxotrophy 	classical genetics	classical genetics	null	W303	cysteine		Cherest H, et al. (1993) PMID:8366024
+DBF2	YGR092W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DFM1	YDR411C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DFR1	YOR236W	auxotrophy 	classical genetics	classical genetics	null	Other	adenine		Huang T, et al. (1992) PMID:1427091
+DFR1	YOR236W	auxotrophy 	classical genetics	classical genetics	null	Other	dTMP		Huang T, et al. (1992) PMID:1427091
+DFR1	YOR236W	auxotrophy 	classical genetics	classical genetics	null	Other	histidine		Huang T, et al. (1992) PMID:1427091
+DFR1	YOR236W	auxotrophy 	classical genetics	classical genetics	null	Other	methionine		Huang T, et al. (1992) PMID:1427091
+DGR2	YKL121W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DIE2	YGR227W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DIT1	YDR403W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DOA1	YKL213C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DPL1	YDR294C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DRS2	YAL026C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DSK2	YMR276W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DUF1	YOL087C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+DUT1	YBR252W	auxotrophy 	classical genetics	classical genetics	null	Other	dTMP	Details: null is dTMP auxotroph|viable when supplied with exogenous dTM 	Gadsden MH, et al. (1993) PMID:8223452
+ECM30	YLR436C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ECM31	YBR176W	auxotrophy 	classical genetics	classical genetics	null	S288C	pantothenic acid		White WH, et al. (2001) PMID:11154694
+ECM31	YBR176W	auxotrophy 	classical genetics	classical genetics	null	Other	pantothenate		Olzhausen J, et al. (2009) PMID:19266201
+ECM31	YBR176W	auxotrophy 	classical genetics	classical genetics	null	S288C		Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+EDE1	YBL047C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+EFT2	YDR385W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ELF1	YKL160W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ELM1	YKL048C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ELP6	YMR312W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+EMC1	YCL045C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+EMC5	YIL027C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ENV9	YOR246C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+EOS1	YNL080C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ERG1	YGR175C	auxotrophy 	classical genetics	classical genetics	conditional Allele: erg1-2	FL100	ergosterol	Condition: elevated temperature: 33 deg C 	Karst F and Lacroute F (1977) PMID:200835
+ERG10	YPL028W	auxotrophy 	classical genetics	classical genetics	null Allele: erg10-1	FL100	ergosterol		Karst F and Lacroute F (1977) PMID:200835
+ERG11	YHR007C	auxotrophy 	classical genetics	classical genetics	null	Other	ergosterol	Condition: anaerobic conditions Details: Null mutant is viable under anaerobic conditions and requires ergosterol 	Kalb VF, et al. (1987) PMID:3322742
+ERG12	YMR208W	auxotrophy 	classical genetics	classical genetics	null	FL100	ergosterol	Condition: reduced temperature: 22 deg C 	Karst F and Lacroute F (1977) PMID:200835
+ERG13	YML126C	auxotrophy 	classical genetics	classical genetics	unspecified	FL100	ergosterol	Condition: permissive temperature: 26 deg C 	Servouse M, et al. (1984) PMID:6148937
+ERG2	YMR202W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ERG20	YJL167W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	ergosterol		Chambon C, et al. (1990) PMID:2245473
+ERG25	YGR060W	auxotrophy 	classical genetics	classical genetics	null	Other	ergosterol		Bard M, et al. (1996) PMID:8552601
+ERG27	YLR100W	auxotrophy 	classical genetics	classical genetics	null	Other	ergosterol		Gachotte D, et al. (1999) PMID:10535978
+ERG27	YLR100W	auxotrophy 	classical genetics	classical genetics	null	Other	cholesterol		Gachotte D, et al. (1999) PMID:10535978
+ERG3	YLR056W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ERG4	YGL012W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ERG5	YMR015C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ERG6	YML008C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ERG7	YHR072W	auxotrophy 	classical genetics	classical genetics	null	FL100	ergosterol		Karst F and Lacroute F (1977) PMID:200835
+ERG8	YMR220W	auxotrophy 	classical genetics	classical genetics	null	FL100	ergosterol		Karst F and Lacroute F (1977) PMID:200835
+ERG9	YHR190W	auxotrophy 	classical genetics	classical genetics	conditional Allele: erg9-1	FL100	ergosterol		Karst F and Lacroute F (1977) PMID:200835
+ERV14	YGL054C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ESC2	YDR363W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ESS1	YJR017C	auxotrophy 	classical genetics	classical genetics	conditional Allele: ess1-H164R similar results with ess1-A144T	W303	galactose	Condition: permissive temperature: 30 deg C 	Krishnamurthy S, et al. (2009) PMID:19332564
+ESS1	YJR017C	auxotrophy 	classical genetics	classical genetics	conditional Allele: ess1-H164R similar results with ess1-A144T	W303	inositol	Condition: permissive temperature: 30 deg C 	Krishnamurthy S, et al. (2009) PMID:19332564
+ESS1	YJR017C	auxotrophy 	classical genetics	classical genetics	conditional Allele: ess1-H164R similar results with ess1-A144T	W303	phosphate	Condition: permissive temperature: 30 deg C 	Krishnamurthy S, et al. (2009) PMID:19332564
+ETR1	YBR026C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FAB1	YFR019W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FAR11	YNL127W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FAR3	YMR052W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FAR8	YMR029C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FAS1	YKL182W	auxotrophy 	classical genetics	classical genetics	null	X2180-1A		Details: 0.03% myristic acid supports growth 	Tauro P, et al. (1974) PMID:4598796
+FAS1	YKL182W	auxotrophy 	classical genetics	classical genetics	null	Other	fatty acid	Details: 0.03% palmitic acid supports growth 	Schuller HJ, et al. (1992) PMID:1735446
+FAS2	YPL231W	auxotrophy 	classical genetics	classical genetics	null	Other	fatty acid	Details: 0.03% palmitic acid supports growth 	Schuller HJ, et al. (1992) PMID:1735446
+FBP26	YJL155C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FIG2	YCR089W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FKS1	YLR342W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FMS1	YMR020W	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM beta-alanine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+FMS1	YMR020W	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM pantothenic acid	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+FOL1	YNL256W	auxotrophy 	classical genetics	classical genetics	null	Other	folic acid		Iliades P, et al. (2004) PMID:15215118
+FOL2	YGR267C	auxotrophy 	classical genetics	classical genetics	null	W303	5-formyltetrahydrofolic acid	Details: cells shifted from folinic acid supplemented to non-supplemented media 	Nardese V, et al. (1996) PMID:8573145
+FOL2	YGR267C	auxotrophy 	classical genetics	classical genetics	unspecified Allele: fol2-1	Other	5-formyltetrahydrofolic acid		Nardese V, et al. (1996) PMID:8573145
+FOL3	YMR113W	auxotrophy 	classical genetics	classical genetics	null	W303	5-formyltetrahydrofolic acid	Condition: adenine 	Cherest H, et al. (2000) PMID:10799479
+FOL3	YMR113W	auxotrophy 	classical genetics	classical genetics	null	S288C			Salcedo E, et al. (2001) PMID:11223131
+FPS1	YLL043W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FUB1	YCR076C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+FYV6	YNL133C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GAL83	YER027C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GAS1	YMR307W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GCN2	YDR283C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GCN3	YKR026C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GCN5	YGR252W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GET1	YGL020C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GET2	YER083C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GFA1	YKL104C	auxotrophy 	classical genetics	classical genetics	unspecified	X2180-1A	D-glucosamine		Whelan WL and Ballou CE (1975) PMID:1104590
+GGA1	YDR358W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GIT1	YCR098C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GLN1	YPR035W	auxotrophy 	classical genetics	classical genetics	unspecified	Sigma1278b	glutamine		Mitchell AP (1985) PMID:2865193
+GLO3	YER122C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GNT1	YOR320C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GPB1	YOR371C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GPB2	YAL056W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GPD1	YDL022W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GPD2	YOL059W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GPM2	YDL021W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GRE3	YHR104W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GRX4	YER174C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GRX5	YPL059W	auxotrophy 	classical genetics	classical genetics	null	Other	leucine		Rodriguez-Manzaneque MT, et al. (2002) PMID:11950925
+GRX5	YPL059W	auxotrophy 	classical genetics	classical genetics	null	Other	lysine		Rodriguez-Manzaneque MT, et al. (2002) PMID:11950925
+GRX5	YPL059W	auxotrophy 	classical genetics	classical genetics	null	Other	glutamic acid		Rodriguez-Manzaneque MT, et al. (2002) PMID:11950925
+GRX6	YDL010W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GSH1	YJL101C	auxotrophy 	classical genetics	classical genetics	null	Other	glutathione	Condition: non-stress conditions: SD minimal media Details: growth restored by adding DTT, BME, cysteine, or homocysteine 	Grant CM, et al. (1996) PMID:8662189
+GTS1	YGL181W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+GUA1	YMR217W	auxotrophy 	classical genetics	classical genetics	null	Other	guanine		Dujardin G, et al. (1994) PMID:8112582
+GYP1	YOR070C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HAC1	YFL031W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	myo-inositol		Nikawa J (1994) PMID:7959019
+HAC1	YFL031W	auxotrophy 	classical genetics	classical genetics	null	S288C	myo-inositol		Chang HJ, et al. (2004) PMID:15371354
+HAC1	YFL031W	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+HCR1	YLR192C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HDA3	YPR179C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HEL2	YDR266C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HEM1	YDR232W	auxotrophy 	classical genetics	classical genetics	null	Other	cysteine		Maclean KN, et al. (2000) PMID:11051561
+HEM1	YDR232W	auxotrophy 	classical genetics	classical genetics	unspecified Allele: hem1-3	X2180-1A	heme		Gollub EG, et al. (1977) PMID:323256
+HEM12	YDR047W	auxotrophy 	classical genetics	classical genetics	null		heme		Nunez L, et al. (2004) PMID:15257413
+HEM2	YGL040C	auxotrophy 	classical genetics	classical genetics	null	W303	cysteine		Maclean KN, et al. (2000) PMID:11051561
+HEM2	YGL040C	auxotrophy 	classical genetics	classical genetics	unspecified Allele: hem2-2	X2180-1A	heme		Gollub EG, et al. (1977) PMID:323256
+HEM3	YDL205C	auxotrophy 	classical genetics	classical genetics	null	Other	heme		Keng T, et al. (1992) PMID:1508149
+HEM3	YDL205C	auxotrophy 	classical genetics	classical genetics	unspecified Allele: hem3-5	X2180-1A	heme		Gollub EG, et al. (1977) PMID:323256
+HEM4	YOR278W	auxotrophy 	classical genetics	classical genetics	null	Other	heme		Tan FC, et al. (2008) PMID:18042043
+HFI1	YPL254W	auxotrophy 	classical genetics	classical genetics	null	Other	myo-inositol		Horiuchi J, et al. (1997) PMID:9154821
+HIS1	YER055C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	histidine		Korch CT (1973) PMID:17248619
+HIS2	YFR025C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	histidine		Gorman JA and Gorman J (1971) PMID:4329443
+HIS3	YOR202W	auxotrophy 	classical genetics	classical genetics	null	Other	histidine		Scherer S and Davis RW (1979) PMID:388424
+HIS4	YCL030C	auxotrophy 	classical genetics	classical genetics	unspecified Allele: his4-912-delta	S288C	histidine		Hirschman JE, et al. (1988) PMID:2850465
+HIS5	YIL116W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	histidine		Harashima S, et al. (1981) PMID:7044894
+HIS6	YIL020C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	histidine		Fani R, et al. (1997) PMID:9332345
+HIS7	YBR248C	auxotrophy 	classical genetics	classical genetics	null	Other	histidine		Kuenzler M, et al. (1993) PMID:8366040
+HMO1	YDR174W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HOC1	YJR075W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HOG1	YLR113W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HOL1	YNR055C	auxotrophy 	classical genetics	classical genetics	null	Other	L-histidinol		Gaber RF, et al. (1990) PMID:2405251
+HOM2	YDR158W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	methionine		Robichon-Szulmajster H, et al. (1966) PMID:4380684
+HOM2	YDR158W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	threonine		Robichon-Szulmajster H, et al. (1966) PMID:4380684
+HOM2	YDR158W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	homoserine		Robichon-Szulmajster H, et al. (1966) PMID:4380684
+HOM3	YER052C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	homoserine		Delgado MA, et al. (1982) PMID:6821505
+HOM3	YER052C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	methionine		Robichon-Szulmajster H, et al. (1966) PMID:4380684
+HOM3	YER052C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	threonine		Robichon-Szulmajster H, et al. (1966) PMID:4380684
+HOM3	YER052C	auxotrophy 	classical genetics	classical genetics	unspecified	Other			Robichon-Szulmajster H, et al. (1966) PMID:4380684
+HOM6	YJR139C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	methionine		Robichon-Szulmajster H, et al. (1966) PMID:4380684
+HOM6	YJR139C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	threonine		Robichon-Szulmajster H, et al. (1966) PMID:4380684
+HOM6	YJR139C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	homoserine		Robichon-Szulmajster H, et al. (1966) PMID:4380684
+HOP1	YIL072W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HPR1	YDR138W	auxotrophy 	classical genetics	classical genetics	null	D273-10B	myo-inositol	Details: leaky 	Betz JL, et al. (2002) PMID:12395202
+HPT1	YDR399W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HSL7	YBR133C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HSM3	YBR272C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HSP30	YCR021C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HST1	YOL068C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HSV2	YGR223C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HUR1	YGL168W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+HXT8	YJL214W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+IBA57	YJR122W	auxotrophy 	classical genetics	classical genetics	null	S288C	lysine		Gelling C, et al. (2008) PMID:18086897
+IBA57	YJR122W	auxotrophy 	classical genetics	classical genetics	null	S288C	glutamic acid		Gelling C, et al. (2008) PMID:18086897
+IDP1	YDL066W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+IES1	YFL013C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+IES2	YNL215W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+IES4	YOR189W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+IES5	YER092W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+IES6	YEL044W	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+ILV1	YER086W	auxotrophy 	classical genetics	classical genetics	unspecified		isoleucine	Details: ilv1 mutants are isoleucine but not valine auxotrophs 	Kakar SN and WAGNER RP (1964) PMID:14124940
+ILV2	YMR108W	auxotrophy 	classical genetics	classical genetics	reduction of function	Other	isoleucine		Kakar SN and WAGNER RP (1964) PMID:14124940
+ILV3	YJR016C	auxotrophy 	classical genetics	classical genetics	null	Other	isoleucine		Kakar SN and WAGNER RP (1964) PMID:14124940
+ILV5	YLR355C	auxotrophy 	classical genetics	classical genetics	reduction of function	Other	isoleucine		Kakar SN and WAGNER RP (1964) PMID:14124940
+IML3	YBR107C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+INO1	YJL153C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	inositol		Culbertson MR and Henry SA (1975) PMID:1093935
+INO1	YJL153C	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol		Dean-Johnson M and Henry SA (1989) PMID:2642902
+INO1	YJL153C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: INO1-S184D	S288C	inositol		Deranieh RM, et al. (2013) PMID:23902760
+INO1	YJL153C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: INO1-S296A	S288C			Deranieh RM, et al. (2013) PMID:23902760
+INO1	YJL153C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: INO1-S296D	S288C			Deranieh RM, et al. (2013) PMID:23902760
+INO1	YJL153C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: INO1-S374D	S288C			Deranieh RM, et al. (2013) PMID:23902760
+INO2	YDR123C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	myo-inositol		Loewy BS and Henry SA (1984) PMID:6392853
+INO2	YDR123C	auxotrophy 	classical genetics	classical genetics	unspecified	Other			Donahue TF and Henry SA (1981) PMID:17249096
+INO4	YOL108C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	myo-inositol		Loewy BS and Henry SA (1984) PMID:6392853
+INO4	YOL108C	auxotrophy 	classical genetics	classical genetics	unspecified	Other			Donahue TF and Henry SA (1981) PMID:17249096
+INO80	YGL150C	auxotrophy 	classical genetics	classical genetics	null	Other	inositol		Ebbert R, et al. (1999) PMID:10361278
+INO80	YGL150C	auxotrophy 	classical genetics	classical genetics	null	S288C	myo-inositol		Ford J, et al. (2007) PMID:17681272
+INO80	YGL150C	auxotrophy 	classical genetics	classical genetics	null	S288C		Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+IRC25	YLR021W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+IRC4	YDR540C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+IRE1	YHR079C	auxotrophy 	classical genetics	classical genetics	null	S288C	myo-inositol		Chang HJ, et al. (2004) PMID:15371354
+IRE1	YHR079C	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+ISA1	YLL027W	auxotrophy 	classical genetics	classical genetics	null	S288C	lysine		Jensen LT and Culotta VC (2000) PMID:10805735
+ISA1	YLL027W	auxotrophy 	classical genetics	classical genetics	null	S288C	glutamate(1-)		Jensen LT and Culotta VC (2000) PMID:10805735
+ISA2	YPR067W	auxotrophy 	classical genetics	classical genetics	null	S288C	lysine		Jensen LT and Culotta VC (2000) PMID:10805735
+ISA2	YPR067W	auxotrophy 	classical genetics	classical genetics	null	S288C	glutamate(1-)		Jensen LT and Culotta VC (2000) PMID:10805735
+IXR1	YKL032C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+KCS1	YDR017C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+KEX1	YGL203C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+KNS1	YLL019C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+KRE1	YNL322C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LCB3	YJL134W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LDB19	YOR322C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LEM3	YNL323W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LEM3	YNL323W	auxotrophy 	classical genetics	classical genetics	null	S288C	tryptophan		Hachiro T, et al. (2013) PMID:23250744
+LEO1	YOR123C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LEU1	YGL009C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	leucine		Hawthorne DC and Mortimer RK (1960) PMID:17247984
+LEU2	YCL018W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	leucine		Toh-e A, et al. (1980) PMID:6243628
+LEU4	YNL104C	auxotrophy 	classical genetics	classical genetics	null	S288C	leucine	Condition: grown on non-fermentable carbon source: glycerol or ethanol or lactate 	Casalone E, et al. (2000) PMID:10790691
+LGE1	YPL055C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LOA1	YPR139C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LRS4	YDR439W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LST4	YKL176C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LST7	YGR057C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LTE1	YAL024C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+LYS1	YIR034C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	lysine		Hawthorne DC and Mortimer RK (1960) PMID:17247984
+LYS2	YBR115C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: lys2-173 Ty element insertion	Other	lysine		Simchen G, et al. (1984) PMID:6326126
+LYS2	YBR115C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: lys2-901 Ty element insertion	Other			Simchen G, et al. (1984) PMID:6326126
+LYS2	YBR115C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: lys2-902 Ty element insertion	Other			Simchen G, et al. (1984) PMID:6326126
+LYS2	YBR115C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: lys2-128 Ty element insertion	Other			Simchen G, et al. (1984) PMID:6326126
+LYS2	YBR115C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: lys2-402 spontaneous mutation	D273-10B			Zaret KS and Sherman F (1985) PMID:3921525
+LYS2	YBR115C	auxotrophy 	classical genetics	classical genetics	conditional Allele: lys2-61 Ty element insertion	Other	lysine	Details: conditional lysine auxotroph; grows well on media without lysine at 30 deg C and 37 deg C but not at 20 deg C 	Simchen G, et al. (1984) PMID:6326126
+LYS21	YDL131W	auxotrophy 	classical genetics	classical genetics	null	Other	lysine	Details: auxotrophy is only observed during respiratory growth 	Quezada H, et al. (2008) PMID:18524920
+LYS5	YGL154C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	lysine		Sinha AK and Bhattacharjee JK (1970) PMID:4998031
+LYS5	YGL154C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: lys5-101 UV-induced mutation	D273-10B	lysine	Details: leaky auxotrophy 	Zaret KS and Sherman F (1985) PMID:3921525
+MCK1	YNL307C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MDM34	YGL219C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MDM35	YKL053C-A	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MDY2	YOL111C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MEH1	YKR007W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MES1	YGR264C	auxotrophy 	classical genetics	classical genetics	conditional	Other	methionine	Condition: permissive temperature: 23 deg C 	McLaughlin CS and Hartwell LH (1969) PMID:5377463
+MET1	YKR069W	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET10	YFR030W	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET10	YFR030W	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: met10-W59X W59X	S288C	methionine		Cordente AG, et al. (2009) PMID:19236486
+MET10	YFR030W	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: met10-W841X W841X	S288C			Cordente AG, et al. (2009) PMID:19236486
+MET10	YFR030W	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: met10-E929K E929K	S288C			Cordente AG, et al. (2009) PMID:19236486
+MET13	YGL125W	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET13	YGL125W	auxotrophy 	classical genetics	classical genetics	null	S288C		Condition: grown on SD medium: growth restored when methionine added to medium 	Tizon B, et al. (1999) PMID:10029993
+MET13	YGL125W	auxotrophy 	classical genetics	classical genetics	null	Other			Raymond RK, et al. (1999) PMID:10600168
+MET14	YKL001C	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET16	YPR167C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MET17	YLR303W	auxotrophy 	classical genetics	classical genetics	null		methionine	Details: methionine auxutrophy is alleviated in the presence of mercury compounds 	Singh A and Sherman F (1974) PMID:4364332
+MET17	YLR303W	auxotrophy 	classical genetics	classical genetics	null				Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET18	YIL128W	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET2	YNL277W	auxotrophy 	classical genetics	classical genetics	null		methionine	Details: methionine auxutrophy is alleviated in the presence of mercury compounds 	Singh A and Sherman F (1974) PMID:4364332
+MET2	YNL277W	auxotrophy 	classical genetics	classical genetics	null				Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET22	YOL064C	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET28	YIR017C	auxotrophy 	classical genetics	classical genetics	null	W303	methionine		Cherest H, et al. (1997) PMID:9055073
+MET3	YJR010W	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET4	YNL103W	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET5	YJR137C	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET5	YJR137C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: ecm17-A979T A979T	S288C	methionine		Cordente AG, et al. (2009) PMID:19236486
+MET5	YJR137C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: ecm17-G1115D G1115D	S288C			Cordente AG, et al. (2009) PMID:19236486
+MET5	YJR137C	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: ecm17-E1356K E1356K	S288C			Cordente AG, et al. (2009) PMID:19236486
+MET6	YER091C	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET7	YOR241W	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MET7	YOR241W	auxotrophy 	classical genetics	classical genetics	null	S288C			Salcedo E, et al. (2001) PMID:11223131
+MET8	YBR213W	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+MID2	YLR332W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MKK2	YPL140C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MMF1	YIL051C	auxotrophy 	classical genetics	classical genetics	null	W303	isoleucine		Kim JM, et al. (2001) PMID:11442631
+MMS22	YLR320W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MNN1	YER001W	auxotrophy 	classical genetics	classical genetics	unspecified	X2180-1A		Condition: adenine 	Raschke WC, et al. (1973) PMID:4578088
+MNN2	YBR015C	auxotrophy 	classical genetics	classical genetics	unspecified	X2180-1A		Condition: adenine 	Raschke WC, et al. (1973) PMID:4578088
+MNN2	YBR015C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MNR2	YKL064W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MPC1	YGL080W	auxotrophy 	classical genetics	classical genetics	null	S288C	valine	Details: growth on minimal medium requires supplementation with leucine and valine 	Herzig S, et al. (2012) PMID:22628554
+MPC2	YHR162W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MPC2	YHR162W	auxotrophy 	classical genetics	classical genetics	null	W303	leucine	Details: very slow growth on minimal medium in the absence of leucine 	Bricker DK, et al. (2012) PMID:22628558
+MSB2	YGR014W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MSH2	YOL090W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MSN1	YOL116W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MSN5	YDR335W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MTD1	YKR080W	auxotrophy 	classical genetics	classical genetics	null	Other	adenine		West MG, et al. (1993) PMID:8416923
+MTH1	YDR277C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+MXR2	YCL033C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NAB6	YML117W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NAT1	YDL040C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NBP2	YDR162C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NCS2	YNL119W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NCS6	YGL211W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NEW1	YPL226W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NGG1	YDR176W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NHP10	YDL002C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NIP100	YPL174C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NKP2	YLR315W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NPL3	YDR432W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NRG1	YDR043C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NTE1	YML059C	auxotrophy 	classical genetics	classical genetics	null	S288C		Condition: elevated temperature: 37 deg C Condition: choline supplemented growth conditions 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+NUC1	YJL208C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+NUP188	YML103C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+OAC1	YKL120W	auxotrophy 	classical genetics	classical genetics	null	S288C	leucine	Details: leaky 	Marobbio CM, et al. (2008) PMID:18682385
+OAF1	YAL051W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+OLE1	YGL055W	auxotrophy 	classical genetics	classical genetics	reduction of function	S288C	oleic acid		Henry SA (1973) PMID:4127627
+OLE1	YGL055W	auxotrophy 	classical genetics	classical genetics	conditional Allele: ole1-mdm2	Other	oleic acid	Condition: elevated temperature: 37 deg C 	Stewart LC and Yaffe MP (1991) PMID:1955472
+OPT1	YJL212C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+OYE2	YHR179W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PAA1	YDR071C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PAF1	YBR279W	auxotrophy 	classical genetics	classical genetics	null	D273-10B	myo-inositol	Details: leaky 	Betz JL, et al. (2002) PMID:12395202
+PAH1	YMR165C	auxotrophy 	classical genetics	classical genetics	overexpression Allele: pah1-7P seven Ser/Thr-Pro phosphoyrlation sites were mutated to alanines	W303	myo-inositol		O'hara L, et al. (2006) PMID:16968695
+PAL1	YDR348C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PAN6	YIL145C	auxotrophy 	classical genetics	classical genetics	null	Other	pantothenate		Olzhausen J, et al. (2009) PMID:19266201
+PAN6	YIL145C	auxotrophy 	classical genetics	classical genetics	null	S288C			Snyder NW, et al. (2015) PMID:25572876
+PAR32	YDL173W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PBA1	YLR199C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PBS2	YJL128C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PCL6	YER059W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PDB1	YBR221C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PDC5	YLR134W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PEA2	YER149C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PET20	YPL159C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PET8	YNL003C	auxotrophy 	classical genetics	classical genetics	null	S288C	biotin		Marobbio CM, et al. (2003) PMID:14609944
+PEX30	YLR324W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PGD1	YGL025C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PHA2	YNL316C	auxotrophy 	classical genetics	classical genetics	null	Other		Details: pheynlalanine requiring 	Mortimer RK and Hawthorne DC (1966) PMID:5900603
+PHO2	YDL106C	auxotrophy 	classical genetics	classical genetics	null	Other	adenine		Arndt KT, et al. (1987) PMID:3303332
+PHO86	YJL117W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PHO88	YBR106W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PIK1	YNL267W	auxotrophy 	classical genetics	classical genetics	conditional Allele: pik1-101 S1045F; catalytic domain	Other	myo-inositol	Condition: permissive temperature 	Walch-Solimena C and Novick P (1999) PMID:10587649
+PKR1	YMR123W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PLC1	YPL268W	auxotrophy 	classical genetics	classical genetics	null	Other	ornithine		Odom AR, et al. (2000) PMID:10720331
+PMI40	YER003C	auxotrophy 	classical genetics	classical genetics	null	SEY6210	D-mannose		Smith DJ, et al. (1992) PMID:1377774
+PML1	YLR016C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PMP3	YDR276C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PMR1	YGL167C	auxotrophy 	classical genetics	classical genetics	null	Other	inositol		Durr G, et al. (1998) PMID:9571246
+PMR1	YGL167C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PMT1	YDL095W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PMT2	YAL023C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+POC4	YPL144W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PRE9	YGR135W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PRO1	YDR300C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PRO3	YER023W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	proline		Tomenchok DM and Brandriss MC (1987) PMID:2824433
+PTC1	YDL006W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+PYC1	YGL062W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RAD23	YEL037C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RAD51	YER095W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RAD6	YGL058W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RCY1	YJL204C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RGA2	YDR379W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RIB1	YBL033C	auxotrophy 	classical genetics	classical genetics	unspecified	S288C	riboflavin		Oltmanns O, et al. (1969) PMID:5366000
+RIB2	YOL066C	auxotrophy 	classical genetics	classical genetics	unspecified	S288C	riboflavin		Oltmanns O, et al. (1969) PMID:5366000
+RIB3	YDR487C	auxotrophy 	classical genetics	classical genetics	unspecified	S288C	riboflavin		Oltmanns O, et al. (1969) PMID:5366000
+RIB4	YOL143C	auxotrophy 	classical genetics	classical genetics	unspecified	S288C	riboflavin		Oltmanns O, et al. (1969) PMID:5366000
+RIB5	YBR256C	auxotrophy 	classical genetics	classical genetics	unspecified	S288C	riboflavin	Details: leaky 	Oltmanns O, et al. (1969) PMID:5366000
+RIE1	YGR250C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RKR1	YMR247C	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol		Braun MA, et al. (2007) PMID:17283062
+RLM1	YPL089C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RMD1	YDL001W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RMD8	YFR048W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ROM2	YLR371W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPB2	YOR151C	auxotrophy 	classical genetics	classical genetics	conditional Allele: rpb2-2	Other	inositol	Condition: permissive temperature: 24 deg C 	Scafe C, et al. (1990) PMID:2406558
+RPB4	YJL140W	auxotrophy 	classical genetics	classical genetics	null	Other	inositol		Woychik NA and Young RA (1989) PMID:2674672
+RPB9	YGL070C	auxotrophy 	classical genetics	classical genetics	null	D273-10B	myo-inositol	Details: leaky 	Betz JL, et al. (2002) PMID:12395202
+RPB9	YGL070C	auxotrophy 	classical genetics	classical genetics	null	Other	inositol		Furter-Graves EM, et al. (1994) PMID:7800482
+RPE1	YJL121C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPH1	YER169W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPI1	YIL119C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPL14A	YKL006W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPL19B	YBL027W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPL20A	YMR242C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPL21A	YBR191W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPL22A	YLR061W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPL24A	YGL031C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPL27A	YHR010W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPL35A	YDL191W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPL43A	YPR043W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPN4	YDL020C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPO21	YDL140C	auxotrophy 	classical genetics	classical genetics	repressible	W303	inositol		Archambault J, et al. (1996) PMID:8849884
+RPO21	YDL140C	auxotrophy 	classical genetics	classical genetics	conditional Allele: rpo21-(rpb1-15)	Other	inositol	Condition: permissive temperature: 24 deg C 	Scafe C, et al. (1990) PMID:2406567
+RPO26	YPR187W	auxotrophy 	classical genetics	classical genetics	conditional Allele: rpo26-31	W303		Condition: permissive temperature: 30 deg C 	Nouraini S, et al. (1996) PMID:8887628
+RPP1A	YDL081C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPP1B	YDL130W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPS0B	YLR048W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPS16B	YDL083C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPS19A	YOL121C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPS7A	YOR096W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RPS9B	YBR189W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RRD1	YIL153W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RRF1	YHR038W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RRT12	YCR045C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RSC1	YGR056W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RSC2	YLR357W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RTF1	YGL244W	auxotrophy 	classical genetics	classical genetics	null	D273-10B	myo-inositol	Details: leaky 	Betz JL, et al. (2002) PMID:12395202
+RTG1	YOL067C	auxotrophy 	classical genetics	classical genetics	null	Other	glutamate(1-)		Dilova I and Powers T (2006) PMID:16423076
+RTG1	YOL067C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RTG3	YBL103C	auxotrophy 	classical genetics	classical genetics	null	Other	glutamate(1-)		Dilova I and Powers T (2006) PMID:16423076
+RTT103	YDR289C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+RUD3	YOR216C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SAC1	YKL212W	auxotrophy 	classical genetics	classical genetics	conditional Allele: sac1-23 Y111C, V190A, K223E, D336A, F366S, E416G; PPIPase domain mutated	SEY6210	myo-inositol	Condition: elevated temperature: 38 deg C 	Foti M, et al. (2001) PMID:11514624
+SAC1	YKL212W	auxotrophy 	classical genetics	classical genetics	conditional Allele: sac1-26	Other		Condition: permissive temperature: 26 deg C 	Whitters EA, et al. (1993) PMID:8314848
+SAC1	YKL212W	auxotrophy 	classical genetics	classical genetics	null	Other	myo-inositol		Rivas MP, et al. (1999) PMID:10397762
+SAC7	YDR389W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SAE2	YGL175C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SAK1	YER129W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SAP155	YFR040W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SBE2	YDR351W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SCJ1	YMR214W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SCS2	YER120W	auxotrophy 	classical genetics	classical genetics	null	S288C	myo-inositol	Condition: elevated temperature: 34 deg C 	Kagiwada S, et al. (1998) PMID:9537365
+SCS2	YER120W	auxotrophy 	classical genetics	classical genetics	null	Other		Condition: elevated temperature: 37 deg C 	Brickner JH and Walter P (2004) PMID:15455074
+SCS2	YER120W	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: scs2deltaTMD transmembrane domain mutated	Other	myo-inositol	Condition: elevated temperature: 37 deg C 	Brickner JH and Walter P (2004) PMID:15455074
+SCS2	YER120W	auxotrophy 	classical genetics	classical genetics	null	Other		Condition: elevated temperature: 34 deg C 	Kagiwada S and Hashimoto M (2007) PMID:17963691
+SCS2	YER120W	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: scs2-K[80/84/119/120]A lysine-to-alanine mutations in phosphoinositide-binding residues	Other		Condition: elevated temperature: 34 deg C 	Kagiwada S and Hashimoto M (2007) PMID:17963691
+SCS2	YER120W	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+SCS22	YBL091C-A	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SCS3	YGL126W	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+SCS3	YGL126W	auxotrophy 	classical genetics	classical genetics	null	S288C	75 uM myo-inositol		Moir RD, et al. (2012) PMID:22927826
+SCS7	YMR272C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SCT1	YBL011W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SDC1	YDR469W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SDD3	YOL098C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SEC13	YLR208W	auxotrophy 	classical genetics	classical genetics	conditional Allele: sec13-1	Other	myo-inositol	Condition: semi-permissive temperature: 30 deg C 	Chang HJ, et al. (2004) PMID:15371354
+SEC14	YMR079W	auxotrophy 	classical genetics	classical genetics	conditional Allele: sec14-3	Other	myo-inositol	Condition: semi-permissive temperature: 33 deg C Details: leaky 	Chang HJ, et al. (2004) PMID:15371354
+SEC22	YLR268W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SEC72	YLR292C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SER1	YOR184W	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: ser1-1	Other	serine	Condition: glucose medium Details: serine auxotrophy is not observed with ethanol as carbon source 	Melcher K and Entian KD (1992) PMID:1326413
+SER1	YOR184W	auxotrophy 	classical genetics	classical genetics	reduction of function	Other		Condition: glucose medium Details: mutant can grow slowly on acetate medium in the absence of serine 	Ulane R and Ogur M (1972) PMID:4333378
+SER2	YGR208W	auxotrophy 	classical genetics	classical genetics	reduction of function Allele: ser2-1	Other	serine	Condition: glucose medium Details: serine auxotrophy is not observed with ethanol as carbon source 	Melcher K and Entian KD (1992) PMID:1326413
+SER2	YGR208W	auxotrophy 	classical genetics	classical genetics	reduction of function	Other		Condition: glucose medium Details: mutant can grow slowly on acetate medium in the absence of serine 	Ulane R and Ogur M (1972) PMID:4333378
+SER3	YER081W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SFT2	YBL102W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SGF73	YGL066W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SGS1	YMR190C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SGV1	YPR161C	auxotrophy 	classical genetics	classical genetics	unspecified Allele: sgv1-(bur1-2)	S288C	myo-inositol		Prelich G and Winston F (1993) PMID:8293972
+SGV1	YPR161C	auxotrophy 	classical genetics	classical genetics	conditional Allele: sgv1-(bur1-1)	S288C	myo-inositol	Condition: permissive temperature: 30 deg C 	Prelich G and Winston F (1993) PMID:8293972
+SHO1	YER118C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SHP1	YBL058W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SHR5	YOL110W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SIC1	YLR079W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SIN4	YNL236W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SIP1	YDR422C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SKN7	YHR206W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SKT5	YBL061C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SLG1	YOR008C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SLM1	YIL105C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SLM3	YDL033C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SLM4	YBR077C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SLT2	YHR030C	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+SLX8	YER116C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SMF1	YOL122C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SMI1	YGR229C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SMY1	YKL079W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SNA3	YJL151C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SNF1	YDR477W	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+SNF2	YOR290C	auxotrophy 	classical genetics	classical genetics	null	S288C	myo-inositol		Ford J, et al. (2007) PMID:17681272
+SNF2	YOR290C	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+SNF3	YDL194W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SNF4	YGL115W	auxotrophy 	classical genetics	classical genetics	null	S288C	inositol	Condition: elevated temperature: 37 deg C 	Fernandez-Murray JP, et al. (2009) PMID:19841481
+SOD1	YJR104C	auxotrophy 	classical genetics	classical genetics	null		lysine	Details: in aerobic conditions 	Slekar KH, et al. (1996) PMID:8910528
+SOD1	YJR104C	auxotrophy 	classical genetics	classical genetics	null		methionine	Details: in aerobic conditions 	Slekar KH, et al. (1996) PMID:8910528
+SOD1	YJR104C	auxotrophy 	classical genetics	classical genetics	null	Other			Liu XF, et al. (1992) PMID:1526970
+SOH1	YGL127C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SOK2	YMR016C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SOP4	YJL192C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPA2	YLL021W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPC2	YML055W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPE1	YKL184W	auxotrophy 	classical genetics	classical genetics	null	S288C	0.25 mM putrescine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE1	YKL184W	auxotrophy 	classical genetics	classical genetics	null	S288C	10 uM spermidine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE1	YKL184W	auxotrophy 	classical genetics	classical genetics	null	S288C	0.25 mM spermine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE1	YKL184W	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM beta-alanine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE1	YKL184W	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM pantothenic acid	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE1	YKL184W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPE2	YOL052C	auxotrophy 	classical genetics	classical genetics	null	S288C	0.25 mM spermine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE2	YOL052C	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM beta-alanine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE2	YOL052C	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM pantothenic acid	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE2	YOL052C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPE3	YPR069C	auxotrophy 	classical genetics	classical genetics	null	S288C	10 uM spermidine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE3	YPR069C	auxotrophy 	classical genetics	classical genetics	null	S288C	0.25 mM spermine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE3	YPR069C	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM beta-alanine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE3	YPR069C	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM pantothenic acid	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE4	YLR146C	auxotrophy 	classical genetics	classical genetics	null	S288C	0.25 mM spermine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE4	YLR146C	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM beta-alanine	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPE4	YLR146C	auxotrophy 	classical genetics	classical genetics	null	S288C	0.1 mM pantothenic acid	Condition: media lacking polyamines 	White WH, et al. (2001) PMID:11154694
+SPF1	YEL031W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPI1	YER150W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPP1	YPL138C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPT3	YDR392W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPT4	YGR063C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SPT7	YBR081C	auxotrophy 	classical genetics	classical genetics	null	Other	inositol		Hoke SM, et al. (2010) PMID:20635087
+SPT8	YLR055C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SRB5	YGR104C	auxotrophy 	classical genetics	classical genetics	null	D273-10B	myo-inositol	Details: leaky 	Betz JL, et al. (2002) PMID:12395202
+SRC1	YML034W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+STB5	YHR178W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+STE50	YCL032W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+STM1	YLR150W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+STP4	YDL048C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SUR2	YDR297W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SVF1	YDR346C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SWD1	YAR003W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SWD3	YBR175W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SWM1	YDR260C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+SXM1	YDR395W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TAL1	YLR354C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TCA17	YEL048C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TCD2	YKL027W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TDA5	YLR426W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TFB4	YPR056W	auxotrophy 	classical genetics	classical genetics	reduction of function	Other	inositol		Feaver WJ, et al. (1999) PMID:10506223
+TGS1	YPL157W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+THI2	YBR240C	auxotrophy 	classical genetics	classical genetics	null Allele: thi2::KANMX6	Other	thiamine		Iosue CL, et al. (2016) PMID:27015653
+THI4	YGR144W	auxotrophy 	classical genetics	classical genetics	null	S288C	thiamine(1+)		Ruiz-Roldan C, et al. (2008) PMID:17964830
+THI4	YGR144W	auxotrophy 	classical genetics	classical genetics	unspecified	Other	thiamine(1+)		Praekelt UM, et al. (1994) PMID:7941734
+THI6	YPL214C	auxotrophy 	classical genetics	classical genetics	null	Other	thiamine		Nosaka K, et al. (1994) PMID:7982968
+THI7	YLR237W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+THR1	YHR025W	auxotrophy 	classical genetics	classical genetics	null	Other	L-threonine		Kingsbury JM and McCusker JH (2010) PMID:20305002
+THR4	YCR053W	auxotrophy 	classical genetics	classical genetics	unspecified		threonine		Mortimer R, et al. (1957)
+THR4	YCR053W	auxotrophy 	classical genetics	classical genetics	null	Other	L-threonine		Kingsbury JM and McCusker JH (2010) PMID:20305002
+TIF4631	YGR162W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TIF4632	YGL049C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TKL1	YPR074C	auxotrophy 	classical genetics	classical genetics	null	W303	tyrosine		Sundstrom M, et al. (1993) PMID:8226984
+TKL1	YPR074C	auxotrophy 	classical genetics	classical genetics	null	W303	tryptophan		Sundstrom M, et al. (1993) PMID:8226984
+TKL1	YPR074C	auxotrophy 	classical genetics	classical genetics	null	W303	phenylalanine		Sundstrom M, et al. (1993) PMID:8226984
+TLG2	YOL018C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TMA19	YKL056C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TMA20	YER007C-A	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TOR1	YJR066W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TOS3	YGL179C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TPC1	YGR096W	auxotrophy 	classical genetics	classical genetics	null	S288C	thiamine	Details: thiamine auxotrophy is rescued by the addition of isoleucine and valine 	Marobbio CM, et al. (2002) PMID:12411483
+TPI1	YDR050C	auxotrophy 	classical genetics	classical genetics	conditional Allele: tpi1-N65K	D273-10B	myo-inositol	Condition: permissive temperature: 30 deg C 	Shi Y, et al. (2005) PMID:16221686
+TPM1	YNL079C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TPS1	YBR126C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TPS2	YDR074W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TRA1	YHR099W	auxotrophy 	classical genetics	classical genetics	dominant negative Allele: tra1-L3733A L3733A; FATC domain mutation results in weak dominant negative effects	S288C	inositol		Hoke SM, et al. (2010) PMID:20635087
+TRL1	YJL087C	auxotrophy 	classical genetics	classical genetics	conditional	Other	inositol		Sidrauski C, et al. (1996) PMID:8898194
+TRM10	YOL093W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TRM11	YOL124C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TRM8	YDL201W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TRM9	YML014W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TRP1	YDR007W	auxotrophy 	classical genetics	classical genetics	null	Other		Details: requires tryptophan for growth 	Tschumper G and Carbon J (1980) PMID:6248420
+TRP1	YDR007W	auxotrophy 	classical genetics	classical genetics	unspecified	X2180-1A	tryptophan		Miozzari G, et al. (1978) PMID:348687
+TRP2	YER090W	auxotrophy 	classical genetics	classical genetics	unspecified	X2180-1A	tryptophan		Miozzari G, et al. (1978) PMID:348687
+TRP3	YKL211C	auxotrophy 	classical genetics	classical genetics	unspecified	X2180-1A	tryptophan		Miozzari G, et al. (1978) PMID:348687
+TRP4	YDR354W	auxotrophy 	classical genetics	classical genetics	unspecified	X2180-1A	tryptophan		Miozzari G, et al. (1978) PMID:348687
+TRP4	YDR354W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TRP5	YGL026C	auxotrophy 	classical genetics	classical genetics	unspecified	X2180-1A	tryptophan		Miozzari G, et al. (1978) PMID:348687
+TRP5	YGL026C	auxotrophy 	classical genetics	classical genetics	null	Other		Details: cells require tryptophan for growth 	Brohl S, et al. (1994) PMID:7975891
+TRS65	YGR166W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+TSA1	YML028W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+UBA4	YHR111W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+UBI4	YLL039C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+UBP14	YBR058C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+UBP15	YMR304W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+UBP6	YFR010W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+UBX2	YML013W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+UBX4	YMR067C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+UFD2	YDL190C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+URA1	YKL216W	auxotrophy 	classical genetics	classical genetics	null	FL100	uracil		Lacroute F (1968) PMID:5651325
+URA2	YJL130C	auxotrophy 	classical genetics	classical genetics	null	FL100	uracil		Lacroute F (1968) PMID:5651325
+URA3	YEL021W	auxotrophy 	classical genetics	classical genetics	null	FL100	uracil		Lacroute F (1968) PMID:5651325
+URA4	YLR420W	auxotrophy 	classical genetics	classical genetics	null	FL100	uracil		Lacroute F (1968) PMID:5651325
+URA5	YML106W	auxotrophy 	classical genetics	classical genetics	null Allele: ura5-5	FL100		Details: leaky 	Jund R and Lacroute F (1972) PMID:4550660
+URE2	YNL229C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+URH1	YDR400W	auxotrophy 	classical genetics	classical genetics	null	Other		Details: cannot utilize cytidine as sole source of pyrimidines 	Mitterbauer R, et al. (2002) PMID:11872485
+URH1	YDR400W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+UTR2	YEL040W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VAC8	YEL013W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VAM3	YOR106W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VAM6	YDL077C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VAN1	YML115C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VHT1	YGR065C	auxotrophy 	classical genetics	classical genetics	unspecified	Other	long-chain fatty acid	Details: fatty acid auxotrophy is suppressed by the addition of laurate (C12), myristate (C14), palmitate (C16) or biotin 	Stolz J, et al. (1999) PMID:10373489
+VID22	YLR373C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VID28	YIL017C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMA1	YDL185W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMA13	YPR036W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMA16	YHR026W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMA2	YBR127C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMA21	YGR105W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMA22	YHR060W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMA3	YEL027W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMA7	YGR020C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMA8	YEL051W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VMS1	YDR049W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VPH1	YOR270C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VPH2	YKL119C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VPS28	YPL065W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VPS33	YLR396C	auxotrophy 	classical genetics	classical genetics	null	W303	methionine		Jacquemin-Faure I, et al. (1994) PMID:8078479
+VPS36	YLR417W	auxotrophy 	systematic mutation set	large-scale survey	null		ethanolamine		Nebauer R, et al. (2007) PMID:17428789
+VPS4	YPR173C	auxotrophy 	systematic mutation set	large-scale survey	null		ethanolamine		Nebauer R, et al. (2007) PMID:17428789
+VPS41	YDR080W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VPS60	YDR486C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VPS64	YDR200C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+VTS1	YOR359W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YAP1802	YGR241C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YBP2	YGL060W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YEA4	YEL004W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YEF1	YEL041W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YER152C	YER152C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YIL029C	YIL029C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YIL077C	YIL077C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YJL193W	YJL193W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YKL077W	YKL077W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YKR070W	YKR070W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YMR010W	YMR010W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YMR099C	YMR099C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YOL107W	YOL107W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YOR012W	YOR012W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YOS9	YDR057W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YPC1	YBR183W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YPK2	YMR104C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YPL264C	YPL264C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YPR1	YDR368W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+YPT6	YLR262C	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ZEO1	YOL109W	auxotrophy 	homozygous diploid, systematic mutation set	large-scale survey	null	S288C	myo-inositol		Villa-Garcia MJ, et al. (2011) PMID:21136082
+ZWF1	YNL241C	auxotrophy 	classical genetics	classical genetics	null		methionine		Masselot M and De Robichon-Szulmajster H (1975) PMID:1101032
+ZWF1	YNL241C	auxotrophy 	classical genetics	classical genetics	null				Thomas D, et al. (1991) PMID:2001672
+ZWF1	YNL241C	auxotrophy 	classical genetics	classical genetics	null			Details: in aerobic conditions 	Slekar KH, et al. (1996) PMID:8910528
