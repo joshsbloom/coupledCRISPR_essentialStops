@@ -8,7 +8,7 @@ complete experiment data for 08/23/16 hiseq runs is availabe at:
 [082316/](https://drive.google.com/open?id=0ByJ-NQ1MGtWIMXNacU55dGVXWUk)
 
 ___
-####Start here:
+Start here:
 
 <!---for tables of counts per oligo see [processed/RData/count_tables.RData](https://drive.google.com/open?id=0ByJ-NQ1MGtWIa3RraUhfa1BwQU0)
 which contains 3 data frames (10791 oligos x 12 conditions/time points ):
@@ -22,7 +22,12 @@ for data frame of oligo annotations see [processed/RData/oligoAnnotations.RData]
 for raw barcode level data see [processed/RData/big.mm.RData](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/big.mm.RData)
 
 for processed oligo and gene level results see [processed/RData/oligo.stats.RData](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/oligo.stats.EssentialBlups.RData)
+
+for HMM plots see [HMMv8/] (https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/HMM_v8.zip)
+
+
 ```r
+#Structure of oligo.stats table
 R> str(oligo.stats, list.len=ncol(oligo.stats))
 'data.frame':	10971 obs. of  154 variables:
  $ GENEID                                   : chr  "YAL001C" "YAL001C" "YAL001C" "YAL001C" ...
