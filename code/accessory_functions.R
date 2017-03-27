@@ -17,26 +17,6 @@ GO2geneList = lapply(unique(myGene2GO[,2]), function(x){myGene2GO[myGene2GO[,2] 
 names(GO2geneList) = unique(myGene2GO[,2])
 
 
-# modified from Frank Albert
-plotGOToTree <- function(GOdat, GOres, sigThres = 0.0005){
-     # only plot if there are any significant GO terms (SEE ABOVE for 
-    #"significance"; I am somewhat lenient here):
-    #     # we need these extra lines because very small p-values are 
-    #reported as a text string "< X", rather than a numeric
-     toTest <- as.numeric(GenTable(GOdat, pVal = GOres)[1,6])
-     if(is.na(toTest)){toTest <- 0.000000000000000000000000000001}
-     if (toTest < sigThres){
-         showSigOfNodes(GOdat, score(GOres), firstSigNodes = 
-        length(score(GOres)[score(GOres) < sigThres]), useInfo = "all")
-     }else{
-         plot(1,1)
-         legend("topright", legend="no significant GO categories", 
-        cex=0.4, box.lty=0)
-     }
-}
-
-
-
 doBIC=function(l, k, n) { -2*l+k*log(n) }
 
 countIndels=function(seqin, mat) { 
@@ -208,16 +188,12 @@ addFilters=function(giant.table, cutoff_t0=20) {
     return(giant.table)
 }
 
-
-
-
-# BUILD OLIGO DATA STRUCTURE
-
-# Build annotation structures 
+# BUILD OLIGO DATA STRUCTURE ---------------------------------------------------------------------------------------------------------
+    # Build annotation structures 
     #nPAMs$CDS_length=as.vector(unlist(protein.lengths[nPAMs$GENEID]))/3
     #nPAMs$dist_from_CDS_end=nPAMs$CDS_length-unlist(nPAMs$PROTEINLOC)
-
-# Load various annotation files ----------------------------------------------------------------------------------------
+    
+    # Load various annotation files ----------------------------------------------------------------------------------------
     load('/media/jbloom/d1/coupled_CRISPR/Reference/eStops_oligos.RData')
     # 'oligos' contains information about each oligo
     
@@ -246,7 +222,6 @@ addFilters=function(giant.table, cutoff_t0=20) {
 
     rm(aa, aa.lengths, g.lengths, discrep.lengths, ogm)
 
- 
     # flag oligos as coming from dubious ORFs-----------------------------------------------------------
     load('/media/jbloom/d1/coupled_CRISPR/Reference/dubious_essential_genes.Rdata')
     dubious.e.oligos=which(oligos$GENEID %in% dubious.essential)
@@ -283,10 +258,8 @@ addFilters=function(giant.table, cutoff_t0=20) {
     #checkme=do.call('c', checkme)
     ################################################################################################################################################
     #save(oligos, file=paste0(paste(out.base.dir, 'processed/RData/', sep=''), 'oligoAnnotations.RData'))
-
     # load oligo annotations 
     #load(paste0(paste(out.base.dir, 'processed/RData/', sep=''), 'oligoAnnotations.RData'))
-
 
     data(fcabundance)
     fcabundance$yORF=as.character(fcabundance$yORF)
@@ -298,15 +271,13 @@ addFilters=function(giant.table, cutoff_t0=20) {
     abundance=merge(gfp, fcabundance, by='yORF', all.x=T)
     abundance=merge(abundance, half_lives, by='yORF', all.x=T)
 
-
     # some additional information
     evolvability=read.delim('/media/jbloom/d1/coupled_CRISPR/Reference/Evolvability.csv', header=T, sep='\t', stringsAsFactors=F)
-    evolvability$Systematic.name 
-    evolvability$X
+    #evolvability$Systematic.name 
+    #evolvability$X
     comp_human=read.delim('/media/jbloom/d1/coupled_CRISPR/Reference/Marcotte_complementsHuman.csv', header=T, sep='\t', stringsAsFactors=F)
-    comp_human$ScENSP
-    comp_human$Final.CompStatus
-
+    #comp_human$ScENSP
+    #comp_human$Final.CompStatus
 
     #haploinsufficiency
     haploinf=read.delim('/media/jbloom/d1/coupled_CRISPR/Reference/haploinsufficiency.txt',  header=T ,sep='\t', stringsAsFactors=F)
@@ -314,8 +285,6 @@ addFilters=function(giant.table, cutoff_t0=20) {
     # note this introducing NAs
     haploinf$HET_AV=as.numeric(haploinf$HET_AV)
     haploinf$HET_AV=as.numeric(haploinf$HET_AV)
-
-
 
     # additional information about conservation and protein domains
     all.coding.files=list.files('/media/jbloom/d1/coupled_CRISPR/Reference/coding/', pattern='aa.mfa', full.names=T)
@@ -327,7 +296,6 @@ addFilters=function(giant.table, cutoff_t0=20) {
     dgsplit=split(domains2, domains2[,1]) 
 
     #retain aa
-    
     #registerDoParallel(70)
 
     conservation=foreach(gene=unique(oligos$GENEID)) %dopar% {
@@ -369,8 +337,6 @@ addFilters=function(giant.table, cutoff_t0=20) {
     # annotations about viability
     viable_table=read.delim('/media/jbloom/d1/coupled_CRISPR/Reference/viable_annotations.txt' ,header=T, sep='\t', stringsAsFactors=F, comment.char='!')
 
-
-
     # low complexity regions 
     # the easy part -------------------------------------------
     lc.fasta=read.fasta('/media/jbloom/d1/coupled_CRISPR/Reference/uniprot-sCerevisiaeProteome_160404.out.fasta',forceDNAtolower = FALSE)
@@ -383,9 +349,6 @@ addFilters=function(giant.table, cutoff_t0=20) {
                        t(sapply(boundary.set[sapply(boundary.set, length)>0], range))
                     })
     #-----------------------------------------------------------
-
-
-    # now the stupid names
 
     # keep original name to double check we haven't screwed up name matching
     # rename list
@@ -422,206 +385,169 @@ addFilters=function(giant.table, cutoff_t0=20) {
     lcsplit=split(low.complexity, low.complexity[,1])
     #save(low.complexity,file='/media/jbloom/d1/coupled_CRISPR/Reference/low.complexity.RData')
 
+    # integrate information on low complexity regions and on domain structures
+    osg=oligos
+    osg=split(osg, osg$GENEID)
+    osg=lapply(osg, function(x) {
+               x[order(x$dist_from_CDS_end, decreasing=F),]
+                   })
+    for(g in names(osg)) {
+         da=osg[[g]]$CDS_length-osg[[g]]$dist_from_CDS_end #as.numeric(names(so[[g]])) #which(so[[g]]==1)))
+        
+        # count of regions of low complexity downstream of oligo
+        if(!is.null(lcsplit[[g]])) {
+            dg=Intervals(lcsplit[[g]][,c(2,3)])
+            low.complexity.table=sapply(dg[,2], function(x) da<x)
+            low.complexity.downstream.cnt=rowSums(low.complexity.table)
+       } else {low.complexity.downstream.cnt=rep(0, length(da)) }
 
-
-
-
-# integrate information on low complexity regions and on domain structures
-osg=oligos
-osg=split(osg, osg$GENEID)
-osg=lapply(osg, function(x) {
-           x[order(x$dist_from_CDS_end, decreasing=F),]
-               })
-for(g in names(osg)) {
-     da=osg[[g]]$CDS_length-osg[[g]]$dist_from_CDS_end #as.numeric(names(so[[g]])) #which(so[[g]]==1)))
-    
-    # count of regions of low complexity downstream of oligo
-    if(!is.null(lcsplit[[g]])) {
-        dg=Intervals(lcsplit[[g]][,c(2,3)])
-        low.complexity.table=sapply(dg[,2], function(x) da<x)
-        low.complexity.downstream.cnt=rowSums(low.complexity.table)
-   } else {low.complexity.downstream.cnt=rep(0, length(da)) }
-
-    #domains
-    if(!is.null(dgsplit[[g]])) {
-        dg=Intervals(dgsplit[[g]][,c(6,7)])
-        udc=sapply(dg[,2], function(x) da<x)
-        colnames(udc)=dgsplit[[g]][,4]
-        # true or value, are there dowmains downstream
-        domain.downstream=rowSums(udc)>0
-        for(n in 1:ncol(udc)) {
-                    udc[udc[,n]==T,n]=colnames(udc)[n]
-                    udc[udc[,n]==F,n]='' #colnames(udc)[n]
+        #domains
+        if(!is.null(dgsplit[[g]])) {
+            dg=Intervals(dgsplit[[g]][,c(6,7)])
+            udc=sapply(dg[,2], function(x) da<x)
+            colnames(udc)=dgsplit[[g]][,4]
+            # true or value, are there dowmains downstream
+            domain.downstream=rowSums(udc)>0
+            for(n in 1:ncol(udc)) {
+                        udc[udc[,n]==T,n]=colnames(udc)[n]
+                        udc[udc[,n]==F,n]='' #colnames(udc)[n]
+            }
+            #  list the domains
+            domains.downstream=apply(udc, 1, paste, collapse=' ')
+        } else {
+             domain.downstream=rep('FALSE', length(da))
+             domains.downstream=rep('', length(da))
         }
-        #  list the domains
-        domains.downstream=apply(udc, 1, paste, collapse=' ')
-    } else {
-         domain.downstream=rep('FALSE', length(da))
-         domains.downstream=rep('', length(da))
+          # overwrite osg
+        osg[[g]]=data.frame(osg[[g]],     low.complexity.downstream.cnt=low.complexity.downstream.cnt,
+                          domain.downstream=domain.downstream,
+                         domains.downstream=domains.downstream, stringsAsFactors=F)
     }
-      # overwrite osg
-    osg[[g]]=data.frame(osg[[g]],     low.complexity.downstream.cnt=low.complexity.downstream.cnt,
-                      domain.downstream=domain.downstream,
-                     domains.downstream=domains.downstream, stringsAsFactors=F)
-}
 
-oligos=rbindlist(osg)
-oligos=data.frame(oligos, stringsAsFactors=F)
-oligos$domain.downstream=as.logical(oligos$domain.downstream)
-oligos$domains.downstream=gsub('^\\s*', '' , oligos$domains.downstream)
-oligos$domains.downstream=gsub('\\s*$', '' , oligos$domains.downstream)
-oligos$domains.downstream=gsub('\\s\\s', ' ' , oligos$domains.downstream)
-oligos=oligos[order(oligos$unique.Index),]
+    oligos=rbindlist(osg)
+    oligos=data.frame(oligos, stringsAsFactors=F)
+    oligos$domain.downstream=as.logical(oligos$domain.downstream)
+    oligos$domains.downstream=gsub('^\\s*', '' , oligos$domains.downstream)
+    oligos$domains.downstream=gsub('\\s*$', '' , oligos$domains.downstream)
+    oligos$domains.downstream=gsub('\\s\\s', ' ' , oligos$domains.downstream)
+    oligos=oligos[order(oligos$unique.Index),]
 
 
-# merge in abundance information
-oligos=data.frame(oligos, abundance[match(oligos$GENEID, abundance$yORF),], stringsAsFactors=F)
+    # merge in abundance information
+    oligos=data.frame(oligos, abundance[match(oligos$GENEID, abundance$yORF),], stringsAsFactors=F)
 
-# conservation info (gene level)
-oligos$mean.aa.perfect.conserved=mean.aa.perfect.conserved[oligos$GENEID]
-oligos$frac.aa.perfect.conserved=frac.aa.perfect.conserved[oligos$GENEID]
-# assuming oligos are sorted by unique.Index (oligo level)
-oligos$end.conservation = end.conservation
+    # conservation info (gene level)
+    oligos$mean.aa.perfect.conserved=mean.aa.perfect.conserved[oligos$GENEID]
+    oligos$frac.aa.perfect.conserved=frac.aa.perfect.conserved[oligos$GENEID]
+    # assuming oligos are sorted by unique.Index (oligo level)
+    oligos$end.conservation = end.conservation
 
-#dn_ds (H0_w) 
-oligos=merge(oligos, dn_ds, by.x='GENEID', by.y='Gene', all.x=T, sort=F)
-oligos=oligos[order(oligos$unique.Index),]
+    #dn_ds (H0_w) 
+    oligos=merge(oligos, dn_ds, by.x='GENEID', by.y='Gene', all.x=T, sort=F)
+    oligos=oligos[order(oligos$unique.Index),]
 
-# haploinsufficiency
-oligos = merge(oligos, haploinf, by.x='GENEID', by.y='orf', all.x=T, sort=F)
-oligos=oligos[order(oligos$unique.Index),]
+    # haploinsufficiency
+    oligos = merge(oligos, haploinf, by.x='GENEID', by.y='orf', all.x=T, sort=F)
+    oligos=oligos[order(oligos$unique.Index),]
 
-# viability
-oligos$viable_annotation=oligos$GENEID %in% viable_table$Gene.Systematic.Name
+    # viability
+    oligos$viable_annotation=oligos$GENEID %in% viable_table$Gene.Systematic.Name
 
-#evolvability
-oligos$evolvability=evolvability$X[match(oligos$GENEID, evolvability$Systematic.name)]
+    #evolvability
+    oligos$evolvability=evolvability$X[match(oligos$GENEID, evolvability$Systematic.name)]
 
-# human complements null
-oligos$human_complements_null=comp_human$Final.CompStatus[match(oligos$GENEID, comp_human$ScENSP)]
+    # human complements null
+    oligos$human_complements_null=comp_human$Final.CompStatus[match(oligos$GENEID, comp_human$ScENSP)]
 
-# calculate the number of matches for expected guide RNA vs rest of genome 
-# guide GC content 
-dsog=DNAStringSet(oligos$guide)
-lf=letterFrequency(dsog, letters='ACGT', OR=0)
-oligos$guide.GCcontent=(lf[,2]+lf[,3])/rowSums(lf)
-rm(dsog)
-rm(lf)
+    # calculate the number of matches for expected guide RNA vs rest of genome 
+    # guide GC content 
+    dsog=DNAStringSet(oligos$guide)
+    lf=letterFrequency(dsog, letters='ACGT', OR=0)
+    oligos$guide.GCcontent=(lf[,2]+lf[,3])/rowSums(lf)
+    rm(dsog)
+    rm(lf)
 
-oligos$PAMvariantCNT=apply(cbind(t(sapply(oligos$REFCODON, s2c)),t(sapply(oligos$VARCODON, s2c))), 1,
-      function(x) sum(x[1:3]!=x[4:6]))
+    oligos$PAMvariantCNT=apply(cbind(t(sapply(oligos$REFCODON, s2c)),t(sapply(oligos$VARCODON, s2c))), 1,
+          function(x) sum(x[1:3]!=x[4:6]))
 
-og=DNAStringSet(paste0(oligos$guide, 'NGG'))
-guideRC=og
-soi=oligos$guideStrand=='-'
-guideRC[soi]=reverseComplement(guideRC[soi])
+    og=DNAStringSet(paste0(oligos$guide, 'NGG'))
+    guideRC=og
+    soi=oligos$guideStrand=='-'
+    guideRC[soi]=reverseComplement(guideRC[soi])
 
-source('/media/jbloom/d1/coupled_CRISPR/code/BLAST.R')
-# run once 
-#bl = makeblast(db="/media/jbloom/d1/coupled_CRISPR/Reference/BLAST/sacCer3.fasta")
-#blast_all_guides=predictBLAST(bl, guideRC, 
-#                          BLAST_args='-evalue=100 -word_size=8 -gapopen=5 -gapextend=2 -reward=2 -penalty=-3 -num_threads=70',
-#                          custom_format='sseq qseq'
-#                          )
-#save(blast_all_guides, file ='/media/jbloom/d1/coupled_CRISPR/Reference/BLAST/BLAST_oligos.RData')
-load('/media/jbloom/d1/coupled_CRISPR/Reference/BLAST/BLAST_oligos.RData')
+    source('/media/jbloom/d1/coupled_CRISPR/code/BLAST.R')
+    # run once 
+    #bl = makeblast(db="/media/jbloom/d1/coupled_CRISPR/Reference/BLAST/sacCer3.fasta")
+    #blast_all_guides=predictBLAST(bl, guideRC, 
+    #                          BLAST_args='-evalue=100 -word_size=8 -gapopen=5 -gapextend=2 -reward=2 -penalty=-3 -num_threads=70',
+    #                          custom_format='sseq qseq'
+    #                          )
+    #save(blast_all_guides, file ='/media/jbloom/d1/coupled_CRISPR/Reference/BLAST/BLAST_oligos.RData')
+    load('/media/jbloom/d1/coupled_CRISPR/Reference/BLAST/BLAST_oligos.RData')
 
-gi=paste0('Query_', 1:length(guideRC))
-blast_all_guides$ID=match(as.character(blast_all_guides$QueryID), gi)
-blast_all_guides$strand=oligos$guideStrand[blast_all_guides$ID]
-#8  + NGG
-b2=blast_all_guides[(blast_all_guides$strand=='+' & blast_all_guides$Q.end==23 & grepl('GG$', blast_all_guides$sseq)) |
-                                  (blast_all_guides$strand=='-' & blast_all_guides$Q.start==1 & grepl('^CC', blast_all_guides$sseq)),] 
-#now filter on exact match for 8 bases upstream of NGG
-b2=b2[ (b2$strand=='-' &  substr(b2$qseq, 4,11)== substr(b2$sseq, 4,11)) |
-                     (b2$strand=='+' &  substr(b2$qseq, 13,20)== substr(b2$sseq, 13,20)),]
-b2=b2[b2$Alignment.Length>18,]
-b2=b2[(23-b2$Alignment.Length+b2$Mismatches)<6,]
+    gi=paste0('Query_', 1:length(guideRC))
+    blast_all_guides$ID=match(as.character(blast_all_guides$QueryID), gi)
+    blast_all_guides$strand=oligos$guideStrand[blast_all_guides$ID]
+    #8  + NGG
+    b2=blast_all_guides[(blast_all_guides$strand=='+' & blast_all_guides$Q.end==23 & grepl('GG$', blast_all_guides$sseq)) |
+                                      (blast_all_guides$strand=='-' & blast_all_guides$Q.start==1 & grepl('^CC', blast_all_guides$sseq)),] 
+    #now filter on exact match for 8 bases upstream of NGG
+    b2=b2[ (b2$strand=='-' &  substr(b2$qseq, 4,11)== substr(b2$sseq, 4,11)) |
+                         (b2$strand=='+' &  substr(b2$qseq, 13,20)== substr(b2$sseq, 13,20)),]
+    b2=b2[b2$Alignment.Length>18,]
+    b2=b2[(23-b2$Alignment.Length+b2$Mismatches)<6,]
 
-its=split(b2, b2$ID)
-itg=sapply(its, nrow)
-itgn=(as.numeric(names(its)))
-# note that 
-oligos$cnt.offtarget=as.vector(itg[match(oligos$unique.Index, itgn)])
-oligos$cnt.offtarget[is.na(oligos$cnt.offtarget)]=50
-oligos$drop=oligos$drop | oligos$cnt.offtarget==50
+    its=split(b2, b2$ID)
+    itg=sapply(its, nrow)
+    itgn=(as.numeric(names(its)))
+    # note that 
+    oligos$cnt.offtarget=as.vector(itg[match(oligos$unique.Index, itgn)])
+    oligos$cnt.offtarget[is.na(oligos$cnt.offtarget)]=50
+    oligos$drop=oligos$drop | oligos$cnt.offtarget==50
 
-#exactly duplicated
-edup=sapply(its, function(x) 
-      if(nrow(x)>1) {
-       sum(x$Mismatches==1 & x$Gap.Openings==0 & x$Alignment.Length==23)
-      } else {1 } )
-edup=ifelse(edup==1,0,1)
-oligos$dup.gRNA=as.vector(edup[match(oligos$unique.Index, itgn)])
-oligos$dup.gRNA[is.na(oligos$dup.gRNA)]=0
+    #exactly duplicated
+    edup=sapply(its, function(x) 
+          if(nrow(x)>1) {
+           sum(x$Mismatches==1 & x$Gap.Openings==0 & x$Alignment.Length==23)
+          } else {1 } )
+    edup=ifelse(edup==1,0,1)
+    oligos$dup.gRNA=as.vector(edup[match(oligos$unique.Index, itgn)])
+    oligos$dup.gRNA[is.na(oligos$dup.gRNA)]=0
 
-doHMM.2state=function(abg, transitionProbs, emissionProbs, initprobs) {
-    abg=abg
-    DA=abg$DA
-    tt=abg$tt
-    return(
-        try(msm(DA~tt, #data=abg,
-                     qmatrix=transitionProbs, 
-                     hmodel=list(hmmCat(prob=c(emissionProbs[1,])), 
-                                 hmmCat(prob=c(emissionProbs[2,]))), 
-                     exacttimes=T, obstype=rep(1, nrow(abg)), 
-                     obstrue=rep(FALSE, nrow(abg)), initprobs=initprobs) )
-    )
-
-}
-
-doHMM.3state=function(abg,transitionProbs, emissionProbs, initprobs) {
-    abg=abg
-    DA=abg$DA
-    tt=abg$tt
-    return(
-        try(msm(DA~tt, #data=abg,
-                     qmatrix=transitionProbs,
-                     hmodel=list(hmmCat(prob=c(emissionProbs[1,])), 
-                                 hmmCat(prob=c(emissionProbs[2,])), 
-                                 hmmCat(prob=c(emissionProbs[3,])) ),
-                     exacttimes=T, obstype=rep(1, nrow(abg)), 
-                     obstrue=rep(FALSE, nrow(abg)), initprobs=initprobs) )
-    )
-}
+    #http://www.flyrnai.org/evaluateCrispr/
+    gE=read.xls('/media/jbloom/d1/coupled_CRISPR/Reference/gRNA_efficiency.xls')
+    oligos$U6.Terminator=gE$U6.Terminator
+    oligos$Score=gE$Score
+#--------------------------------------------------------------------------------------------end building oligos data structure
 
 
 
-doHMM=function(big.mm, oligo.stats) {
-    # HMM output 
-    # get prior probs for oligo closest to end --------------------------------------------------------------------------------------
-    #ogs=split(oligos, oligos$GENEID)
-    #og.closest=sapply(ogs, function(x) x$unique.Index[which.min(x$dist_from_CDS_end)])
-    #oblup.ind=rownames(red.effs$oligo)
-    #match(oblup.ind, rownames(oligos))
-    #R> sum(red.effs$oligo[na.omit(match(og.closest, match(oblup.ind, rownames(oligos)))),]>0)
-    #[1] 570
-    #R> length(red.effs$oligo[na.omit(match(og.closest, match(oblup.ind, rownames(oligos)))),]>0)
-    #[1] 909
-    ##570/909
-    #---------------------------------------------------------------------------------------------------------------------------
-    #initialize HMM
-    # was .8 and .2
-    initprobs2=c(.63,.37)
-    transitionProbs2=rbind(c(.1,.9),
-                           c(0,  1))
-    # top row was 60% and 40%
-    # from g.alive reset to 74% and 26%
-    emissionProbs2=rbind(c(.74, .26), 
-                         c(.26, .74))
 
-    initprobs3=c(.63, .37, 0)
-                             #A     D     #E
-    transitionProbs3=rbind( c(.1,   .9,      0),
-                            c( 0,   .98,   .02),
-                            c(0,     1,     0))
 
-    # rows are states, columns are observations
-    # two observable states and 3 hidden 
-    emissionProbs3=rbind(   c(.74,   .26, 0),
-                           c(.26,  .74,  0 ),
-                           c(.74,   .26, 0 ))
 
+
+
+
+
+# HMM model
+doHMM =function(big.mm, oligo.stats) {
+      
+    # get priors from big.mm
+    #atog.by.gene.D=split(big.mm[big.mm$GENEID %in% oligo.stats$GENEID[oligo.stats$dubious],],
+    #                   big.mm[big.mm$GENEID %in% oligo.stats$GENEID[oligo.stats$dubious],'GENEID'])
+
+    #atog.by.gene.D=lapply(atog.by.gene.D, function(x) {
+    #                        x=x[order(x$dist_from_CDS_end),];
+    #                        x$tt=as.numeric(as.factor(x$dist_from_CDS_end)); 
+    #                        return(x);
+    #            })
+    #table(as.numeric(unlist(sapply(atog.by.gene.D, function(x) x$DA))))
+
+    # Emission probabilities if actual state is alive (built from barcodes for 'dubious genes')
+    #   1    2 
+    #3789 2887 =   
+    #3789/(3789+2887) probability of emitting alive if alive p=0.5676  1-p=.4324
+   
 
     atog.by.gene=split(big.mm[big.mm$GENEID %in% oligo.stats$GENEID[!oligo.stats$drop],],
                        big.mm[big.mm$GENEID %in% oligo.stats$GENEID[!oligo.stats$drop],'GENEID'])
@@ -629,57 +555,58 @@ doHMM=function(big.mm, oligo.stats) {
     atog.by.gene=lapply(atog.by.gene, function(x) {
                             x=x[order(x$dist_from_CDS_end),];
                             x$tt=as.numeric(as.factor(x$dist_from_CDS_end)); 
-                            return(x);
-                })
+                            return(x); })
 
-     hmm.out=list()
-        for(gene in names(atog.by.gene)) {
+    # Emission probabilities if actual state is dead
+    # table(as.numeric(unlist(sapply(atog.by.gene, function(x) x$DA[x$tt==max(x$tt)]))))
+    #   1    2 
+    # 1646 6823
+    # probability emit alive if dead = p=.1944   probability emit dead if dead= p=.8056
+
+
+    initprobs2=c(.5,.5)
+    emissionProbs2=rbind(c(.5676, .4324),
+                         c(.1944, .8056))
+    transitionProbs2=rbind(c(.5,.5),
+                           c(0,  1))
+
+    # 3 - state HMM with error state 
+    initprobs3=c(.49,.49,.02)
+    transitionProbs3=rbind(c(.5,.5,0),
+                           c(0 ,.98, .02),
+                           c(0,1,0))
+    emissionProbs3=rbind(c(.5676, .4324),
+                         c(.1944, .8056),
+                         c(.5676, .4324))
+
+    
+
+    hmm.out=list()
+    for(gene in names(atog.by.gene)){
         print(gene)
-        abg=atog.by.gene[[gene]]# 'YMR240C']]
-         # for null reverse the order of gene 
-        #abg.r=abg[order(abg$tt, decreasing=T),]
-        #abg.rle=rle(abg.r$dist_from_CDS_end)
-        #abg.r$tt=rep(1:length(abg.rle$lengths), abg.rle$lengths)
-      
-        initprobs2.new=initprobs2
-        mout2=doHMM.2state(abg,transitionProbs2,emissionProbs2, initprobs2)
-        indicator=1
-        nind=rev(seq(.002,.998,.001))
-        nind=c(.999,.001, nind)
-        while(class(mout2)!='msm') {
-            #ni=runif(1)
-            ni=nind[indicator]
-            print(ni)
-            initprobs2.new=c(ni,1-ni)
-            mout2=doHMM.2state(abg,transitionProbs2,emissionProbs2, initprobs2.new)
-            indicator=indicator+1
-        }
-        
-        mout3     = doHMM.3state(abg,transitionProbs3, emissionProbs3, initprobs3)
+       abg=atog.by.gene[[gene]]
+       abg$DA=as.numeric(as.vector(unlist(sapply(split(abg$DA, abg$tt), sort))))
+             
+       observation=split(abg$DA, abg$tt)
 
-        vout=viterbi.msm(mout2)
-        vout3=NULL
-        states.out3=NULL
-        if(class(mout3)=='msm') {
-            vout3=viterbi.msm(mout3)
-            #dpoint3=abg$dist_from_CDS_end[min(which(vout$fitted==2))]
-            x3=abg$dist_from_CDS_end
-            states.out3=sapply(split(vout3$fitted, abg$dist_from_CDS_end), function(i) i[1])
-        }
-        dpoint=abg$dist_from_CDS_end[min(which(vout$fitted==2))]
-        x=(cbind(vout, abg$dist_from_CDS_end))
-        states.out=sapply(split(x$fitted, x[,6]), function(x) x[1])
-
-        hmm.out[[gene]]=list(mout=mout2, vout=vout, mout3=mout3, vout3=vout3, states.out=states.out, states.out3=states.out3)
-    }
-    #names(hmm.out)=names(atog.by.gene)
-    return(hmm.out)
+       ihmm2=initHMM.mobs(c('A','D'), c('1', '2'), startProbs=initprobs2, transProbs=transitionProbs2, emissionProbs=emissionProbs2)
+       mout2=viterbi.mobs(ihmm2, observation)
+       hmm2=t(posterior.mobs(ihmm2, observation))
+       pout2=hmm2 #hmm2/rowSums(hmm2)
+       colnames(pout2)=paste0('posterior', colnames(pout2))
+       ihmm3=initHMM.mobs(c('A','D', 'E'), c('1', '2'), startProbs=initprobs3, transProbs=transitionProbs3, emissionProbs=emissionProbs3)
+       mout3=viterbi.mobs(ihmm3, observation)
+       hmm3=t(posterior.mobs(ihmm3, observation))
+       pout3=hmm3 #/rowSums(hmm3)
+       colnames(pout3)=paste0('posterior', colnames(pout3),3)
+       oname=abg$oligo[match(unique(abg$tt), abg$tt)]
+       dff=data.frame(name=oname, hmm2=mout2,pout2,hmm3=mout3,pout3)
+       rownames(dff)=oname
+       hmm.out[[gene]]=dff
+     }
+    hmm.out.df=do.call('rbind', hmm.out)
+    return(hmm.out.df)
 }
-
-
-
-
-
 
 
 
@@ -749,13 +676,13 @@ makeHMMplots=function(outdir, oligo.stats, big.mm, conservation,dgsplit) {
             text(dgsplit[[gene]][,6]+20,.3, dgsplit[[gene]][,5], cex=1.2)
         }
        if(!is.null(hmm.calls)){
-            if(length(which(hmm.calls==1))>0 ) { }
-                yp=cds.length-og$dist_from_CDS_end[which(hmm.calls==1)]
+            if(length(which(hmm.calls=='A'))>0 ) { }
+                yp=cds.length-og$dist_from_CDS_end[which(hmm.calls=='A')]
                 points(yp, rep(.1, length(yp)), type='l', col='green', pch=20, cex=2, lwd=4, lty=1)
                 points(yp, rep(.1, length(yp)), type='p', col='green', pch=20, cex=2, lwd=4, lty=1)
 
-            if(length(which(hmm.calls==2))>0){
-                yp=cds.length-og$dist_from_CDS_end[which(hmm.calls==2)]
+            if(length(which(hmm.calls=='D'))>0){
+                yp=cds.length-og$dist_from_CDS_end[which(hmm.calls=='D')]
                 points(yp, rep(.1, length(yp)), type='l', col='red', pch=20, cex=2, lwd=4, lty=1)
                 points(yp, rep(.1, length(yp)), type='p', col='red', pch=20, cex=2, lwd=4, lty=1)
 
@@ -777,11 +704,11 @@ makeHMMplots=function(outdir, oligo.stats, big.mm, conservation,dgsplit) {
                 if(!is.na(match(noligos[jj], og$dist_from_CDS_end)) ){
                    mind=match(noligos[jj],og$dist_from_CDS_end )
                     if(!is.na(hmm.calls[[mind]])) {
-                     if(hmm.calls[[mind]]==2 ) {
-                         rect(lim[1]-1, lim[3]-1, lim[2]+1, lim[4]+1,  col = "#ff000011")
+                     if(hmm.calls[[mind]]=='D' ) {
+                         rect(lim[1]-1, lim[3]-1, lim[2]+1, lim[4]+1,  col = ifelse(og$posteriorD[mind]>.9, "#ff000033",  "#ff000011"))
                       } 
-                      if(hmm.calls[[mind]]==1) {
-                          rect(lim[1]-1, lim[3]-1, lim[2]+1, lim[4]+1, col = "#00ff0011")
+                      if(hmm.calls[[mind]]=='A') {
+                          rect(lim[1]-1, lim[3]-1, lim[2]+1, lim[4]+1, col = ifelse(og$posteriorA[mind]>.7, "#00ff0033",  "#00ff0011")) #"#00ff0011")
                      }
                     }
                 }
@@ -789,12 +716,12 @@ makeHMMplots=function(outdir, oligo.stats, big.mm, conservation,dgsplit) {
                      mind=match(noligos[jj], og$dist_from_CDS_end )
                     if(!is.na(hmm.calls3[[mind]])) {
                      
-                     if(hmm.calls3[[mind]]==3) {
+                     if(hmm.calls3[[mind]]=='E') {
                      legend('topright', 'E', text.col='brown', cex=1.5, bty='n')
                     }
                     }
                  }
-                if( sum(gWgL[[j]]$flagsyn)>0) { legend('topright', 'flagsyn', text.col='red') }
+               # if( sum(gWgL[[j]]$flagsyn)>0) { legend('topright', 'flagsyn', text.col='red') }
                 for(k in 1:nrow(gWgL[[j]]) ){ points(t.var, gWgL[[j]][k,41:45], type='b', xlab='time', ylab='RPKM', col=gWgL[[j]][k,'matched.barcode']+1 )          
                                                    points(72+rnorm(1,2),   gWgL[[j]][k,46], col='blue') 
                 }
@@ -810,11 +737,11 @@ makeHMMplots=function(outdir, oligo.stats, big.mm, conservation,dgsplit) {
                    mind=match(noligos[jj],og$dist_from_CDS_end  )
                     if(!is.na(hmm.calls[[mind]])) {
 
-                     if(hmm.calls[[mind]]==2) {
-                         rect(lim[1]-1, lim[3]-1, lim[2]+1, lim[4]+1,  col = "#ff000011")
+                     if(hmm.calls[[mind]]=='D') {
+                         rect(lim[1]-1, lim[3]-1, lim[2]+1, lim[4]+1,  col =ifelse(og$posteriorD[mind]>.9, "#ff000033",  "#ff000011") )# "#ff000011")
                       } 
-                      if(hmm.calls[[mind]]==1) {
-                          rect(lim[1]-1, lim[3]-1, lim[2]+1, lim[4]+1, col = "#00ff0011")
+                      if(hmm.calls[[mind]]=='A') {
+                          rect(lim[1]-1, lim[3]-1, lim[2]+1, lim[4]+1, col =  ifelse(og$posteriorA[mind]>.7, "#00ff0033",  "#00ff0011") ) #"#00ff0011")
                      }
                     }
                 }
@@ -822,21 +749,29 @@ makeHMMplots=function(outdir, oligo.stats, big.mm, conservation,dgsplit) {
                      mind=match(noligos[jj], og$dist_from_CDS_end )
                     if(!is.na(hmm.calls3[[mind]])) {
                     
-                     if(hmm.calls3[[mind]]==3) {
+                     if(hmm.calls3[[mind]]=='E') {
                      legend('topright', 'E', text.col='brown',cex=1.5, bty='n')
                          }
                     }
                  }
 
-                if( sum(gNgL[[j]]$flagsyn)>0) { legend('topright', 'flagsyn', text.col='red') }
+                #if( sum(gNgL[[j]]$flagsyn)>0) { legend('topright', 'flagsyn', text.col='red') }
                 for(k in 1:nrow(gNgL[[j]]) ){ points(t.var, gNgL[[j]][k,41:45], type='b', xlab='time', ylab='RPKM', col=gNgL[[j]][k,'matched.barcode']+1)
                                                    points(72+rnorm(1,2),   gNgL[[j]][k,46], col='blue')
                  }
             } else {plot(0,0, type='n', axes=FALSE) }
 
         }
+
+
         if(!is.na(match(gene, names(gene2alias))) ) { #null(gene2alias[[gene]])) {
+            if(!is.na(SYS2ORF[match(gene,SYS2ORF[,1]),2]) ) { 
+            title(paste(gene, ',', dub.stat, ',',SYS2ORF[match(gene,SYS2ORF[,1]),2],
+                        '\n', gene2alias[[gene]]), outer=T)
+            
+            } else {
             title(paste(gene, ',', dub.stat, '\n', gene2alias[[gene]]), outer=T)
+            }
         } else {
             title(paste(gene, ',', dub.stat), outer=T) 
         }
@@ -884,54 +819,93 @@ doGO=function(testGenes) {
     return(GO.out)
 }
 
+doGO.threshold=function(geneschosen, all.tested) {
+    GO.out=list()
+    for(thisOntology in c('BP', 'MF', 'CC') ) {
+            print(thisOntology)
+            #thisOntology='BP'
+            #thisOntology='MF'
+            #thisOntology='CC'
+            #GOData = new("topGOdata", ontology=thisOntology, allGenes = testGenes, annot = annFUN.gene2GO, gene2GO = gene2GOList, nodeSize=5)
+          
+            testGenes= factor(0+(all.tested %in% geneschosen))
+            names(testGenes)=all.tested
 
+            GOData = new("topGOdata", ontology=thisOntology, allGenes = testGenes,  annot = annFUN.gene2GO, gene2GO = gene2GOList, nodeSize=5)
+            GOresult = runTest(GOData, algorithm="classic", statistic="fisher") #, scoreOrder='decreasing')
+            #GOresult.inc = runTest(GOData, algorithm="classic", statistic="ks", scoreOrder='increasing')
 
+            gt=GenTable(GOData, GOresult, numChar=140, topNodes = length(score(GOresult)))
+            gt$result1=as.numeric(gt$result1)
+            gt=gt[order(gt$result1, decreasing=F),]
+            names(gt)[6]='p.value'
+
+            gene.sets=genesInTerm(GOData, (gt$GO.ID))
+            genes.in.set=sapply(gene.sets, function(x) paste(x[x %in% geneschosen], collapse= ' '))
+
+            gt$genes.in.set=genes.in.set
+            GO.out[[thisOntology]]=gt
+            print(head(gt,20))
+    }
+    return(GO.out)
+}
 
 # run GLMER and augment oligo.stats with 
-doGLMER.oligo.gene=function(formula.input, data.in, oligo.stats, lab) {
+doGLMER.oligo.gene=function(formula.input, data.in, oligo.stats, lab, doGene=TRUE) {
     #optimizer="Nelder_Mead",
     binarized.mmR=glmer(formula.input, family=binomial(link="logit"), data=data.in,
-         control=glmerControl(optCtrl = list(maxfun = 1e6)))               
+         control=glmerControl(optCtrl = list(maxfun = 1e6)), verbose=T)               
     binarized.ranefR=ranef(binarized.mmR, cond=TRUE)
-    gr=cbind(binarized.ranefR$GENEID[,1], as.vector(attr(binarized.ranefR$GENEID, 'postVar')))
-    colnames(gr)=c( 'binarized.gene.blup', 'binarized.gene.blup.postVar')
-    colnames(gr)=paste(colnames(gr), lab, sep='.')
-
-    rownames(gr)=rownames(binarized.ranefR$GENEID)
     dA=cbind(binarized.ranefR$oligo[,1],as.vector(attr(binarized.ranefR$oligo, 'postVar')) )
     rownames(dA)=rownames(binarized.ranefR$oligo)
     colnames(dA)=c('binarized.oligo.blup', 'binarized.oligo.blup.postVar' )
     colnames(dA)=paste(colnames(dA), lab, sep='.')
 
-    # rewrite without using merge ()
-    os= data.frame(oligo.stats, dA[match(oligo.stats$oligo, rownames(dA)),], stringsAsFactors=F)
-    os= data.frame(os, gr[match(oligo.stats$GENEID, rownames(gr)),], stringsAsFactors=F)
-    return(os)
+    if(doGene) {
+        gr=cbind(binarized.ranefR$GENEID[,1], as.vector(attr(binarized.ranefR$GENEID, 'postVar')))
+        colnames(gr)=c( 'binarized.gene.blup', 'binarized.gene.blup.postVar')
+        colnames(gr)=paste(colnames(gr), lab, sep='.')
+        rownames(gr)=rownames(binarized.ranefR$GENEID)
+            
+        # rewrite without using merge ()
+        os= data.frame(oligo.stats, dA[match(oligo.stats$oligo, rownames(dA)),], stringsAsFactors=F)
+        os= data.frame(os, gr[match(oligo.stats$GENEID, rownames(gr)),], stringsAsFactors=F)
+        return(os)
+    } else{
+        os= data.frame(oligo.stats, dA[match(oligo.stats$oligo, rownames(dA)),], stringsAsFactors=F)
+        return(os)
+    }
+
+  }
+
+
+
+
+resampler <- function(data) {
+    n <- nrow(data)
+    resample.rows <- sample(1:n,size=n,replace=TRUE)
+    return(data[resample.rows,])
+}
+
+spline.estimator <- function(data,m=300) {
+    fit <- smooth.spline(x=data[,1],y=data[,2],cv=TRUE)
+    eval.grid <- seq(from=min(data[,1]),to=max(data[,1]),length.out=m)
+    return(predict(fit,x=eval.grid)$y) # We only want the predicted values
+}
+
+spline.cis <- function(data,B,alpha=0.05,m=300) {
+    spline.main <- spline.estimator(data,m=m)
+    spline.boots <- replicate(B,spline.estimator(resampler(data),m=m))
+    cis.lower <- 2*spline.main - apply(spline.boots,1,quantile,probs=1-alpha/2)
+    cis.upper <- 2*spline.main - apply(spline.boots,1,quantile,probs=alpha/2)
+    return(list(main.curve=spline.main,lower.ci=cis.lower,upper.ci=cis.upper,
+    x=seq(from=min(data[,1]),to=max(data[,1]),length.out=m)))
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #as.vector(edup[match(oligos$unique.Index, itgn)])
-
 #y=oligos$binarized.oligo.blup[oligo.stats$unique.Index %in%itgn]
 #itg.b=ifelse(itg==1,0,1)
 #t.test(y~itg.b)
@@ -950,16 +924,6 @@ doGLMER.oligo.gene=function(formula.input, data.in, oligo.stats, lab) {
 #    summary(lm(scale(binarized.oligo.blup)~-1+guide.GCcontent+binot+(PAMvariantCNT)))})
 #o2=sapply(split(oligo.stats$binarized.oligo.blup, oligo.stats$PAMvariantCNT), na.omit)
 #   Mitg.b+itgc))
-
-
-
-
-
-
-
-
-
-
 
 #buildSacCer3_genome_dictionaryFR=function(sacCer3, unique.chrs) {
 #    sc3.dna=list()
@@ -1066,4 +1030,136 @@ doGLMER.oligo.gene=function(formula.input, data.in, oligo.stats, lab) {
 
 #ioi=c(989,990,1553,3110,3111,3112,3113,5181,5422,5423,6383,6386,6387,6393,6818,7101,7102,7139,8799,9237,9238,9239,9240,9241,9242,9244,9245,9936)
 #fisher.test(rbind(c(5,28),c(981,10971)) )
+
+
+#sample data
+#data<-data.frame(x=rnorm(100), y=rnorm(100))
+
+#run and plot
+#sp.cis <- spline.cis(data, B=1000,alpha=0.05)
+#lines(x=sp.cis$x,y=sp.cis$main.curve)
+#lines(x=sp.cis$x,y=sp.cis$lower.ci, lty=2)
+#lines(x=sp.cis$x,y=sp.cis$upper.ci, lty=2)
+
+
+
+
+# using a cutoff of cut, calculate sensitivity, specificity, and classification rate
+#mod=glm(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score, family=binomial(link="logit"), data=big.mm)
+#mod=lm(slope~cnt+p_intercept+expt+binot+U6.Terminator+Score, data=big.mm)
+#
+#y=big.mm$slope.binarized
+#perf = function(cut, mod, y)
+#{
+#   yhat = (mod$fit>cut)
+#   w = which(y==1)
+#   sensitivity = mean( yhat[w] == 1 ) 
+#   specificity = mean( yhat[-w] == 0 ) 
+#   c.rate = mean( y==yhat ) 
+#   d = cbind(sensitivity,specificity)-c(1,1)
+#   d = sqrt( d[1]^2 + d[2]^2 ) 
+#   out = t(as.matrix(c(sensitivity, specificity, c.rate,d)))
+#   colnames(out) = c("sensitivity", "specificity", "c.rate", "distance")
+#   return(out)
+#}
+#
+#s = seq(.01,.99,length=1000)
+#OUT = matrix(0,1000,4)
+#for(i in 1:1000) OUT[i,]=perf(s[i],mod,y)
+#plot(s,OUT[,1],xlab="Cutoff",ylab="Value",cex.lab=1.5,cex.axis=1.5,ylim=c(0,1),type="l",lwd=2,axes=FALSE,col=2)
+#axis(1,seq(0,1,length=5),seq(0,1,length=5),cex.lab=1.5)
+#axis(2,seq(0,1,length=5),seq(0,1,length=5),cex.lab=1.5)
+#lines(s,OUT[,2],col="darkgreen",lwd=2)
+#lines(s,OUT[,3],col=4,lwd=2)
+#lines(s,OUT[,4],col="darkred",lwd=2)
+#box()
+#legend(0,.25,col=c(2,"darkgreen",4,"darkred"),lwd=c(2,2,2,2),c("Sensitivity","Specificity","Classification Rate","Distance"))
+
+
+
+
+
+
+
+
+## previous HMM code
+# # HMM output 
+#    # get prior probs for oligo closest to end --------------------------------------------------------------------------------------
+#    #ogs=split(oligos, oligos$GENEID)
+#    #og.closest=sapply(ogs, function(x) x$unique.Index[which.min(x$dist_from_CDS_end)])
+#    #oblup.ind=rownames(red.effs$oligo)
+#    #match(oblup.ind, rownames(oligos))
+#    #R> sum(red.effs$oligo[na.omit(match(og.closest, match(oblup.ind, rownames(oligos)))),]>0)
+#    #[1] 570
+#    #R> length(red.effs$oligo[na.omit(match(og.closest, match(oblup.ind, rownames(oligos)))),]>0)
+#    #[1] 909
+#    ##570/909
+#     #ih2=baumWelch.mobs(ihmm2, observation, maxIterations=5)
+#       #posterior.mobs(ih2$hmm, observation)
+#       #viterbi.mobs(ih2$hmm, observation)
+#       #hmm4=t(posterior.mobs(ih2$hmm, observation))
+#       #hmm4/rowSums(hmm4)
+#     # prior probabilities of alive and dead at first position closest to end of gene
+#    #tda1=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==1]) , function(x) table(x))
+#    #tda2=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==2]) , function(x) table(x))
+#    #tda3=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==3]) , function(x) table(x))
+#    #tda4=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==4]) , function(x) table(x))
+#    #tda5=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==5]) , function(x) table(x))
+#    #tda6=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==6]) , function(x) table(x))
+#    #tda7=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==7]) , function(x) table(x))
+#    #tda8=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==8]) , function(x) table(x))
+#    #tda9=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==9]) , function(x) table(x))
+#    #tda10=sapply(sapply(atog.by.gene, function(x) x$DA[x$tt==10]) , function(x) table(x))
+#
+#    #table(apply(tda1, 2, which.max))
+#    #  1   2 
+#    #445 589
+#    #p(alive)=.4304  p(dead)=.5696
+#      
+#    #p(alive|d0) =.4304*.5676+.5696*.4324 
+#    #p(dead|d0) = .4304*.1944+.5696*.8056 
+#    #table(apply(tda2, 2, which.max))
+#    #sum(apply(tda2, 2, which.max)==2 &  apply(tda1, 2, which.max)==1)/sum(apply(tda1,2,which.max)==1)
+#    #sum(apply(tda3, 2, which.max)==2 &  apply(tda2, 2, which.max)==1)/sum(apply(tda2, 2, which.max)==1)
+#    #sum(apply(tda4, 2, which.max)==2 &  apply(tda3, 2, which.max)==1)/sum(apply(tda3, 2, which.max)==1)
+#    #sum(apply(tda5, 2, which.max)==2 &  apply(tda4, 2, which.max)==1)/sum(apply(tda4, 2, which.max)==1)
+#    #sum(apply(tda6, 2, which.max)==2 &  apply(tda5, 2, which.max)==1)/sum(apply(tda5, 2, which.max)==1)
+#    #sum(apply(tda7, 2, which.max)==2 &  apply(tda6, 2, which.max)==1)/sum(apply(tda6, 2, which.max)==1)
+#    #sum(apply(tda8, 2, which.max)==2 &  apply(tda7, 2, which.max)==1)/sum(apply(tda7, 2, which.max)==1)
+#    #sum(apply(tda9, 2, which.max)==2 &  apply(tda8, 2, which.max)==1)/sum(apply(tda8, 2, which.max)==1)
+#    #o=list()
+#    #o[[1]]=rep(c('1','2'), apply(tda1,1,sum))
+#    #o[[2]]=rep(c('1','2'), apply(tda2,1,sum))
+#    #o[[3]]=rep(c('1','2'), apply(tda3,1,sum))
+#    #o[[4]]=rep(c('1','2'), apply(tda4,1,sum))
+#    #o[[5]]=rep(c('1','2'), apply(tda5,1,sum))
+#    #o[[6]]=rep(c('1','2'), apply(tda6,1,sum))
+#    #o[[7]]=rep(c('1','2'), apply(tda7,1,sum))
+#    #o[[8]]=rep(c('1','2'), apply(tda8,1,sum))
+#    #o[[9]]=rep(c('1','2'), apply(tda9,1,sum))
+#    #o[[10]]=rep(c('1','2'), apply(tda10,1,sum))
+#    #initprobs2=c(.63,.37)
+#    #transitionProbs2=rbind(c(.1,.9),
+#    #                       c(0,  1))
+#    # top row was 60% and 40%
+#    # from g.alive reset to 74% and 26%
+#    #emissionProbs2=rbind(c(.74, .26), 
+#    #                     c(.26, .74))
+#
+#    # rows are states, columns are observations
+#    # two observable states and 3 hidden 
+#    #initprobs3=c(.62, .35, .02)
+#    #emissionProbs3=rbind(  c(.74,   .26),
+#    #                       c(.26,  .74 ),
+#    #                       c(.74,   .26 ))
+#                                #A     D     #E
+#    #transitionProbs3=rbind( c(.1,   .9,      0),
+#    #                        c( 0,   .98,   .02),
+#    #                        c(0,     1,     0))
+#    #initprobs2=c(.6105, .3985)
+#    #initprobs2.new=initprobs2
+#    #mout2=doHMM.2state(abg,transitionProbs2,emissionProbs2, initprobs2)
+##   viterbi.msm(mout2)
+##
+
 
