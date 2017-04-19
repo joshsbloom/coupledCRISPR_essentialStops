@@ -80,6 +80,31 @@ fit.oligo.model =function(gos, t.var, tot.counts,cl.cnt=2) {
    return(oligo.fits) 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+#gos=gBs
+#tot.counts=colSums(gBsA[,9:13])
+#gn=names(gos)[27]
+#plot(t.var, Xg1[1,], type='p', ylim=c(0,300), ylab='counts', xlab='time')
+#points(t.var, predict(glm(Xg1[1,]~offset(log(tot.counts))+t.var, family=poisson(link=log)), type='response'), col=1, type='l')
+#for(n in 4:nrow(Xg1)){
+#points(t.var, Xg1[n,], type='p', col=n)
+#points(t.var, predict(glm(Xg1[n,]~offset(log(tot.counts))+t.var, family=poisson(link=log)), type='response'), col=n, type='l')
+#readline()
+#}
+
+
+
 fit.oligo.model.combined =function(gos, t.var, tot.counts,cl.cnt=2) {
     registerDoParallel(cl.cnt)
   

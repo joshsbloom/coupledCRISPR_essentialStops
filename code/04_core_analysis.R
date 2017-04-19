@@ -21,9 +21,9 @@ library(gdata)
 library(lmerTest)
 library(gamm4)
 library(optimx)
+library(car)
 #library(msm)
 #library(afex)
-#library(car)
 
 library("BSgenome.Scerevisiae.UCSC.sacCer3")
 sacCer3=BSgenome.Scerevisiae.UCSC.sacCer3
@@ -201,47 +201,24 @@ colnames(dA)=paste('ALL',c('cnt', 'Intercept', 'slope', 'p.value', 'slope.025', 
 #mS=(Mclust(big.mm$slope, G=2, modelNames=c('E',  'V')))
 #plot(mS, what='classification')
 
-slope.mm=lmer(slope~cnt+p_intercept+expt+binot+U6.Terminator+Score+(1|GENEID)+(1|oligo), data=big.mm, REML=TRUE)
-slope.ranef=ranef(slope.mm, cond=TRUE)
-
-gb=cbind(slope.ranef$GENEID[,1], as.vector(attr(slope.ranef$GENEID, 'postVar')))
-colnames(gb)=c('slope.gene.blup', 'slope.gene.blup.postVar')
-rownames(gb)=rownames(slope.ranef$GENEID)
-
-# corrected call
-#binarized.feff=glmer(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score, family=binomial(link="logit"), data=big.mm, verbose=T)
-#reclassify
-#mod=glm(slope.binarized~cnt+p_intercept+binot+U6.Terminator+Score, family=binomial(link="logit"), data=big.mm)
-#mod=lm(slope~cnt+p_intercept+binot+U6.Terminator+Score, data=big.mm)
-#big.mm$slope.corrected=residuals(mod)
-#plot(big.mm$slope, residuals(mod), col='#00000010')
-#big.mm$slope.binarized.corrected=ifelse(residuals(mod)>(0.032), 1,0)
-#test1=glmer(slope.binarized.corrected~cnt+p_intercept+expt+binot+U6.Terminator+Score+dubious+(1|GENEID)+(1|oligo), family=binomial(link="logit"), data=big.mm, verbose=T)
-#test2=glmer(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score+dubious+(1|GENEID)+(1|oligo), family=binomial(link="logit"), data=big.mm, verbose=T)
-
-# modified !!!!!!!
-binarized.mm=glmer(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score+(1|GENEID)+(1|oligo), family=binomial(link="logit"), data=big.mm, verbose=T)
-binarized.ranef=ranef(binarized.mm, cond=TRUE)
-
-gr=cbind(binarized.ranef$GENEID[,1], as.vector(attr(binarized.ranef$GENEID, 'postVar')))
-colnames(gr)=c( 'binarized.gene.blup', 'binarized.gene.blup.postVar')
-rownames(gr)=rownames(binarized.ranef$GENEID)
-
-dA=cbind(dA, slope.ranef$oligo[,1], as.vector(attr(slope.ranef$oligo, 'postVar')), binarized.ranef$oligo[,1],as.vector(attr(binarized.ranef$oligo, 'postVar')) )
-colnames(dA)[9:12]=c('slope.oligo.blup', 'slope.oligo.blup.postVar',
-                     'binarized.oligo.blup', 'binarized.oligo.blup.postVar' )
-
-# rewrite without using merge ()
 os= data.frame(oligos, dW[match(oligos$oligo, rownames(dW)),], stringsAsFactors=F)
 os= data.frame(os, dN[match(oligos$oligo, rownames(dN)),], stringsAsFactors=F)
 os= data.frame(os, dA[match(oligos$oligo, rownames(dA)),], stringsAsFactors=F)
-os= data.frame(os, gb[match(oligos$GENEID, rownames(gb)),], stringsAsFactors=F)
-os= data.frame(os, gr[match(oligos$GENEID, rownames(gr)),], stringsAsFactors=F)
-oligo.stats=os
-rm(os)
 
-# rename as oligos and resort 
+#with slopes and gene
+formula.input=as.formula(slope~cnt+p_intercept+expt+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+oligo.stats=doLMER.oligo.gene(formula.input, data.in=big.mm, os, lab='')
+#with slopes, no gene
+formula.input=as.formula(slope~cnt+p_intercept+expt+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|oligo))
+oligo.stats=doLMER.oligo.gene(formula.input, data.in=big.mm, oligo.stats, lab='ng', doGene=FALSE)
+
+formula.input=as.formula(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm, oligo.stats, lab='')
+#with slopes, no gene
+formula.input=as.formula(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|oligo))
+oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm, oligo.stats, lab='ng', doGene=FALSE)
 oligo.stats=oligo.stats[order(oligo.stats$unique.Index),]
+
 save(oligo.stats, file=paste0(out.base.dir, 'processed/RData/oligo.stats.1.RData'))
 load(paste0(out.base.dir, 'processed/RData/oligo.stats.1.RData'))
 
@@ -251,30 +228,13 @@ load(paste0(out.base.dir, 'processed/RData/oligo.stats.1.RData'))
     # do HMM 
     hmm.out=doHMM(big.mm, oligo.stats)
     oligo.stats = data.frame(oligo.stats, hmm.out[match(oligos$oligo, hmm.out$name),])
-    #hmm.out=doHMM(big.mm, oligo.stats)
-    #save(hmm.out, file=paste0(out.base.dir, 'processed/RData/hmm.out.030917.RData'))
-    #load(paste0(out.base.dir, 'processed/RData/hmm.out.032317.RData'))
-
-    # integrate data from hmm 2 state into oligo table 
-    #so=sapply(hmm.out, function(x) x$states.out)
-    #
-    #dso=data.frame(GENEID=rep(names(so), sapply(so, length )), 
-    #               dist_from_CDS_end=as.vector(unlist(sapply(so, names))),
-    #               hmm2=as.vector(unlist(so)))
-    #dso$gp=paste(dso$GENEID, dso$dist_from_CDS_end, sep=':')
-
-    #oligo.stats$gp=paste(oligo.stats$GENEID, oligo.stats$dist_from_CDS_end, sep=':')
-    #oligo.stats$hmm2=dso$hmm2[match(oligo.stats$gp, dso$gp)]
-
-    # integrate data from hmm 3 state into oligo table
-    #so3=sapply(hmm.out, function(x) x$states.out3)
-    #dso3=data.frame(GENEID=rep(names(so3), sapply(so3, length )), 
-    #               dist_from_CDS_end=as.vector(unlist(sapply(so3, names))),
-    #               hmm3=as.vector(unlist(so3)))
-    #dso3$gp=paste(dso3$GENEID, dso3$dist_from_CDS_end, sep=':')
-    #oligo.stats$hmm3=dso3$hmm3[match(oligo.stats$gp, dso3$gp)]
-    #save(oligo.stats, file=paste0(out.base.dir, 'processed/RData/oligo.stats.2.RData'))
-    #load(paste0(out.base.dir, 'processed/RData/oligo.stats.2.RData'))
+ 
+    acnt=sapply(split(oligo.stats$hmm2, oligo.stats$GENEID), function(x) sum(x=='A',na.rm=T))
+    afrac=sapply(split(oligo.stats$hmm2, oligo.stats$GENEID), function(x) sum(x=='A',na.rm=T)/sum(!is.na(x)))
+    atable=cbind(acnt, afrac)
+    colnames(atable)=c('hmm.count.alive', 'hmm.frac.alive')
+    rm(acnt, afrac)
+    oligo.stats= data.frame(oligo.stats, atable[match(oligo.stats$GENEID, rownames(atable)),], stringsAsFactors=F)
 
     #-------------------------------------------------------------------
     plot.dir='/media/jbloom/d1/coupled_CRISPR/plots/HMM_v9/'
@@ -289,65 +249,132 @@ load(paste0(out.base.dir, 'processed/RData/oligo.stats.1.RData'))
 #                           oligo.stats$hmm3==1)
 #                                ,])
 #    plot( oligo.stats$binarized.oligo.blup,  -log10(oligo.stats$ALL.p.value))
-
-
 # Recalculate BLUP oligo and gene model and remove the essential genes 
-formula.input=as.formula(slope.binarized~scale(cnt)+scale(p_intercept)+as.factor(expt)+scale(guide.GCcontent)+scale(PAMvariantCNT)+binot+U6.Terminator+Score+(1|GENEID)+(1|oligo))
-oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop,], oligo.stats, lab='EssentialAll')
+# scale(guide.GCcontent)+scale(PAMvariantCNT)+
+# BINARIZED
+    formula.input=as.formula(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop,], oligo.stats, lab='EssentialAll')
 
-formula.input=as.formula(slope.binarized~scale(cnt)+scale(p_intercept)+scale(guide.GCcontent)+scale(PAMvariantCNT)+binot+U6.Terminator+Score+(1|GENEID)+(1|oligo))
-oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & (big.mm$expt == 'WT'),], oligo.stats, lab='EssentialWT')
+    formula.input=as.formula(slope.binarized~cnt+p_intercept+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & (big.mm$expt == 'WT'),], oligo.stats, lab='EssentialWT')
 
-formula.input=as.formula(slope.binarized~scale(cnt)+scale(p_intercept)+scale(guide.GCcontent)+scale(PAMvariantCNT)+binot+U6.Terminator+Score+(1|GENEID)+(1|oligo))
-oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & (big.mm$expt == 'NMD'),], oligo.stats, lab='EssentialNMD')
+    formula.input=as.formula(slope.binarized~cnt+p_intercept+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & (big.mm$expt == 'NMD'),], oligo.stats, lab='EssentialNMD')
 
-formula.input=as.formula(slope.binarized~scale(cnt)+scale(p_intercept)+as.factor(expt)+scale(guide.GCcontent)+scale(PAMvariantCNT)+binot+U6.Terminator+Score+(1|oligo))
-oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop,], oligo.stats, lab='EssentialAll_noGene', doGene=FALSE)
+    formula.input=as.formula(slope.binarized~cnt+p_intercept+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & big.mm$domain.downstream,], oligo.stats, lab='Essential.DomainDownstream')
+
+    formula.input=as.formula(slope.binarized~cnt+p_intercept+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & !big.mm$domain.downstream,], oligo.stats, lab='Essential.noDomainDownstream')
+
+#slopes 
+    formula.input=as.formula(slope~cnt+p_intercept+expt+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop,], oligo.stats, lab='EssentialAll')
+
+    formula.input=as.formula(slope~cnt+p_intercept+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & (big.mm$expt == 'WT'),], oligo.stats, lab='EssentialWT')
+
+    formula.input=as.formula(slope~cnt+p_intercept+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & (big.mm$expt == 'NMD'),], oligo.stats, lab='EssentialNMD')
+
+    formula.input=as.formula(slope~cnt+p_intercept+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & big.mm$domain.downstream,], oligo.stats, lab='Essential.DomainDownstream')
+
+    formula.input=as.formula(slope~cnt+p_intercept+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+    oligo.stats=doLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop & !big.mm$domain.downstream,], oligo.stats, lab='Essential.noDomainDownstream')
+
+    oligo.stats=oligo.stats[order(oligo.stats$unique.Index),]
+
+#scale(guide.GCcontent)+scale(PAMvariantCNT)
+#formula.input=as.formula(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|oligo))
+#oligo.stats=doGLMER.oligo.gene(formula.input, data.in=big.mm[!big.mm$drop,], oligo.stats, lab='EssentialAll_noGene', doGene=FALSE)
 #============================================================================================
 save(oligo.stats, file=paste0(out.base.dir, 'processed/RData/oligo.stats.EssentialBlups.RData'))
 load(paste0(out.base.dir, 'processed/RData/oligo.stats.EssentialBlups.RData'))
 
 
-###### NEW ###################################################3
-#remove gene effect
-ibmm=glmer(slope.binarized~
-                cnt+
-                as.factor(expt)+
-                p_intercept+
-                dist_from_CDS_end+
-                CDS_length+
-                PAMvariantCNT+
-                binot+
-                (1|oligo),
-                 family=binomial(link="logit"), data=big.mm[!big.mm$drop,], verbose=T)
-rbmm=ranef(ibmm, cond=TRUE)
-#om =oligo.stats
 
-#dA=cbind(rbmm$oligo[,1],as.vector(attr(rbmm$oligo, 'postVar')) )
-#rownames(dA)=rownames(rbmm$oligo)
-#    colnames(dA)=c('b.oligo.blup', 'b.oligo.blup.postVar' )
+# BIG model with all----------------------------------------------------------------------------------- 
+b3=big.mm[!big.mm$drop , ] # & (big.mm$expt == 'WT') , ]#& big.mm$dist_from_CDS_end<300,]
+b3$expt=as.factor(b3$expt)
+b3$oligo=as.factor(b3$oligo)
+b3$domain.downstream=as.factor(b3$domain.downstream)
+# scale(H0_w)+
+#splic.genes=unlist(strsplit(GO.out[[1]][1,]$genes.in.set.sorted, ' '))
+#spgf=b3$GENEID %in% splic.genes
+s2=glmer(slope.binarized~cnt+expt+p_intercept+guide.GCcontent+dist_from_CDS_end+CDS_length+PAMvariantCNT+
+                binot+U6.Terminator+Score+lcd+evolvability+mean.aa.perfect.conserved+viable_annotation+
+                end.conservation+domain.downstream+(1|GENEID)+(1|oligo), data=b3, verbose=T,  family=binomial(logit), 
+                ,control = glmerControl(optCtrl= list(maxfun=5e5), calc.derivs=FALSE ))
+#save(s2, file=paste0(out.base.dir, 'processed/RData/bigModel.RData'))
+load(paste0(out.base.dir, 'processed/RData/bigModel.RData'))
+s2a=Anova(s2, type='III') 
+summary(s2)
+s2a=s2a[order(s2a$Chisq, decreasing=T),]
+WriteXLS(s2a, '/home/jbloom/Dropbox/Public/CoupledCRISPR/bigRegressionBinarized.xls', row.names=T )
 
-# rewrite without using merge ()
-#om= data.frame(om, dA[match(oligo.stats$oligo, rownames(dA)),], stringsAsFactors=F)
 
-#og =split(om$b.oligo.blup, om$GENEID)
-#ogs=sapply(og, function(x) sum(x<0, na.rm=T)/length(x))
+### GO enrichment
+testGenes=oligo.stats$binarized.gene.blup.EssentialAll[match(unique(oligo.stats[!oligo.stats$drop,]$GENEID), oligo.stats$GENEID)]
+names(testGenes)=oligo.stats$GENEID[match(unique(oligo.stats[!oligo.stats$drop,]$GENEID), oligo.stats$GENEID)]
+testGenes=sort(testGenes, decreasing=T)
+GO.out=doGO(testGenes)
+WriteXLS(GO.out, '/home/jbloom/Dropbox/Public/CoupledCRISPR/GO_gene_blups_ks_test.xls', SheetNames=names(GO.out))
 
-#ogd=unique(om$GENEID[om$dubious])
-#ogdd=unique(om$GENEID[!om$dubious])
+o10=oligo.stats[!oligo.stats$drop,]
+#gset=head(unique(o10$GENEID[order(o10$binarized.gene.blup, decreasing=T)]), 15) 
+#osub=oligo.stats[oligo.stats$hmm2=='A' &!oligo.stats$drop , ] # & oligo.stats$binarized.oligo.blup>0 & !oligo.stats$dubious, ] 
+oss=split(o10, o10$GENEID)
+fracA=sapply(oss, function(x) x$hmm.frac.alive[1])
+fracA=sort(fracA, decreasing=T)
+GO.outHMM=doGO(fracA)
+WriteXLS(GO.outHMM, '/home/jbloom/Dropbox/Public/CoupledCRISPR/GO_fracAlive_ks_test.xls', SheetNames=names(GO.out))
 
-#x11()
-#par(mfrow=c(2,1))
-#hist(ogs[ogd], breaks=100, main='dubious', xlim=c(0,1), xlab='fraction of oligos dead')
-#hist(ogs[ogdd], breaks=100, main='non-dubious',xlim=c(0,1), xlab='fraction of oligos dead')
 
-#x11()
-#par(mfrow=c(2,1))
-#hist(om$b.oligo.blup[!om$dubious], breaks=100, xlim=c(-3,4))
-#hist(om$b.oligo.blup[om$dubious], breaks=100, xlim=c(-3,4))
-#########################################################################
+#frac1=sapply(oss, function(x) sum(x$hmm2=='A',na.rm=T)>0)
+#frac1GO.E=doGO.threshold(names(which(frac1)), names(frac1))
+#frac1GO.D=doGO.threshold(names(which(!frac1)), names(frac1))
+#WriteXLS(frac1GO.E, '/home/jbloom/Desktop/LabMeeting-041217/GO_1e.xls', SheetNames=names(frac1GO.E))
+#WriteXLS(frac1GO.D, '/home/jbloom/Desktop/LabMeeting-041217/GO_1d.xls', SheetNames=names(frac1GO.D))
+#frac2=sapply(oss, function(x) sum(x$hmm2=='A',na.rm=T)>2)
+#frac5=sapply(oss, function(x) sum(x$hmm2=='A',na.rm=T)>4)
+#frac5GO.E=doGO.threshold(names(which(frac5)), names(frac5))
+#---------------------------------------------------------------------------------------------------------
 
-#average amount of conservation at specific positions 
+
+on2=oligo.stats[match(unique(oligo.stats$GENEID), oligo.stats$GENEID),]
+
+
+# Figure 3 -----------------------------------------------------------------------------------------------
+column="binarized.oligo.blup.EssentialAll"
+column="binarized.oligo.blup.Essential.DomainDownstream"
+column="binarized.oligo.blup.Essential.noDomainDownstream"
+column="binarized.oligo.blup.EssentialWT"
+column="binarized.oligo.blup.EssentialNMD"
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150.pdf', width=10, height=10)
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_WTvNMD.pdf', width=10, height=10)
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_DomaninvNoDomain.pdf', width=10, height=10)
+par(mfrow=c(2,1))
+plot(oligo.stats$dist_from_CDS_end, oligo.stats[,column], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000044', main=column, cex=.75)
+axis(1, at=rev(seq(0,150,5)))
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end, y=oligo.stats[,column]))
+x3=x2[x2$distx<500,]
+s3=segmented(lm(y~distx, data=x3), seg.Z=~distx, control=seg.control(n.boot=100))
+seg.fit=cbind(x3$distx, predict(s3))
+seg.fit=seg.fit[order(seg.fit[,1]),]
+points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=4)
+abline(v=confint.segmented(s3)$distx, col='blue')
+#
+ods=split(oligo.stats[,column], oligo.stats$dist_from_CDS_end)
+odsq=t(sapply(ods, function(x) quantile(x, c(.25,.5,.75), na.rm=T)))
+no=as.numeric(rownames(odsq))
+segments(no-.5, odsq[,1], no+.5, odsq[,1], lwd=2)
+segments(no-.5, odsq[,2], no+.5, odsq[,2], col='red', lwd=2)
+segments(no-.5, odsq[,3], no+.5, odsq[,3], lwd=2)
+     
+dev.off()
+#---------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -357,46 +384,115 @@ rbmm=ranef(ibmm, cond=TRUE)
     load(paste0(git.dir, 'summaryStats.RData'))
     #load(paste0(git.dir, 'sampleTable.RData'))
 
-    summary.stats.table=t(do.call('rbind', summary.stats))
-    pilot.norm=t(t(summary.stats.table)/colSums(summary.stats.table))
+    #summary.stats.table=t(do.call('rbind', summary.stats))
+    summary.stats.table=summary.stats
+    pilot.norm=(summary.stats.table)/rowSums(summary.stats.table)
+    pilot.norm[,1]=pilot.norm[,1]+pilot.norm[,'X32']
+    pilot.norm=pilot.norm[,-match('X32', colnames(pilot.norm))]
+    pilot.norm[,'X31']=pilot.norm[,'X31']+pilot.norm[,'X33']
+    pilot.norm=pilot.norm[,-match('X33', colnames(pilot.norm))]
 
     #1 = matches haplotype no mismatches or indels in 50bp window of pam
     #2 = indel in 50 bp window around pam
-    #3 = everything else
     #4 = WT
-    pilot.drop=c(7,9:16, 17:19 , 22:25) #9:16, 23:25)  #replot 22:25
-    pilot.norm.drop=pilot.norm[,-pilot.drop][,-c(9:10)]
-    pilot.norm.drop=pilot.norm.drop[,ncol(pilot.norm.drop):1]
+    #31 = partial edit (+ mismatch)
+    #32 = full edit (+ mismatch)
+    #33 = no edit (+ mismatch)
 
-    pdf(file='~/Desktop/Figure1B_Sri.pdf', width=22, height=8)
+    pilot.norm.drop=t(pilot.norm[rev(c(1:6,8, 27)),])
+    pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure1B.pdf', width=22, height=8)
     par(oma=c(1,20,1,1))
-    bp=barplot(pilot.norm.drop, col=c('black','red', 'grey', 'white'), # density=c(100,55,25,0),
+    bp=barplot(pilot.norm.drop, col=c('black','red','white','grey'), # density=c(100,55,25,0),
                horiz=TRUE, xlim=c(0,1), yaxt='n', 
                beside=T, xlab='fraction of reads', space=c(0,3), width=2 )#, main='Figure1B')
     axis(2, bp[2,], colnames(pilot.norm.drop), las=2)
-    legend('bottomright',fill=c('black','red', 'grey', 'white'), #density= #rev(c(100,55,25,0)) , 
+    legend('bottomright',fill=c('black','red',  'white','grey'), #density= #rev(c(100,55,25,0)) , 
                                                (c('matches expected edit', 
                                                     'indel near edit',
-                                                    'mismatch near edit', 
-                                                    'unedited')))
+                                                    'unedited', 
+                                                    'partial edit')))
     dev.off()
-    # go back and check this 030317
-    # 4A-18A_S1:pJS4:chrV:33123 mismatches 
-    # 4N-18N_S2:pJS4:chrV .. really so many indels??
+
+    # supplement 1B (contrast NEJ1delete vs WT)
+    pilot.norm.drop=t(pilot.norm[rev(c(20:23)),])
+    pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/SFigure1B.pdf', width=22, height=8)
+    par(oma=c(1,20,1,1))
+    bp=barplot(pilot.norm.drop, col=c('black','red', 'white','grey'), # density=c(100,55,25,0),
+               horiz=TRUE, xlim=c(0,1), yaxt='n', 
+               beside=T, xlab='fraction of reads', space=c(0,3), width=2 )#, main='Figure1B')
+    axis(2, bp[2,], colnames(pilot.norm.drop), las=2)
+    legend('bottomright',fill=c('black','red',  'white', 'grey'), #density= #rev(c(100,55,25,0)) , 
+                                               (c('matches expected edit', 
+                                                    'indel near edit',
+                                                    'unedited', 
+                                                    'partial edit')))
+    dev.off()
+    # NMD delete
+    pilot.norm.drop=t(pilot.norm[rev(c(9:14,16)),])
+    pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/SFigure1B_NMDm.pdf', width=22, height=8)
+    par(oma=c(1,20,1,1))
+    bp=barplot(pilot.norm.drop, col=c('black','red', 'white','grey'), # density=c(100,55,25,0),
+               horiz=TRUE, xlim=c(0,1), yaxt='n', 
+               beside=T, xlab='fraction of reads', space=c(0,3), width=2 )#, main='Figure1B')
+    axis(2, bp[2,], colnames(pilot.norm.drop), las=2)
+    legend('bottomright',fill=c('black','red',  'white','grey'), #density= #rev(c(100,55,25,0)) , 
+                                               (c('matches expected edit', 
+                                                    'indel near edit',
+                                                    'unedited', 
+                                                    'partial edit')))
+    dev.off()
 #-------------------------------------------------------------------------------------------------------------
 
-
-
 # Figure 2 slopes (Dubious vs essential)---------------------------------------------------------------------
-    pdf(file='~/Desktop/CC/Figure2.pdf', width=15, height=15)
+    pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure2.pdf', width=12, height=12)
     par(oma=c(1,1,1,1))
-    with(big.mm, {
-        plot(jitter(as.numeric(dubious)), slope, col='#00000013', xaxt='n', xlab='', ylab='barcode slope', main='Figure 2B')
-        axis(1,at=c(0,1), lab=c('essential', 'dubious'))  
-        abline(h=-0.025, col='red')   
-        text(c(.5,.5),c((-0.025-.02),(-0.025+.02)), c('dead', 'alive')) })
+    test= stripchart(oligo.stats$binarized.oligo.blup.ng~oligo.stats$dubious, vertical=T, method='jitter', col='#00000012', pch=19,
+               group.names=c('essential', 'dubious'),
+               ylab='PTC tolerance', xlim=c(0.5,2.5) )
+    boxplot(oligo.stats$binarized.oligo.blup.ng~oligo.stats$dubious, add=T, xlab='', names='', ylab='', outline=F) 
     dev.off()
+
+    dup.guides=oligo.stats$guide[which(duplicated(oligo.stats$guide))]
+    idg= oligo.stats$guide %in% dup.guides
+    osgs=split(oligo.stats[idg,], oligo.stats[idg,]$guide)
+    osgs.table=t(sapply(osgs, function(x) c(x$binarized.oligo.blup.ng[x$dubious], x$binarized.oligo.blup.ng[!x$dubious])))
+    pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/sFigure2_matched_gRNA.pdf', width=8, height=8)
+    plot(osgs.table, xlim=c(-2,4), ylim=c(-2,4), ylab='essential PTC tolerance', xlab='dubious PTC tolerance' )
+    abline(0,1)
+    dev.off()
+    t.test(osgs.table[,1], osgs.table[,2], paired=T)
+
 #------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #gAp=plot(gammALL$gam)
 #gApD=plot(gammALL.dd$gam)
@@ -455,11 +551,388 @@ rbmm=ranef(ibmm, cond=TRUE)
     dev.off()
 
 #----------------------------------------------------------------------------------------------------------------------------------------------
+# HMM based analysis 
+e2=cbind(oligo.stats$hmm2, oligo.stats$dist_from_CDS_end)#[!oligo.stats$dubious,]
+e2[,1]=as.numeric(e2[,1])-1
+e2=na.omit(e2)
+se2=split(e2[,1], e2[,2])
 
+se2.frac=sapply(se2, function(x) sum(x)/length(x))
+plot(as.numeric(names(se2.frac)), se2.frac, xlim=c(1000,0), cex=sqrt(sapply(se2, length)/10))
+
+smb=matrix(0, length(se2.frac), 100)
+for(i in 1:100) {
+smb[,i]=sapply(se2, function(x) {y=sample(x, replace=T);  return(sum(y)/length(y)) })
+}
+segments(as.numeric(names(se2.frac)),
+         apply(smb,1, quantile, .05),
+         as.numeric(names(se2.frac)),
+         apply(smb,1, quantile, .95), col='red')
+
+##### data subset without domain downstream
+par(mfrow=c(2,1))
+e3=cbind(oligo.stats$hmm2, oligo.stats$dist_from_CDS_end)[!oligo.stats$domain.downstream,]
+e3[,1]=as.numeric(e3[,1])-1
+e3=na.omit(e3)
+se3=split(e3[,1], e3[,2])
+se3.frac=sapply(se3, function(x) sum(x)/length(x))
+plot(as.numeric(names(se3.frac)), se3.frac, xlim=c(150,0), cex=sqrt(sapply(se2, length)/20), 
+     main='no domain downstream',
+     xlab="PTC aa position relative to 3'",
+     ylab='fraction of PTCs tolerated')
+
+smb3=matrix(0, length(se3.frac), 100)
+for(i in 1:100) {
+smb3[,i]=sapply(se3, function(x) {y=sample(x, replace=T);  return(sum(y)/length(y)) })
+}
+segments(as.numeric(names(se3.frac)),
+         apply(smb3,1, quantile, .05),
+         as.numeric(names(se3.frac)),
+         apply(smb3,1, quantile, .95), col='red')
+
+##### data subset with domain downstream
+e4=cbind(oligo.stats$hmm2, oligo.stats$dist_from_CDS_end)[oligo.stats$domain.downstream,]
+e4[,1]=as.numeric(e4[,1])-1
+e4=na.omit(e4)
+se4=split(e4[,1], e4[,2])
+se4.frac=sapply(se4, function(x) sum(x)/length(x))
+
+plot(as.numeric(names(se4.frac)), se4.frac, xlim=c(150,0), cex=sqrt(sapply(se2, length)/20), 
+     main='domain downstream',
+     xlab="PTC aa position relative to 3'",
+     ylab='fraction of PTCs tolerated')
+
+smb4=matrix(0, length(se4.frac), 100)
+for(i in 1:100) {
+smb4[,i]=sapply(se4, function(x) {y=sample(x, replace=T);  return(sum(y)/length(y)) })
+}
+segments(as.numeric(names(se4.frac)),
+         apply(smb4,1, quantile, .05),
+         as.numeric(names(se4.frac)),
+         apply(smb4,1, quantile, .95), col='red')
+
+
+
+
+frac6=sapply(oss, function(x) sum(x$hmm2=='A',na.rm=T)>5)
+frac7=sapply(oss, function(x) sum(x$hmm2=='A',na.rm=T)>6)
+points(as.numeric(names(se2.frac)), apply(smb,1, quantile, .95), col='red')
+points(as.numeric(names(se2.frac)), apply(smb,1, quantile, .05), col='red')
+apply(smb,1, quantile, .5)
+apply(smb,1, quantile, .1)
+
+
+#bs.se2=matrreplicate(100, function(i) { sapply(se2, function(x) {y=sample(x);  return(sum(y)/length(y)) })  })
+#, xlim=c(150,0))
+
+plot(e2[,2], predict(glm(e2[,1]~e2[,2], family=binomial(link='logit'))))
+plot(e2[,2], predict(glm(e2[,1]~e2[,2], family=binomial(link='logit')), type='response'))
+        
+        
 # fit binarized slope model  Figure or table 4
-b3=big.mm[!big.mm$drop & big.mm$dist_from_CDS_end<151, ] # & (big.mm$expt == 'WT') , ]#& big.mm$dist_from_CDS_end<300,]
+# ALL DATA--------------------------------------------------------------
+    png(file= '/home/jbloom/Desktop/LabMeeting-041217/02_ranef_slope_models.png', width=1080, height=1080)
+    b3=big.mm[!big.mm$drop , ] # & (big.mm$expt == 'WT') , ]#& big.mm$dist_from_CDS_end<300,]
+    b3$expt=as.factor(b3$expt)
+    b3$domain.downstream=as.factor(b3$domain.downstream)
+    b3$oligo=as.factor(b3$oligo)
+    # scale(H0_w)+
+    #scale(CDS_length)+
+    #binot+
+    # subset of data out to 125
+    # 2 step ... fit full model... then remove terms that explain nothin 
+    #mrna or some other data set
+    #splic.genes=unlist(strsplit(GO.out[[1]][1,]$genes.in.set.sorted, ' '))
+    #spgf=b3$GENEID %in% splic.genes
+    
+    s2=lmer(slope~ cnt+
+                    as.factor(expt)+
+                    p_intercept+
+                    guide.GCcontent+
+                    #dist_from_CDS_end+
+                    CDS_length+
+                    PAMvariantCNT+
+                    binot+U6.Terminator+Score+
+                    #lcd+
+                    #evolvability+
+                    #mean.aa.perfect.conserved+
+                    #viable_annotation+
+                    #end.conservation+
+                    #domain.downstream+
+                    #spgf+
+                    (1|GENEID)+(1|oligo), data=b3, verbose=T)
+    s2a=(Anova(s2, type='III'))
+    s2resid=residuals(s2)
+    s2ranef=ranef(s2)
+    #plot(jitter(b3$dist_from_CDS_end),b3$slope, xlim=c(150,0), col="#00000044",ylim=c(-.125, .05),
+    #     xlab=c("AA distance from 3' end"), ylab='barcode slope')
+    plot(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1], xlim=c(100,0), col="#000000BB",
+            xlab=c("AA distance from 3' end"), ylab='oligo random effect', ylim=c(-.04,.04))
+    x2=cbind(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1])
+    colnames(x2)=c('distx', 'y')
+    x2=data.frame(x2)
+    #for(s in seq(10,1000,10)){
+    x3=x2[x2$distx<500,]
+    l1=lm(y~distx, data=x3)
+    s3=segmented(l1, seg.Z=~distx, control=seg.control(n.boot=100))
+    s3n=nls(y~c+a*(exp(-b*distx)), data=x3, start=list(c=-.001,a=0.001, b=.05))
+    which.min(c(BIC(s3n), BIC(s3)))
+    seg.fit=cbind(x3$distx, predict(s3))
+    seg.fit=seg.fit[order(seg.fit[,1]),]
+
+    seg.fitn=cbind(x3$distx, predict(s3n))
+    seg.fitn=seg.fitn[order(seg.fitn[,1]),]
+
+    points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=3)
+    points(seg.fit[,1], seg.fitn[,2], col='red', type='l', lwd=3)
+    abline(v=confint.segmented(s3)$distx, col='blue')
+
+    text(90, .04, expression(y = -0.00129+0.01469(e^(-0.05920*x))), col='red', cex=1.5)
+    dev.off()
+    xx=1:150
+    yy=-0.00129+0.01469*(exp(-0.05920*xx))
+
+#---------------------------------------------------------------------
+# domain downstream
+    png(file= '/home/jbloom/Desktop/LabMeeting-041217/02_ranef_slope_models+by_domain.png', width=1080, height=1080)
+    par(mfrow=c(2,1))
+    b3=big.mm[!big.mm$drop & big.mm$domain.downstream, ] # & (big.mm$expt == 'WT') , ]#& big.mm$dist_from_CDS_end<300,]
+    b3$expt=as.factor(b3$expt)
+    b3$domain.downstream=as.factor(b3$domain.downstream)
+    b3$oligo=as.factor(b3$oligo)
+    # scale(H0_w)+
+    #scale(CDS_length)+
+    #binot+
+    # subset of data out to 125
+    # 2 step ... fit full model... then remove terms that explain nothin 
+    #mrna or some other data set
+    #splic.genes=unlist(strsplit(GO.out[[1]][1,]$genes.in.set.sorted, ' '))
+    #spgf=b3$GENEID %in% splic.genes
+    s2=lmer(slope~ cnt+
+                    as.factor(expt)+
+                    p_intercept+
+                    guide.GCcontent+
+                    #dist_from_CDS_end+
+                    CDS_length+
+                    PAMvariantCNT+
+                    binot+U6.Terminator+Score+
+                    #lcd+
+                    #evolvability+
+                    #mean.aa.perfect.conserved+
+                    #viable_annotation+
+                    #end.conservation+
+                    #domain.downstream+
+                    #spgf+
+                    (1|GENEID)+(1|oligo), data=b3, verbose=T)
+    s2a=(Anova(s2, type='III'))
+    s2resid=residuals(s2)
+    s2ranef=ranef(s2)
+    #plot(jitter(b3$dist_from_CDS_end),b3$slope, xlim=c(150,0), col="#00000044",ylim=c(-.125, .05),
+    #     xlab=c("AA distance from 3' end"), ylab='barcode slope')
+    plot(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1], xlim=c(100,0), col="#00000088",
+            xlab=c("AA distance from 3' end"), ylab='oligo random effect', ylim=c(-.04,.04), main='has downtream domain')
+    x2=cbind(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1])
+    colnames(x2)=c('distx', 'y')
+    x2=data.frame(x2)
+    #for(s in seq(10,1000,10)){
+    x3=x2[x2$distx<500,]
+    l1=lm(y~distx, data=x3)
+    s3=segmented(l1, seg.Z=~distx, control=seg.control(n.boot=100))
+    s3n=nls(y~c+a*(exp(-b*distx)), data=x3, start=list(c=-.001,a=0.001, b=.05))
+    which.min(c(BIC(s3n), BIC(s3)))
+    seg.fit=cbind(x3$distx, predict(s3))
+    seg.fit=seg.fit[order(seg.fit[,1]),]
+
+    seg.fitn=cbind(x3$distx, predict(s3n))
+    seg.fitn=seg.fitn[order(seg.fitn[,1]),]
+
+    points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=3)
+    points(seg.fit[,1], seg.fitn[,2], col='red', type='l', lwd=3)
+    #abline(v=confint.segmented(s3)$distx, col='blue')
+
+    #### no domain downstream
+b3=big.mm[!big.mm$drop & !big.mm$domain.downstream, ] # & (big.mm$expt == 'WT') , ]#& big.mm$dist_from_CDS_end<300,]
+    b3$expt=as.factor(b3$expt)
+    b3$domain.downstream=as.factor(b3$domain.downstream)
+    b3$oligo=as.factor(b3$oligo)
+    # scale(H0_w)+
+    #scale(CDS_length)+
+    #binot+
+    # subset of data out to 125
+    # 2 step ... fit full model... then remove terms that explain nothin 
+    #mrna or some other data set
+       s2=lmer(slope~ cnt+
+                    as.factor(expt)+
+                    p_intercept+
+                    guide.GCcontent+
+                    #dist_from_CDS_end+
+                    CDS_length+
+                    PAMvariantCNT+
+                    binot+U6.Terminator+Score+
+                    #lcd+
+                    #evolvability+
+                    #mean.aa.perfect.conserved+
+                    #viable_annotation+
+                    #end.conservation+
+                    #domain.downstream+
+                    #spgf+
+                    (1|GENEID)+(1|oligo), data=b3, verbose=T)
+    s2a=(Anova(s2, type='III'))
+    s2resid=residuals(s2)
+    s2ranef=ranef(s2)
+    #plot(jitter(b3$dist_from_CDS_end),b3$slope, xlim=c(150,0), col="#00000044",ylim=c(-.125, .05),
+    #     xlab=c("AA distance from 3' end"), ylab='barcode slope')
+    #x11()
+    plot(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1], xlim=c(100,0), col="#00000088",
+            xlab=c("AA distance from 3' end"), ylab='oligo random effect', ylim=c(-.04,.04), main='no downtream domain')
+    x2=cbind(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1])
+    colnames(x2)=c('distx', 'y')
+    x2=data.frame(x2)
+    #for(s in seq(10,1000,10)){
+    x3=x2[x2$distx<500,]
+    l1=lm(y~distx, data=x3)
+    s3=segmented(l1, seg.Z=~distx, control=seg.control(n.boot=100))
+    s3n=nls(y~c+a*(exp(-b*distx)), data=x3, start=list(c=-.001,a=0.001, b=.05))
+    which.min(c(BIC(s3n), BIC(s3)))
+    seg.fit=cbind(x3$distx, predict(s3))
+    seg.fit=seg.fit[order(seg.fit[,1]),]
+
+    seg.fitn=cbind(x3$distx, predict(s3n))
+    seg.fitn=seg.fitn[order(seg.fitn[,1]),]
+    points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=3)
+    points(seg.fit[,1], seg.fitn[,2], col='red', type='l', lwd=3)
+    abline(v=confint.segmented(s3)$distx, col='blue')
+dev.off()
+
+####BY WT and NMD
+    png(file= '/home/jbloom/Desktop/LabMeeting-041217/02_ranef_slope_models+by_WT_vs_NMD.png', width=1080, height=1080)
+    par(mfrow=c(2,1))
+    b3=big.mm[!big.mm$drop & big.mm$expt == 'WT', ]#& big.mm$dist_from_CDS_end<300,]
+    b3$expt=as.factor(b3$expt)
+    b3$domain.downstream=as.factor(b3$domain.downstream)
+    b3$oligo=as.factor(b3$oligo)
+    # scale(H0_w)+
+    #scale(CDS_length)+
+    #binot+
+    # subset of data out to 125
+    # 2 step ... fit full model... then remove terms that explain nothin 
+    #mrna or some other data set
+    #splic.genes=unlist(strsplit(GO.out[[1]][1,]$genes.in.set.sorted, ' '))
+    #spgf=b3$GENEID %in% splic.genes
+    s2=lmer(slope~ cnt+
+                    p_intercept+
+                    guide.GCcontent+
+                    #dist_from_CDS_end+
+                    CDS_length+
+                    PAMvariantCNT+
+                    binot+U6.Terminator+Score+
+                    #lcd+
+                    #evolvability+
+                    #mean.aa.perfect.conserved+
+                    #viable_annotation+
+                    #end.conservation+
+                    #domain.downstream+
+                    #spgf+
+                    (1|GENEID)+(1|oligo), data=b3, verbose=T)
+    s2a=(Anova(s2, type='III'))
+    s2resid=residuals(s2)
+    s2ranef=ranef(s2)
+    #plot(jitter(b3$dist_from_CDS_end),b3$slope, xlim=c(150,0), col="#00000044",ylim=c(-.125, .05),
+    #     xlab=c("AA distance from 3' end"), ylab='barcode slope')
+    plot(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1], xlim=c(100,0), col="#00000088",
+            xlab=c("AA distance from 3' end"), ylab='oligo random effect', ylim=c(-.04,.04), main='WT')
+    x2=cbind(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1])
+    colnames(x2)=c('distx', 'y')
+    x2=data.frame(x2)
+    #for(s in seq(10,1000,10)){
+    x3=x2[x2$distx<500,]
+    l1=lm(y~distx, data=x3)
+    s3=segmented(l1, seg.Z=~distx, control=seg.control(n.boot=100))
+    print(summary(s3))
+    s3n=nls(y~c+a*(exp(-b*distx)), data=x3, start=list(c=-.001,a=0.001, b=.05))
+    which.min(c(BIC(s3n), BIC(s3)))
+    seg.fit=cbind(x3$distx, predict(s3))
+    seg.fit=seg.fit[order(seg.fit[,1]),]
+
+    seg.fitn=cbind(x3$distx, predict(s3n))
+    seg.fitn=seg.fitn[order(seg.fitn[,1]),]
+
+    points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=3)
+    points(seg.fit[,1], seg.fitn[,2], col='red', type='l', lwd=3)
+    abline(v=confint.segmented(s3)$distx, col='blue')
+
+    b3=big.mm[!big.mm$drop & big.mm$expt == 'NMD', ]#& big.mm$dist_from_CDS_end<300,]
+    b3$expt=as.factor(b3$expt)
+    b3$domain.downstream=as.factor(b3$domain.downstream)
+    b3$oligo=as.factor(b3$oligo)
+    # scale(H0_w)+
+    #scale(CDS_length)+
+    #binot+
+    # subset of data out to 125
+    # 2 step ... fit full model... then remove terms that explain nothin 
+    #mrna or some other data set
+    #splic.genes=unlist(strsplit(GO.out[[1]][1,]$genes.in.set.sorted, ' '))
+    #spgf=b3$GENEID %in% splic.genes
+    s2=lmer(slope~ cnt+
+                    p_intercept+
+                    guide.GCcontent+
+                    #dist_from_CDS_end+
+                    CDS_length+
+                    PAMvariantCNT+
+                    binot+U6.Terminator+Score+
+                    #lcd+
+                    #evolvability+
+                    #mean.aa.perfect.conserved+
+                    #viable_annotation+
+                    #end.conservation+
+                    #domain.downstream+
+                    #spgf+
+                    (1|GENEID)+(1|oligo), data=b3, verbose=T)
+    s2a=(Anova(s2, type='III'))
+    s2resid=residuals(s2)
+    s2ranef=ranef(s2)
+    #plot(jitter(b3$dist_from_CDS_end),b3$slope, xlim=c(150,0), col="#00000044",ylim=c(-.125, .05),
+    #     xlab=c("AA distance from 3' end"), ylab='barcode slope')
+    plot(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1], xlim=c(100,0), col="#00000088",
+            xlab=c("AA distance from 3' end"), ylab='oligo random effect', ylim=c(-.04,.04), main='NMD del')
+    x2=cbind(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1])
+    colnames(x2)=c('distx', 'y')
+    x2=data.frame(x2)
+    #for(s in seq(10,1000,10)){
+    x3=x2[x2$distx<500,]
+    l1=lm(y~distx, data=x3)
+    s3=segmented(l1, seg.Z=~distx, control=seg.control(n.boot=100))
+    print(summary(s3))
+
+    s3n=nls(y~c+a*(exp(-b*distx)), data=x3, start=list(c=-.001,a=0.001, b=.05))
+    which.min(c(BIC(s3n), BIC(s3)))
+    seg.fit=cbind(x3$distx, predict(s3))
+    seg.fit=seg.fit[order(seg.fit[,1]),]
+
+    seg.fitn=cbind(x3$distx, predict(s3n))
+    seg.fitn=seg.fitn[order(seg.fitn[,1]),]
+
+    points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=3)
+    points(seg.fit[,1], seg.fitn[,2], col='red', type='l', lwd=3)
+    abline(v=confint.segmented(s3)$distx, col='blue')
+    dev.off()
+
+
+
+
+
+
+
+
+
+### ADD Back terms 
+
+
+
+
+b3=big.mm[!big.mm$drop , ] # & (big.mm$expt == 'WT') , ]#& big.mm$dist_from_CDS_end<300,]
 b3$expt=as.factor(b3$expt)
-b3$domain.downstream=as.factor(b3$domain.downstream)
+#b3$domain.downstream=as.factor(b3$domain.downstream)
 b3$oligo=as.factor(b3$oligo)
 # scale(H0_w)+
 #scale(CDS_length)+
@@ -467,47 +940,69 @@ b3$oligo=as.factor(b3$oligo)
 # subset of data out to 125
 # 2 step ... fit full model... then remove terms that explain nothin 
 #mrna or some other data set
-
 splic.genes=unlist(strsplit(GO.out[[1]][1,]$genes.in.set.sorted, ' '))
 spgf=b3$GENEID %in% splic.genes
-
-slopeAB=glmer(slope.binarized~
-                cnt+
+s2=lmer(slope~cnt+
                 as.factor(expt)+
                 p_intercept+
                 guide.GCcontent+
                 dist_from_CDS_end+
                 CDS_length+
                 PAMvariantCNT+
-                binot+
+                binot+U6.Terminator+Score+
                 lcd+
                 evolvability+
                 mean.aa.perfect.conserved+
                 viable_annotation+
                 end.conservation+
-                domain.downstream+spgf+
-                (1|GENEID)+(1|oligo), data=b3, 
-            family=binomial(link="logit"),
-            control=glmerControl(optimizer="Nelder_Mead", optCtrl = list(maxfun = 1e6)) , verbose=T)
-            
-    #summary(slope5)
-    at=(anova(slopeAB, test='F'))
-    length(predict(slopeA))
-    at[order(at[,1], decreasing=T),]
-ssc=summary(slopeAB)$coefficients
+                domain.downstream+
+                spgf+
+                #spgf+
+                (1|GENEID)+(1|oligo), data=b3, verbose=T)
+s2a2=anova(s2)
+s2a=Anova(s2, type='III') #, test.statistic=c("F"))
+s2a[order(s2a$Chisq, decreasing=T),]
 
-#
 
-#gAp=plot(gammALL$gam)
-#gApD=plot(gammALL.dd$gam)
-#gApnD=plot(gammALL.ndd$gam)
+# DO GO 
 
-#dev.off()
-#plot(gAp[[1]]$x, gAp[[1]]$fit, type='l', xlim=c(200,0))
-#points(gAp[[1]]$x, gAp[[1]]$fit+gAp[[1]]$se, type='l', lty=2)
-#points(gAp[[1]]$x, gAp[[1]]$fit-gAp[[1]]$se, type='l', lty=2)
 
-# raw data and lines from regression model
+
+
+s2resid=residuals(s2)
+s2ranef=ranef(s2)
+
+plot(jitter(b3$dist_from_CDS_end),b3$slope, xlim=c(150,0), col="#00000044",ylim=c(-.125, .05),
+     xlab=c("AA distance from 3' end"), ylab='barcode slope')
+plot(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1], xlim=c(150,0), col="#00000055")
+x2=cbind(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1])
+colnames(x2)=c('distx', 'y')
+#x2=data.frame(x2)
+#for(s in seq(10,1000,10)){
+x3=x2[x2$distx<500,]
+l1=lm(y~distx, data=x3)
+s3=segmented(l1, seg.Z=~distx)
+lines(s3, col='red')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 plot_by_pos=with(oligo.stats[!oligo.stats$drop & !is.na(oligo.stats$binarized.oligo.blup.EssentialAll) & oligo.stats$dist_from_CDS_end<150,], {
@@ -693,6 +1188,22 @@ replacementSeq=DNAStringSet(ifelse(odub$codingStrand=='-',  'TCA', 'TGA'))
 pdub=predictCoding(dubEffect,  txdb, sacCer3, replacementSeq, ignore.strand=FALSE)
 pdub.df=data.frame(pdub)
 
+binarized.mm.ng=glmer(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score+(1|oligo), family=binomial(link="logit"), data=big.mm, verbose=T)
+binarized.ranef.ng=ranef(binarized.mm.ng, cond=TRUE)
+osng=binarized.ranef.ng$oligo[match(oligos$oligo, rownames(binarized.ranef.ng$oligo)),1]
+pdub$blup=osng[pdub$id]
+pdub$blupg=oligo.stats$binarized.oligo.blup[pdub$id]
+
+
+boxplot(osgs.table[,1], osgs.table[,2])
+a=cbind(osgs.table[,1], 1)
+b=cbind(osgs.table[,2], 2)
+cc=cbind(a,b)
+apply(cc, 1, function(x) { segments(x[2],x[1], x[4], x[3]) })
+
+
+osgs.table.bad=t(sapply(osgs, function(x) c(x$binarized.oligo.blup[x$dubious], x$binarized.oligo.blup[!x$dubious])))
+t.test(osgs.table.bad[,1], osgs.table.bad[,2], paired=F)
 
 
 
@@ -706,5 +1217,152 @@ pdub.df=data.frame(pdub)
 
 
 
+
+
+gammALL.dd  =gamm4(slope.binarized~s(dist_from_CDS_end) +scale(cnt) +as.factor(expt)+ scale(p_intercept)+ scale(guide.GCcontent)+binot, random=~(1|oligo), family=binomial(link='logit'), data=big.mm[!big.mm$drop & big.mm$domain.downstream,]) 
+gammALL.ndd =gamm4(slope.binarized~s(dist_from_CDS_end) +scale(cnt) +as.factor(expt)+ scale(p_intercept)+ scale(guide.GCcontent)+binot, random=~(1|oligo), family=binomial(link='logit'), data=big.mm[!big.mm$drop & !big.mm$domain.downstream,])
+
+slopeAB=glmer(slope.binarized~
+                cnt+
+                as.factor(expt)+
+                p_intercept+
+                guide.GCcontent+
+                dist_from
+            
+            _CDS_end+
+                CDS_length+
+                PAMvariantCNT+
+                binot+
+                lcd+
+                evolvability+
+                mean.aa.perfect.conserved+
+                viable_annotation+
+                end.conservation+
+                domain.downstream+
+                #spgf+
+                (1|GENEID)+(1|oligo), data=b3, 
+            family=binomial(link="logit"),
+            control=glmerControl(optimizer="Nelder_Mead", optCtrl = list(maxfun = 1e6)) , verbose=T)
+ pp=predict(slopeAB, type='response')
+pp2=residuals(slopeAB) #, type='response')    
+plot(b3$dist_from_CDS_end[match(names(pp), rownames(b3))], pp2, xlim=c(150,0))
+
+plot(b3$dist_from_CDS_end, jitter(as.numeric(b3$hmm2)), xlim=c(150,0))
+
+    #summary(slope5)
+    gALL.anova=(Anova(slopeAB, type='III'))
+
+    at=(anova(slopeAB, test='F'))
+    length(predict(slopeA))
+    at[order(at[,1], decreasing=T),]
+ssc=summary(slopeAB)$coefficients
+
+# prototype with slopes ... switch back to binarized if possible
+
+s2=lmer(slope~  cnt+
+                as.factor(expt)+
+                p_intercept+
+                guide.GCcontent+
+                #dist_from_CDS_end+
+                CDS_length+
+                PAMvariantCNT+
+                binot+
+                #lcd+
+                #evolvability+
+                #mean.aa.perfect.conserved+
+                #viable_annotation+
+                #end.conservation+
+                #domain.downstream+
+                #spgf+
+                (1|GENEID)+(1|oligo), data=b3, verbose=T)
+s2a=(Anova(s2, type='III'))
+s2resid=residuals(s2)
+s2ranef=ranef(s2)
+
+plot(jitter(b3$dist_from_CDS_end),b3$slope, xlim=c(150,0), col="#00000044",ylim=c(-.125, .05),
+     xlab=c("AA distance from 3' end"), ylab='barcode slope')
+plot(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1], xlim=c(1000,0), col="#00000055")
+x2=cbind(oligo.stats$dist_from_CDS_end[match(rownames(s2ranef$oligo), oligo.stats$oligo)], s2ranef$oligo[,1])
+colnames(x2)=c('distx', 'y')
+x2=data.frame(x2)
+l1=lm(y~distx, data=x2)
+s3=segmented(l1, seg.Z=~distx)
+
+boxplot(cut(x2$y~x2$distx, 100))
+
+, col="#00000044",ylim=c(-.125, .05),
+     xlab=c("AA distance from 3' end"), ylab='barcode slope')
+
+
+plot(b3$dist_from_CDS_end[match(names(s2r), rownames(b3))],s2r, xlim=c(150,0))
+
+sspline=smooth.spline(b3$dist_from_CDS_end[match(names(s2r), rownames(b3))],s2r)
+
+# xx=cbind(x$dist_from_CDS_end[x$domain.downstream], x$binarized.oligo.blup.EssentialAll[x$domain.downstream])
+    xx=na.omit(xx)
+    data=xx
+    sc=spline.cis(data,B=1000, alpha=.01)
+
+#gAp=plot(gammALL$gam)
+#gApD=plot(gammALL.dd$gam)
+#gApnD=plot(gammALL.ndd$gam)
+
+#dev.off()
+#plot(gAp[[1]]$x, gAp[[1]]$fit, type='l', xlim=c(200,0))
+#points(gAp[[1]]$x, gAp[[1]]$fit+gAp[[1]]$se, type='l', lty=2)
+#points(gAp[[1]]$x, gAp[[1]]$fit-gAp[[1]]$se, type='l', lty=2)
+
+# raw data and lines from regression model
+
+
+
+
+
+
+
+
+
+
+
+###### NEW ###################################################3
+#remove gene effect
+#ibmm=glmer(slope.binarized~
+#                cnt+
+#                as.factor(expt)+
+#                p_intercept+
+#                dist_from_CDS_end+
+#                CDS_length+
+#                PAMvariantCNT+
+#                binot+
+#                (1|oligo),
+#                 family=binomial(link="logit"), data=big.mm[!big.mm$drop,], verbose=T)
+#rbmm=ranef(ibmm, cond=TRUE)
+#om =oligo.stats
+
+#dA=cbind(rbmm$oligo[,1],as.vector(attr(rbmm$oligo, 'postVar')) )
+#rownames(dA)=rownames(rbmm$oligo)
+#    colnames(dA)=c('b.oligo.blup', 'b.oligo.blup.postVar' )
+
+# rewrite without using merge ()
+#om= data.frame(om, dA[match(oligo.stats$oligo, rownames(dA)),], stringsAsFactors=F)
+
+#og =split(om$b.oligo.blup, om$GENEID)
+#ogs=sapply(og, function(x) sum(x<0, na.rm=T)/length(x))
+
+#ogd=unique(om$GENEID[om$dubious])
+#ogdd=unique(om$GENEID[!om$dubious])
+
+#x11()
+#par(mfrow=c(2,1))
+#hist(ogs[ogd], breaks=100, main='dubious', xlim=c(0,1), xlab='fraction of oligos dead')
+#hist(ogs[ogdd], breaks=100, main='non-dubious',xlim=c(0,1), xlab='fraction of oligos dead')
+
+#x11()
+#par(mfrow=c(2,1))
+#hist(om$b.oligo.blup[!om$dubious], breaks=100, xlim=c(-3,4))
+#hist(om$b.oligo.blup[om$dubious], breaks=100, xlim=c(-3,4))
+#########################################################################
+
+#average amount of conservation at specific positions 
 
 
