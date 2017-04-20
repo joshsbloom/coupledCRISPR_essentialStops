@@ -1,5 +1,10 @@
 # FUNCTIONS -----------------------------------------------------------------------------------------------------------
 
+# some global variables
+x <- org.Sc.sgdALIAS
+mapped_probes <- mappedkeys(x)
+gene2alias <- sapply(as.list(x[mapped_probes]), paste, collapse=' ')
+
 # setup for GO enrichment analysis ------------------------------------------------------------------------
 myGene2GO.full.table=read.delim('/data/eQTL/reference/go_annotations_sgd.txt',  sep='\t', header=F, stringsAsFactors=F)
 
@@ -714,7 +719,7 @@ makeHMMplots=function(outdir, oligo.stats, big.mm, conservation,dgsplit) {
             }
         }
 
-       points(og$PROTEINLOC, ifelse(-log10(og$ALL.p.value)>20, 20, -log10(og$ALL.p.value))/20, cex=3, pch='*' )
+       #points(og$PROTEINLOC, ifelse(-log10(og$ALL.p.value)>20, 20, -log10(og$ALL.p.value))/20, cex=3, pch='*' )
        prattempt=seq(0,20,1)
        axis(4, at=prattempt/20, labels=prattempt)
 
@@ -884,12 +889,12 @@ doGLMER.oligo.gene=function(formula.input, data.in, oligo.stats, lab, doGene=TRU
     dA=cbind(binarized.ranefR$oligo[,1],as.vector(attr(binarized.ranefR$oligo, 'postVar')) )
     rownames(dA)=rownames(binarized.ranefR$oligo)
     colnames(dA)=c('binarized.oligo.blup', 'binarized.oligo.blup.postVar' )
-    colnames(dA)=paste(colnames(dA), lab, sep='.')
+    if(lab=='') { } else{  colnames(dA)=paste(colnames(dA), lab, sep='.')    }
 
     if(doGene) {
         gr=cbind(binarized.ranefR$GENEID[,1], as.vector(attr(binarized.ranefR$GENEID, 'postVar')))
         colnames(gr)=c( 'binarized.gene.blup', 'binarized.gene.blup.postVar')
-        colnames(gr)=paste(colnames(gr), lab, sep='.')
+        if(lab=='') { } else{   colnames(gr)=paste(colnames(gr), lab, sep='.')      }
         rownames(gr)=rownames(binarized.ranefR$GENEID)
             
         # rewrite without using merge ()
@@ -903,7 +908,37 @@ doGLMER.oligo.gene=function(formula.input, data.in, oligo.stats, lab, doGene=TRU
 
   }
 
+doLMER.oligo.gene=function(formula.input, data.in, oligo.stats, lab='', doGene=TRUE) {
+    #optimizer="Nelder_Mead",
+    #slope.mmR=glmer(formula.input, family=binomial(link="logit"), data=data.in,
+    #     control=glmerControl(optCtrl = list(maxfun = 1e6)), verbose=T)               
+    slope.mmR=lmer(formula.input, data=data.in, verbose=T)
+    slope.ranefR=ranef(slope.mmR, cond=TRUE)
+    dA=cbind(slope.ranefR$oligo[,1],as.vector(attr(slope.ranefR$oligo, 'postVar')) )
+    rownames(dA)=rownames(slope.ranefR$oligo)
+    colnames(dA)=c('slope.oligo.blup', 'slope.oligo.blup.postVar' )
+    if(lab=='') { } else{
+    colnames(dA)=paste(colnames(dA), lab, sep='.')
+    }
 
+    if(doGene) {
+        gr=cbind(slope.ranefR$GENEID[,1], as.vector(attr(slope.ranefR$GENEID, 'postVar')))
+        colnames(gr)=c( 'slope.gene.blup', 'slope.gene.blup.postVar')
+        if(lab=='') { } else{
+        colnames(gr)=paste(colnames(gr), lab, sep='.')
+        }
+        rownames(gr)=rownames(slope.ranefR$GENEID)
+            
+        # rewrite without using merge ()
+        os= data.frame(oligo.stats, dA[match(oligo.stats$oligo, rownames(dA)),], stringsAsFactors=F)
+        os= data.frame(os, gr[match(oligo.stats$GENEID, rownames(gr)),], stringsAsFactors=F)
+        return(os)
+    } else{
+        os= data.frame(oligo.stats, dA[match(oligo.stats$oligo, rownames(dA)),], stringsAsFactors=F)
+        return(os)
+    }
+
+  }
 
 
 resampler <- function(data) {
