@@ -22,6 +22,7 @@ library(lmerTest)
 library(gamm4)
 library(optimx)
 library(car)
+library(segmented)
 #library(msm)
 #library(afex)
 
@@ -455,37 +456,160 @@ WriteXLS(GO.outHMM, '/home/jbloom/Dropbox/Public/CoupledCRISPR/GO_fracAlive_ks_t
 
     dup.guides=oligo.stats$guide[which(duplicated(oligo.stats$guide))]
     idg= oligo.stats$guide %in% dup.guides
+     
     osgs=split(oligo.stats[idg,], oligo.stats[idg,]$guide)
     osgs.table=t(sapply(osgs, function(x) c(x$binarized.oligo.blup.ng[x$dubious], x$binarized.oligo.blup.ng[!x$dubious])))
+    osgs.table.id=t(sapply(osgs, function(x) c(x$unique.Index[x$dubious], x$unique.Index[!x$dubious])))
+    colnames(osgs.table)=c('dubious', 'essential')
+    colnames(osgs.table.id)=c('dubious', 'essential')
+
+   
+    odub=oligo.stats[oligo.stats$dubious, ] #[as.numeric(osgs.table.id[,'dubious']),]
+    dubEffect = GRanges(seqnames=odub$chr, 
+                        ranges=IRanges(start=odub$start, end=odub$end),
+                        #strand=odub$codingStrand, 
+                        strand=ifelse(odub$codingStrand=='+', '-', '+'),
+                        unique.Index=odub$unique.Index,
+                        id=rownames(odub), 
+                        gene=odub$GENEID
+                        )
+
+    replacementSeq=DNAStringSet(ifelse(odub$codingStrand=='-',  'TCA', 'TGA'))
+    pdub=predictCoding(dubEffect,  txdb, sacCer3, replacementSeq, ignore.strand=FALSE)
+   
+    prov.effects=list()
+    for(i in 1:length(pdub)) {
+    goi=pdub$GENEID[i]
+    loi=pdub$PROTEINLOC[[i]]
+    varoi=s2c(as.character(pdub$VARAA[i]))
+    idoi=pdub$unique.Index[i]
+    refoi=s2c(as.character(pdub$REFAA[i]))
+    prot.seq.rownames=rownames(provean_scores[[goi]])
+
+    if(paste(prot.seq.rownames[loi], collapse='')==paste(refoi, collapse='')) {
+        peff=try({provean_scores[[goi]][cbind(loi,match(varoi, colnames(provean_scores[[goi]])  ))]})
+        if(class(peff)=='try-error') { prov.effects[[idoi]]= NA } 
+        else {    prov.effects[[idoi]]=provean_scores[[goi]][cbind(loi,match(varoi, colnames(provean_scores[[goi]])))] }
+    } else {prov.effects[[idoi]]=NA }
+    }
+
+    max.prov.effect=sapply(prov.effects, function(x) x[which.min((x))] )
+    pscores=sapply(max.prov.effect, function(x) if(length(x)==0) {return(NA)} else {x } )
+
+    plot(oligo.stats$binarized.oligo.blup.ng[1:length(pscores)], pscores, ylab='provean score', xlab='PTC tolerance')
+    cor.test(oligo.stats$binarized.oligo.blup.ng[1:length(pscores)], pscores, method='spearman')
+
+    plot(oligo.stats$slope.oligo.blup.ng[1:length(pscores)], pscores)
+    cor.test(oligo.stats$slope.oligo.blup.ng[1:length(pscores)], pscores, method='spearman')
+     
+
+
+
+      grantham=read.delim('/media/jbloom/d1/coupled_CRISPR/Reference/grantham.matrix.csv', header=T, sep='\t')
+    rownames(grantham)=a(rownames(grantham))
+    colnames(grantham)=a(colnames(grantham))
+    
+    granth.effects=list() 
+    for(i in 1:length(pdub)) {
+    goi=pdub$GENEID[i]
+    loi=pdub$PROTEINLOC[[i]]
+    varoi=s2c(as.character(pdub$VARAA[i]))
+    refoi=s2c(as.character(pdub$REFAA[i]))
+    idoi=pdub$unique.Index[i]
+ 
+    ec=grep('\\*', refoi)
+    if(length(ec)>0 ) {
+        varoi=varoi[-ec]
+        refoi=refoi[-ec]
+    }
+    vrlookup=cbind(refoi, varoi)
+    granth.effects[[idoi]]=grantham[vrlookup]
+    }
+    max.granth.effect=sapply(granth.effects, function(x) x[which.max((x))] )
+    gscores=sapply(max.granth.effect, function(x) if(length(x)==0) {return(NA)} else {x } )
+    gscores[gscores==0]=NA
+    plot(oligo.stats$binarized.oligo.blup.ng[1:length(gscores)], gscores, ylab='grantham score', xlab='PTC tolerance')
+    cor.test(oligo.stats$binarized.oligo.blup.ng[1:length(gscores)], gscores, method='spearman')
+
+
+
+
+
+
+    oss=oligo.stats[1:length(pscores),]
+    oss$pscores=pscores
+
+    formula.input=as.formula(slope~cnt+p_intercept+expt+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+(1|GENEID)+(1|oligo))
+   
+    b2m=big.mm
+    b2m$pscores=NA
+    b2m$pscores=pscores[!is.na(pscores)][match(b2m$unique.Index, which(!is.na(pscores)))]
+    b2l=(glmer(slope.binarized~cnt+p_intercept+expt+binot+U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+dist_from_CDS_end+(1|oligo), data=b2m, family=binomial('logit')))
+    Anova(b2l, type='III')
+    
+    
+    
+    drop1(lm(slope.oligo.blup.ng~U6.Terminator+Score+guide.GCcontent+PAMvariantCNT+dist_from_CDS_end+pscores, data=oss), test='Chisq')
+   
+   
+    #, method='spearman')
+   
+    pscores.sub=pscores[osgs.table.id[,'dubious']]
+
+    color.gradient <- function(x, colors=c("red", "blue"), colsteps=100) {
+        return( colorRampPalette(colors, bias=.5) (colsteps) [ findInterval(x, seq(min(x),max(x), length.out=colsteps)) ] )
+    }
+    pcolors.sub=rep(NA, length(pscores.sub))
+    pcolors.sub[!is.na(pscores.sub)]=color.gradient(pscores.sub[!is.na(pscores.sub)])
+
+    plot(rep(1, nrow(osgs.table)), osgs.table[,2], xlim=c(-0,3), ylim=c(-2,4.2),col =pcolors)
+    points(rep(2, nrow(osgs.table)), osgs.table[,1], xlim=c(-0,3), ylim=c(-2, 4.2), col =pcolors)
+    segments(rep(1, nrow(osgs.table)), osgs.table[,2], rep(2, nrow(osgs.table)),  osgs.table[,1], col =pcolors)
+        
+
     pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/sFigure2_matched_gRNA.pdf', width=8, height=8)
     plot(osgs.table, xlim=c(-2,4), ylim=c(-2,4), ylab='essential PTC tolerance', xlab='dubious PTC tolerance' )
     abline(0,1)
     dev.off()
     t.test(osgs.table[,1], osgs.table[,2], paired=T)
+    load('/data/Databases/provean_scores.RData')
+
 #------------------------------------------------------------------------------------------------------------
 
 
 
 
 # Figure 3 -----------------------------------------------------------------------------------------------
+endcons.thresh=.8306452
 column="binarized.oligo.blup.EssentialAll"
-column="binarized.oligo.blup.Essential.DomainDownstream"
-column="binarized.oligo.blup.Essential.noDomainDownstream"
+#column="binarized.oligo.blup.Essential.DomainDownstream"
+#column="binarized.oligo.blup.Essential.noDomainDownstream"
 column="binarized.oligo.blup.EssentialWT"
 column="binarized.oligo.blup.EssentialNMD"
-pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150.pdf', width=10, height=10)
-pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_WTvNMD.pdf', width=10, height=10)
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150.pdf', width=10, height=5)
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_WTtopvNMDbot.pdf', width=10, height=10)
 pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_DomaninvNoDomain.pdf', width=10, height=10)
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_EndConsHigh_v_EndConsLow.pdf', width=10, height=10)
+
 par(mfrow=c(2,1))
-plot(oligo.stats$dist_from_CDS_end, oligo.stats[,column], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000044', main=column, cex=.75)
+plot(oligo.stats$dist_from_CDS_end, oligo.stats[,column], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
+plot(oligo.stats$dist_from_CDS_end[oligo.stats$domain.downstream], oligo.stats[,column][oligo.stats$domain.downstream], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
+plot(oligo.stats$dist_from_CDS_end[!oligo.stats$domain.downstream], oligo.stats[,column][!oligo.stats$domain.downstream], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
+plot(oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation>endcons.thresh], oligo.stats[,column][oligo.stats$end.conservation>endcons.thresh], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
+plot(oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation<=endcons.thresh], oligo.stats[,column][oligo.stats$end.conservation<=endcons.thresh], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
 axis(1, at=rev(seq(0,150,5)))
 x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end, y=oligo.stats[,column]))
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[oligo.stats$domain.downstream], y=oligo.stats[,column][oligo.stats$domain.downstream]))
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[!oligo.stats$domain.downstream], y=oligo.stats[,column][!oligo.stats$domain.downstream]))
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation>endcons.thresh], y=oligo.stats[,column][oligo.stats$end.conservation>endcons.thresh]))
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation<=endcons.thresh], y=oligo.stats[,column][oligo.stats$end.conservation<=endcons.thresh]))
 x3=x2[x2$distx<500,]
 s3=segmented(lm(y~distx, data=x3), seg.Z=~distx, control=seg.control(n.boot=100))
 seg.fit=cbind(x3$distx, predict(s3))
 seg.fit=seg.fit[order(seg.fit[,1]),]
 points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=4)
-abline(v=confint.segmented(s3)$distx, col='blue')
+segments(confint.segmented(s3)$distx[c(2,3)], c(-.5,-.5) , confint.segmented(s3)$distx[c(2,3)] , c(.5,.5), col='blue', lwd=2)
+         
 #
 ods=split(oligo.stats[,column], oligo.stats$dist_from_CDS_end)
 odsq=t(sapply(ods, function(x) quantile(x, c(.25,.5,.75), na.rm=T)))
@@ -569,14 +693,19 @@ dev.off()
     dev.off()
 
 #----------------------------------------------------------------------------------------------------------------------------------------------
-# HMM based analysis 
+
+    
+ # HMM based analysis 
 e2=cbind(oligo.stats$hmm2, oligo.stats$dist_from_CDS_end)#[!oligo.stats$dubious,]
 e2[,1]=as.numeric(e2[,1])-1
 e2=na.omit(e2)
 se2=split(e2[,1], e2[,2])
 
 se2.frac=sapply(se2, function(x) sum(x)/length(x))
-plot(as.numeric(names(se2.frac)), se2.frac, xlim=c(1000,0), cex=sqrt(sapply(se2, length)/10))
+
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/suppHMM_PTC_level.pdf', width=10, height=5, useDingbats=F)
+plot(as.numeric(names(se2.frac)), se2.frac, xlim=c(150,0), cex=2, pch=20, ylab='fraction of PTCs tolerated', xlab='AA distance from C-terminal')
+# cex=sqrt(sapply(se2, length)/10))
 
 smb=matrix(0, length(se2.frac), 100)
 for(i in 1:100) {
@@ -585,7 +714,8 @@ smb[,i]=sapply(se2, function(x) {y=sample(x, replace=T);  return(sum(y)/length(y
 segments(as.numeric(names(se2.frac)),
          apply(smb,1, quantile, .05),
          as.numeric(names(se2.frac)),
-         apply(smb,1, quantile, .95), col='red')
+         apply(smb,1, quantile, .95), col='black')
+dev.off()
 
 ##### data subset without domain downstream
 par(mfrow=c(2,1))
@@ -594,7 +724,7 @@ e3[,1]=as.numeric(e3[,1])-1
 e3=na.omit(e3)
 se3=split(e3[,1], e3[,2])
 se3.frac=sapply(se3, function(x) sum(x)/length(x))
-plot(as.numeric(names(se3.frac)), se3.frac, xlim=c(150,0), cex=sqrt(sapply(se2, length)/20), 
+plot(as.numeric(names(se3.frac)), se3.frac, xlim=c(150,0), cex=sqrt(sapply(se3, length)/20), 
      main='no domain downstream',
      xlab="PTC aa position relative to 3'",
      ylab='fraction of PTCs tolerated')
@@ -615,7 +745,7 @@ e4=na.omit(e4)
 se4=split(e4[,1], e4[,2])
 se4.frac=sapply(se4, function(x) sum(x)/length(x))
 
-plot(as.numeric(names(se4.frac)), se4.frac, xlim=c(150,0), cex=sqrt(sapply(se2, length)/20), 
+plot(as.numeric(names(se4.frac)), se4.frac, xlim=c(150,0), cex=sqrt(sapply(se4, length)/20), 
      main='domain downstream',
      xlab="PTC aa position relative to 3'",
      ylab='fraction of PTCs tolerated')
