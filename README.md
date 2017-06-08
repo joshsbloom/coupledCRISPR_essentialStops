@@ -23,7 +23,7 @@ for processed oligo and gene level results see [processed/RData/oligo.stats.RDat
 
 for HMM plots see [HMM_v10.zip](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/HMM_v10.zip)
 
-Additional Supplementary Tables:
+Additional Supplementary Tables:<br>
 [Table S7 - PTC stats.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S7%20-%20PTC%20stats.xls)<br>
 [Table S8 - regression.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S8%20-%20regression.xls)<br>
 [Table S9 - gene stats.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S9%20-%20gene%20stats.xls)<br>
