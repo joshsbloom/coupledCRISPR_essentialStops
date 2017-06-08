@@ -8,8 +8,6 @@ complete experiment data for 08/23/16 hiseq runs is availabe at:
 [082316/](https://drive.google.com/open?id=0ByJ-NQ1MGtWIMXNacU55dGVXWUk)
 
 ___
-Start here:
-
 <!---for tables of counts per oligo see [processed/RData/count_tables.RData](https://drive.google.com/open?id=0ByJ-NQ1MGtWIa3RraUhfa1BwQU0)
 which contains 3 data frames (10791 oligos x 12 conditions/time points ):
 + all.counts2 (unfiltered total counts)
@@ -25,6 +23,11 @@ for processed oligo and gene level results see [processed/RData/oligo.stats.RDat
 
 for HMM plots see [HMM_v10.zip](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/HMM_v10.zip)
 
+Additional Supplementary Tables:
+[Table S7 - PTC stats.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S7%20-%20PTC%20stats.xls)
+[Table S8 - regression.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S8%20-%20regression.xls)
+[Table S9 - gene stats.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S9%20-%20gene%20stats.xls)
+[Table S10 - GO enrichments.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S10%20-%20GO%20enrichments.xls)
 
 ```r
 #Structure of oligo.stats table
