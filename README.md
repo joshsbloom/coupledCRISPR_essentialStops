@@ -23,7 +23,7 @@ for raw barcode level data see [processed/RData/big.mm.RData](https://dl.dropbox
 
 for processed oligo and gene level results see [processed/RData/oligo.stats.RData](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/oligo.stats.EssentialBlups.RData)
 
-for HMM plots see [HMMv9/] (https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/HMM_v10.zip)
+for HMM plots see [HMM_v10.zip/] (https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/HMM_v10.zip)
 
 
 ```r
