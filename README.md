@@ -1,12 +1,9 @@
 #### analysis for the coupled-CRISPR essential stop engineering project
 
-for complete analysis pipeline and pre-processing see [code/](code/)
+for complete analysis pipeline and pre-processing see [code/](code/) <br>
+see specifically [04_core_analysis.R](code/04_core_analysis.R) for the main analysis
 
-see [04_core_analysis.R](code/04_core_analysis.R) for the main analysis
-
-complete experiment data for 08/23/16 hiseq runs is availabe at:
-[082316/](https://drive.google.com/open?id=0ByJ-NQ1MGtWIMXNacU55dGVXWUk)
-
+complete experiment data for 08/23/16 hiseq runs is availabe at: [082316/](https://drive.google.com/open?id=0ByJ-NQ1MGtWIMXNacU55dGVXWUk) <br>
 ___
 <!---for tables of counts per oligo see [processed/RData/count_tables.RData](https://drive.google.com/open?id=0ByJ-NQ1MGtWIa3RraUhfa1BwQU0)
 which contains 3 data frames (10791 oligos x 12 conditions/time points ):
@@ -17,11 +14,9 @@ which contains 3 data frames (10791 oligos x 12 conditions/time points ):
 <!--
 for data frame of oligo annotations see [processed/RData/oligoAnnotations.RData](https://drive.google.com/open?id=0ByJ-NQ1MGtWIR3pKWk5qeGZBUjg)
 -->
-for raw barcode level data see [processed/RData/big.mm.RData](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/big.mm.RData)
-
-for processed oligo and gene level results see [processed/RData/oligo.stats.RData](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/oligo.stats.EssentialBlups.RData)
-
-for HMM plots see [HMM_v10.zip](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/HMM_v10.zip)
+for raw barcode level data see [processed/RData/big.mm.RData](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/big.mm.RData)<br>
+for processed oligo and gene level results see [processed/RData/oligo.stats.RData](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/oligo.stats.EssentialBlups.RData)<br>
+for HMM plots see [HMM_v10.zip](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/HMM_v10.zip)<br>
 
 Additional Supplementary Tables:<br>
 [Table S7 - PTC stats.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S7%20-%20PTC%20stats.xls)<br>
