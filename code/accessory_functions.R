@@ -3,7 +3,10 @@
 # some global variables
 x <- org.Sc.sgdALIAS
 mapped_probes <- mappedkeys(x)
+
 gene2alias <- sapply(as.list(x[mapped_probes]), paste, collapse=' ')
+t.var=c(0,24,48,72,96)
+
 
 # setup for GO enrichment analysis ------------------------------------------------------------------------
 myGene2GO.full.table=read.delim('/data/eQTL/reference/go_annotations_sgd.txt',  sep='\t', header=F, stringsAsFactors=F)
@@ -86,17 +89,7 @@ fit.oligo.model =function(gos, t.var, tot.counts,cl.cnt=2) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+# Visualize poisson regressions 
 #gos=gBs
 #tot.counts=colSums(gBsA[,9:13])
 #gn=names(gos)[27]
@@ -924,9 +917,7 @@ doLMER.oligo.gene=function(formula.input, data.in, oligo.stats, lab='', doGene=T
     if(doGene) {
         gr=cbind(slope.ranefR$GENEID[,1], as.vector(attr(slope.ranefR$GENEID, 'postVar')))
         colnames(gr)=c( 'slope.gene.blup', 'slope.gene.blup.postVar')
-        if(lab=='') { } else{
-        colnames(gr)=paste(colnames(gr), lab, sep='.')
-        }
+        if(lab=='') { } else{  colnames(gr)=paste(colnames(gr), lab, sep='.')    }
         rownames(gr)=rownames(slope.ranefR$GENEID)
             
         # rewrite without using merge ()

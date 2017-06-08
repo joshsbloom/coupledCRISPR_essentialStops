@@ -179,6 +179,10 @@ rawod.big=rbindlist(raw.oligo.data)
     save(big.mm, file='/home/jbloom/Dropbox/Public/CoupledCRISPR/big.mm.RData')
     #load(paste0(out.base.dir, 'processed/RData/big.mm.RData'))
 #--------------------------------------------------------------------------------- 
+pdf('/home/jbloom/Dropbox/Public/CoupledCRISPR/SuppFig13_thetas.pdf', width=6, height=5)
+hist(big.mm$slope, breaks=100, col='lightgrey', main='', xlab='barcoded plasmid theta')
+abline(v=-0.025, col='red', lwd=2)
+dev.off()
 
 rm(gBsA, gBs, gWs,gNs)
 
@@ -296,12 +300,18 @@ os= data.frame(os, dA[match(oligos$oligo, rownames(dA)),], stringsAsFactors=F)
     oligo.stats= data.frame(oligo.stats, atable[match(oligo.stats$GENEID, rownames(atable)),], stringsAsFactors=F)
     oligo.stats=oligo.stats[order(oligo.stats$unique.Index),]
 
+    # SEND  supp fig 6
+    pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/SuppFig6_HMM_fraction_per_gene.pdf', width=5, height=5)
+    hist(acnt[!is.na(afrac)], breaks=50, xlab='number of PTCs tolerated', ylab='genes', main='', xaxt='n')
+    axis(1, c(0:10))
+    dev.off()
     #-------------------------------------------------------------------
     plot.dir='/media/jbloom/d1/coupled_CRISPR/plots/HMM_v10/'
     #makeHMMplots(plot.dir, oligo.stats, big.mm, conservation, dgsplit)
     
     save(oligo.stats, file=paste0(out.base.dir, 'processed/RData/oligo.stats.EssentialBlups.RData'))
     save(oligo.stats, file='/home/jbloom/Dropbox/Public/CoupledCRISPR/oligo.stats.EssentialBlups.RData')
+    WriteXLS(oligo.stats, '/home/jbloom/Dropbox/Public/CoupledCRISPR/oligo_stats.xls', row.names=F)
 
     #load(paste0(out.base.dir, 'processed/RData/oligo.stats.EssentialBlups.RData'))
 # ====================================================================================================
@@ -309,17 +319,44 @@ os= data.frame(os, dA[match(oligos$oligo, rownames(dA)),], stringsAsFactors=F)
 
 
 #============================================================================================
-# BIG model with all----------------------------------------------------------------------------------- 
+
+splic.genes=unlist(strsplit(GO.out[[1]][1,]$genes.in.set.sorted, ' '))
+cat.genes=unlist(strsplit(GO.out[[2]][1,]$genes.in.set.sorted, ' '))
+ostatG=oligo.stats[match(unique(oligo.stats$GENEID), oligo.stats$GENEID),]
+dff= ostatG[,c("GENEID","binarized.gene.blup","binarized.gene.blup.EssentialAll", "hmm.count.alive","hmm.frac.alive")]
+WriteXLS(dff,'/home/jbloom/Dropbox/Public/CoupledCRISPR/gene_stats.xls', row.names=F)
+
+
+spgf=ostatGoligo.stats$GENEID %in% splic.genes
+cgf=ostatG$GENEID %in% cat.genes
+# SEND putative supplementary figure for GO enrichment
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/SuppFig_GO_enrichment.pdf', width=12, height=10)
+par(mfrow=c(1,2))
+stripchart(ostatG$binarized.gene.blup.EssentialAll~spgf, vertical=T, method='jitter', pch=20, col='#00000055', 
+           main='RNA splicing, via transesterification reactions GO:0000375', xlim=c(.5,2.5), ylab='gene PTC tolerance score', group.names=rev(c('genes in category', 'other genes')) )
+boxplot(ostatG$binarized.gene.blup.EssentialAll~spgf, add=T,outline=F, xaxt='n')
+stripchart(ostatG$binarized.gene.blup.EssentialAll~cgf, vertical=T, method='jitter', pch=20, col='#00000055', 
+           main='catalytic activity   GO:0003824', xlim=c(.5,2.5), ylab='gene PTC tolerance score', group.names=rev(c('genes in category', 'other genes')))
+boxplot(ostatG$binarized.gene.blup.EssentialAll~cgf,add=T ,outline=F, xaxt='n')
+dev.off()    
+    
+    
+    # BIG model with all----------------------------------------------------------------------------------- 
 b3=big.mm[!big.mm$drop , ] # & (big.mm$expt == 'WT') , ]#& big.mm$dist_from_CDS_end<300,]
 b3$expt=as.factor(b3$expt)
 b3$oligo=as.factor(b3$oligo)
 b3$domain.downstream=as.factor(b3$domain.downstream)
 # scale(H0_w)+
-#splic.genes=unlist(strsplit(GO.out[[1]][1,]$genes.in.set.sorted, ' '))
-#spgf=b3$GENEID %in% splic.genes
+splic.genes=unlist(strsplit(GO.out[[1]][1,]$genes.in.set.sorted, ' '))
+spgf=b3$GENEID %in% splic.genes
+
+cat.genes=unlist(strsplit(GO.out[[2]][1,]$genes.in.set.sorted, ' '))
+cgf=b3$GENEID %in% cat.genes
+fractionOfGene=b3$dist_from_CDS_end/b3$CDS_length
+
 s2=glmer(slope.binarized~cnt+expt+p_intercept+guide.GCcontent+dist_from_CDS_end+CDS_length+PAMvariantCNT+
                 binot+U6.Terminator+Score+lcd+evolvability+mean.aa.perfect.conserved+viable_annotation+
-                end.conservation+domain.downstream+(1|GENEID)+(1|oligo), data=b3, verbose=T,  family=binomial(logit), 
+                end.conservation+domain.downstream+fractionOfGene+(1|GENEID)+(1|oligo), data=b3, verbose=T,  family=binomial(logit), 
                 ,control = glmerControl(optCtrl= list(maxfun=5e5), calc.derivs=FALSE ))
 #save(s2, file=paste0(out.base.dir, 'processed/RData/bigModel.RData'))
 load(paste0(out.base.dir, 'processed/RData/bigModel.RData'))
@@ -335,6 +372,11 @@ names(testGenes)=oligo.stats$GENEID[match(unique(oligo.stats[!oligo.stats$drop,]
 testGenes=sort(testGenes, decreasing=T)
 GO.out=doGO(testGenes)
 WriteXLS(GO.out, '/home/jbloom/Dropbox/Public/CoupledCRISPR/GO_gene_blups_ks_test.xls', SheetNames=names(GO.out))
+
+#goID=gt[3,'GO.ID']
+#plot(showGroupDensity(GOData, goID, ranks=T) )
+
+
 
 o10=oligo.stats[!oligo.stats$drop,]
 #gset=head(unique(o10$GENEID[order(o10$binarized.gene.blup, decreasing=T)]), 15) 
@@ -356,6 +398,9 @@ WriteXLS(GO.outHMM, '/home/jbloom/Dropbox/Public/CoupledCRISPR/GO_fracAlive_ks_t
 #frac5GO.E=doGO.threshold(names(which(frac5)), names(frac5))
 #---------------------------------------------------------------------------------------------------------
 #on2=oligo.stats[match(unique(oligo.stats$GENEID), oligo.stats$GENEID),]
+
+# change axis labels (PTC tolerance to PTC tolerance score)
+# change (codons from C' terminal) to (PTC distance from 3' end (codons) )
 
 
 # Figure 1 pilot testing ------------------------------------------------------------------------------------
@@ -586,18 +631,115 @@ column="binarized.oligo.blup.EssentialAll"
 #column="binarized.oligo.blup.Essential.noDomainDownstream"
 column="binarized.oligo.blup.EssentialWT"
 column="binarized.oligo.blup.EssentialNMD"
-pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150.pdf', width=10, height=5)
-pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_WTtopvNMDbot.pdf', width=10, height=10)
-pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_DomaninvNoDomain.pdf', width=10, height=10)
-pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_EndConsHigh_v_EndConsLow.pdf', width=10, height=10)
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150.pdf', width=7.5, height=5)
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_DomaninvNoDomain.pdf', width=7.5, height=10)
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_EndConsHigh_v_EndConsLow.pdf', width=7.5, height=10)
 
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/Figure3_150_WTtopvNMDbot.pdf', width=8, height=10)
 par(mfrow=c(2,1))
-plot(oligo.stats$dist_from_CDS_end, oligo.stats[,column], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
+column="binarized.oligo.blup.EssentialWT"
+plot(oligo.stats$dist_from_CDS_end, oligo.stats[,column], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='WT', ylim=c(-3,3.5))
+axis(1, at=rev(seq(0,150,5)))
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end, y=oligo.stats[,column]))
+x3=x2[x2$distx<500,]
+s3=segmented(lm(y~distx, data=x3), seg.Z=~distx, control=seg.control(n.boot=100))
+seg.fit=cbind(x3$distx, predict(s3))
+seg.fit=seg.fit[order(seg.fit[,1]),]
+points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=4)
+segments(confint.segmented(s3)$distx[c(2,3)], c(-.5,-.5) , confint.segmented(s3)$distx[c(2,3)] , c(.5,.5), col='blue', lwd=2)
+column="binarized.oligo.blup.EssentialNMD"
+plot(oligo.stats$dist_from_CDS_end, oligo.stats[,column], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='nmd(del)', ylim=c(-3,3.5))
+axis(1, at=rev(seq(0,150,5)))
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end, y=oligo.stats[,column]))
+x3=x2[x2$distx<500,]
+s3=segmented(lm(y~distx, data=x3), seg.Z=~distx, control=seg.control(n.boot=100))
+seg.fit=cbind(x3$distx, predict(s3))
+seg.fit=seg.fit[order(seg.fit[,1]),]
+points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=4)
+segments(confint.segmented(s3)$distx[c(2,3)], c(-.5,-.5) , confint.segmented(s3)$distx[c(2,3)] , c(.5,.5), col='blue', lwd=2)
+dev.off()
+
+#(A) PTCs affecting less conserved sequence and disrupting an annotated protein domain.
+#(B) PTCs affecting more conserved sequence and disrupting an annotated protein domain. 
+#(c) PTCs affecting less conserved sequence and not disrupting an annotated protein domain. 
+#(D) PTCs affecting more conserved sequence and not disrupting an annotated protein domain.
+pdf(file='/home/jbloom/Dropbox/Public/CoupledCRISPR/Figures/SuppFigureDistance.pdf', width=15, height=10)
+par(mfrow=c(2,2))
+column="binarized.oligo.blup.EssentialAll"
+plot(oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation<=endcons.thresh & oligo.stats$domain.downstream], oligo.stats[,column][oligo.stats$end.conservation<=endcons.thresh & oligo.stats$domain.downstream], 
+                                                                xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000044',cex=.75 ,pch=20 , ylim=c(-3,4), main='less conserved, disrupting a domain')
+axis(1, at=rev(seq(0,150,5)))
+
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation<=endcons.thresh & oligo.stats$domain.downstream], y=oligo.stats[,column][oligo.stats$end.conservation<=endcons.thresh & oligo.stats$domain.downstream]))
+x3=x2[x2$distx<500,]
+s3=segmented(lm(y~distx, data=x3), seg.Z=~distx, control=seg.control(n.boot=100))
+seg.fit=cbind(x3$distx, predict(s3))
+seg.fit=seg.fit[order(seg.fit[,1]),]
+points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=4)
+#segments(confint.segmented(s3)$distx[c(2,3)], c(-.5,-.5) , confint.segmented(s3)$distx[c(2,3)] , c(.5,.5), col='blue', lwd=2)
+
+
+plot(oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation>endcons.thresh & oligo.stats$domain.downstream], oligo.stats[,column][oligo.stats$end.conservation>endcons.thresh & oligo.stats$domain.downstream], 
+                                                                xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000044',cex=.75 ,pch=20 , ylim=c(-3,4),main='more conserved, disrupting a domain')
+axis(1, at=rev(seq(0,150,5)))
+
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation>endcons.thresh & oligo.stats$domain.downstream], y=oligo.stats[,column][oligo.stats$end.conservation>endcons.thresh & oligo.stats$domain.downstream]))
+x3=x2[x2$distx<500,]
+s3=segmented(lm(y~distx, data=x3), seg.Z=~distx, control=seg.control(n.boot=100))
+seg.fit=cbind(x3$distx, predict(s3))
+seg.fit=seg.fit[order(seg.fit[,1]),]
+points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=4)
+#segments(confint.segmented(s3)$distx[c(2,3)], c(-.5,-.5) , confint.segmented(s3)$distx[c(2,3)] , c(.5,.5), col='blue', lwd=2)
+
+plot(oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation<=endcons.thresh & !oligo.stats$domain.downstream], oligo.stats[,column][oligo.stats$end.conservation<=endcons.thresh & !oligo.stats$domain.downstream], 
+                                                                xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000044',cex=.75 ,pch=20, ylim=c(-3,4) ,main='less conserved, not disrupting a domain')
+axis(1, at=rev(seq(0,150,5)))
+
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation<=endcons.thresh & !oligo.stats$domain.downstream], y=oligo.stats[,column][oligo.stats$end.conservation<=endcons.thresh & !oligo.stats$domain.downstream]))
+x3=x2[x2$distx<500,]
+s3=segmented(lm(y~distx, data=x3), seg.Z=~distx, control=seg.control(n.boot=100))
+seg.fit=cbind(x3$distx, predict(s3))
+seg.fit=seg.fit[order(seg.fit[,1]),]
+points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=4)
+#segments(confint.segmented(s3)$distx[c(2,3)], c(-.5,-.5) , confint.segmented(s3)$distx[c(2,3)] , c(.5,.5), col='blue', lwd=2)
+
+plot(oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation>endcons.thresh & !oligo.stats$domain.downstream], oligo.stats[,column][oligo.stats$end.conservation>endcons.thresh & !oligo.stats$domain.downstream], 
+                                                                xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000044',cex=.75 ,pch=20, ylim=c(-3,4) ,main='more conserved, not disrupting a domain')
+axis(1, at=rev(seq(0,150,5)))
+
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation>endcons.thresh & !oligo.stats$domain.downstream], y=oligo.stats[,column][oligo.stats$end.conservation>endcons.thresh & !oligo.stats$domain.downstream]))
+x3=x2[x2$distx<500,]
+s3=segmented(lm(y~distx, data=x3), seg.Z=~distx, control=seg.control(n.boot=100))
+seg.fit=cbind(x3$distx, predict(s3))
+seg.fit=seg.fit[order(seg.fit[,1]),]
+points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=4)
+#segments(confint.segmented(s3)$distx[c(2,3)], c(-.5,-.5) , confint.segmented(s3)$distx[c(2,3)] , c(.5,.5), col='blue', lwd=2)
+dev.off()
+
+# by gene length
+clc=cut(oligo.stats$CDS_length, c(0, 200, 400, 6000))
+column="binarized.oligo.blup.EssentialAll"
+par(mfrow=c(3,1))
+for(i in 1:3) {
+plot(oligo.stats$dist_from_CDS_end[clc==levels(clc)[i]], oligo.stats[,column][clc==levels(clc)[i]], 
+                                                                xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000044',cex=.75 ,pch=20 , ylim=c(-3,4), main=levels(clc)[i])
+axis(1, at=rev(seq(0,150,5)))
+x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[clc==levels(clc)[i]], y=oligo.stats[,column][clc==levels(clc)[i]]))
+x3=x2[x2$distx<500,]
+s3=segmented(lm(y~distx, data=x3), seg.Z=~distx, control=seg.control(n.boot=100))
+seg.fit=cbind(x3$distx, predict(s3))
+seg.fit=seg.fit[order(seg.fit[,1]),]
+points(seg.fit[,1], seg.fit[,2], col='blue', type='l', lwd=4)
+segments(confint.segmented(s3)$distx[c(2,3)], c(-.5,-.5) , confint.segmented(s3)$distx[c(2,3)] , c(.5,.5), col='blue', lwd=2)
+
+}
+
+
+
 plot(oligo.stats$dist_from_CDS_end[oligo.stats$domain.downstream], oligo.stats[,column][oligo.stats$domain.downstream], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
 plot(oligo.stats$dist_from_CDS_end[!oligo.stats$domain.downstream], oligo.stats[,column][!oligo.stats$domain.downstream], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
 plot(oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation>endcons.thresh], oligo.stats[,column][oligo.stats$end.conservation>endcons.thresh], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
 plot(oligo.stats$dist_from_CDS_end[oligo.stats$end.conservation<=endcons.thresh], oligo.stats[,column][oligo.stats$end.conservation<=endcons.thresh], xlim=c(150,0),xaxt='n', ylab='PTC tolerance', xlab='AA distance from C-terminal', col='#00000022',cex=.75 ,pch=20 ,main='')
-axis(1, at=rev(seq(0,150,5)))
 x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end, y=oligo.stats[,column]))
 x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[oligo.stats$domain.downstream], y=oligo.stats[,column][oligo.stats$domain.downstream]))
 x2=na.omit(data.frame(distx=oligo.stats$dist_from_CDS_end[!oligo.stats$domain.downstream], y=oligo.stats[,column][!oligo.stats$domain.downstream]))
@@ -622,7 +764,7 @@ dev.off()
 #---------------------------------------------------------------------------------------------------------
 
 
-
+save.image('/media/jbloom/d1/coupled_CRISPR/cc052417.RData')
 
 
 
