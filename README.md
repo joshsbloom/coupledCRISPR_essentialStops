@@ -17,13 +17,13 @@ for data frame of oligo annotations see [processed/RData/oligoAnnotations.RData]
 for raw barcode level data see [processed/RData/big.mm.RData](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/big.mm.RData)<br>
 for processed oligo and gene level results see [processed/RData/oligo.stats.RData](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/oligo.stats.EssentialBlups.RData)<br>
 for HMM plots see [HMM_v10.zip](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/HMM_v10.zip)<br>
-
+<!---
 Additional Supplementary Tables:<br>
 [Table S7 - PTC stats.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S7%20-%20PTC%20stats.xls)<br>
 [Table S8 - regression.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S8%20-%20regression.xls)<br>
 [Table S9 - gene stats.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S9%20-%20gene%20stats.xls)<br>
 [Table S10 - GO enrichments.xls](https://dl.dropboxusercontent.com/u/363373/CoupledCRISPR/Table%20S10%20-%20GO%20enrichments.xls)<br>
-
+-->
 ```r
 #Structure of oligo.stats table
 R> str(oligo.stats, list.len=ncol(oligo.stats))
