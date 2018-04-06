@@ -175,8 +175,8 @@ rawod.big=rbindlist(raw.oligo.data)
     # categroize as having off target gRNAs
     big.mm$binot=ifelse(big.mm$cnt.offtarget==1,0,1)
     
-    save(big.mm, file = paste0(out.base.dir, 'processed/RData/big.mm.RData'))
-    save(big.mm, file='/home/jbloom/Dropbox/Public/CoupledCRISPR/big.mm.RData')
+   # save(big.mm, file = paste0(out.base.dir, 'processed/RData/big.mm.RData'))
+   # save(big.mm, file='/home/jbloom/Dropbox/Public/CoupledCRISPR/big.mm.RData')
     #load(paste0(out.base.dir, 'processed/RData/big.mm.RData'))
 #--------------------------------------------------------------------------------- 
 pdf('/home/jbloom/Dropbox/Public/CoupledCRISPR/SuppFig13_thetas.pdf', width=6, height=5)
@@ -309,8 +309,8 @@ os= data.frame(os, dA[match(oligos$oligo, rownames(dA)),], stringsAsFactors=F)
     plot.dir='/media/jbloom/d1/coupled_CRISPR/plots/HMM_v10/'
     #makeHMMplots(plot.dir, oligo.stats, big.mm, conservation, dgsplit)
     
-    save(oligo.stats, file=paste0(out.base.dir, 'processed/RData/oligo.stats.EssentialBlups.RData'))
-    save(oligo.stats, file='/home/jbloom/Dropbox/Public/CoupledCRISPR/oligo.stats.EssentialBlups.RData')
+   # save(oligo.stats, file=paste0(out.base.dir, 'processed/RData/oligo.stats.EssentialBlups.RData'))
+   # save(oligo.stats, file='/home/jbloom/Dropbox/Public/CoupledCRISPR/oligo.stats.EssentialBlups.RData')
     WriteXLS(oligo.stats, '/home/jbloom/Dropbox/Public/CoupledCRISPR/oligo_stats.xls', row.names=F)
 
     #load(paste0(out.base.dir, 'processed/RData/oligo.stats.EssentialBlups.RData'))

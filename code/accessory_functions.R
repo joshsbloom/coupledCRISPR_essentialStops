@@ -602,7 +602,6 @@ doHMM =function(big.mm, oligo.stats) {
                          c(.1944, .8056),
                          c(.5676, .4324))
 
-    
 
     hmm.out=list()
     for(gene in names(atog.by.gene)){
